@@ -1,19 +1,30 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { authenticate } from '@/http/auth.js'
+import { useToast } from 'vue-toastification'
 
 const router = useRouter()
 const username = ref('')
 const password = ref('')
 const error = ref('')
 
-function handleLogin() {
-  // Mock login - in production this would call an API
-  if (username.value === 'admin' && password.value === 'admin') {
-    localStorage.setItem('isAuthenticated', 'true')
-    router.push('/')
-  } else {
-    error.value = 'Invalid credentials'
+const toast = useToast()
+
+const handleLogin = async () => {
+  try {
+    const data = {
+      username: username.value,
+      password: password.value,
+    }
+    const response = await authenticate(data)
+    if (response.status === 200) {
+      await router.push({ name: 'orders' })
+    }
+  } catch (err) {
+    console.error(err)
+    error.value = 'Invalid username or password'
+    toast.error('Invalid username or password')
   }
 }
 </script>

@@ -12,13 +12,13 @@ const agents = [
 ]
 
 const props = defineProps({
-  call: {
+  order: {
     type: Object,
     required: true,
     default: () => ({
       id: '',
       stock: 0,
-      status: 'pending', // Default status
+      status: '',
       productId: '',
       productName: '',
       quantity: 0,
@@ -47,7 +47,7 @@ const showStatusDropdown = ref(false)
 const statuses = [
   'pending',
   'take',
-  'callAgain',
+  'call again',
   'confirmed',
   'shipped',
   'returned',

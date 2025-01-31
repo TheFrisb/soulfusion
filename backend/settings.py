@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 
 from decouple import config, Csv
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     # Third party apps
     "corsheaders",
     "rest_framework",
+    "rest_framework_simplejwt",
     "drf_standardized_errors",
     # Local apps
     "accounts",
@@ -67,9 +69,8 @@ if DEBUG:
     INTERNAL_IPS = config("DJANGO_INTERNAL_IPS", cast=Csv())
 
 
-# Cors Configuration
-CORS_ALLOWED_ORIGINS = config("DJANGO_CORS_ALLOWED_ORIGINS", cast=Csv())
-
+# Cors Configuration allow all origins
+CORS_ALLOWED_ORIGINS = ["http://localhost:5173"]
 
 ROOT_URLCONF = "backend.urls"
 
@@ -130,9 +131,21 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.BasicAuthentication",
         "rest_framework.authentication.SessionAuthentication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
     "EXCEPTION_HANDLER": "drf_standardized_errors.handler.exception_handler",
+}
+
+# JWT Configuration
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),  # Access token lifetime
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),  # Refresh token lifetime
+    "ROTATE_REFRESH_TOKENS": True,  # Rotate refresh tokens
+    "BLACKLIST_AFTER_ROTATION": True,  # Blacklist old refresh tokens
+    "UPDATE_LAST_LOGIN": True,  # Update last login time
+    "USER_ID_FIELD": "id",  # Use user ID in the token
+    "USER_ID_CLAIM": "user_id",  # Claim name for user ID
 }
 
 # Logging Configuration

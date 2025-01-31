@@ -1,4 +1,4 @@
-<script setu>
+<script setup>
 import { defineEmits, defineProps, ref } from 'vue'
 
 const props = defineProps({

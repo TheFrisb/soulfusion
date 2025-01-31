@@ -1,56 +1,19 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import TopBar from '../components/layout/TopBar.vue'
 import SideBar from '../components/layout/SideBar.vue'
+import { useProductStore } from '@/stores/useProductsStore.js'
 
 const searchQuery = ref('')
 
-// Mock data for demonstration
-const products = [
-  {
-    id: 'P001',
-    name: 'Premium Widget',
-    stockPrice: 149.99,
-    salePrice: 199.99,
-    stock: 150,
-    status: 'inStock',
-  },
-  {
-    id: 'P002',
-    name: 'Super Gadget',
-    stockPrice: 249.99,
-    salePrice: 299.99,
-    stock: 0,
-    status: 'outOfStock',
-  },
-  {
-    id: 'P003',
-    name: 'Deluxe Package',
-    stockPrice: 499.99,
-    salePrice: 599.99,
-    stock: 200,
-    status: 'inStock',
-  },
-  {
-    id: 'P004',
-    name: 'Basic Kit',
-    stockPrice: 79.99,
-    salePrice: 99.99,
-    stock: 100,
-    status: 'inStock',
-  },
-  {
-    id: 'P005',
-    name: 'Premium Bundle',
-    stockPrice: 349.99,
-    salePrice: 399.99,
-    stock: 50,
-    status: 'inStock',
-  },
-]
+const productStore = useProductStore()
+
+onMounted(() => {
+  productStore.loadProducts()
+})
 
 const filteredProducts = computed(() => {
-  return products.filter((product) => {
+  return productStore.products.filter((product) => {
     if (!searchQuery.value) return true
     return product.name.toLowerCase().includes(searchQuery.value.toLowerCase())
   })
@@ -165,12 +128,10 @@ const filteredProducts = computed(() => {
                   <span
                     class="px-3 py-1 rounded-full text-sm font-medium"
                     :class="
-                      product.status === 'inStock'
-                        ? 'bg-green-100 text-green-800'
-                        : 'bg-red-100 text-red-800'
+                      product.stock > 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
                     "
                   >
-                    {{ product.status === 'inStock' ? 'In Stock' : 'Out of Stock' }}
+                    {{ product.stock > 0 ? 'In Stock' : 'Out of Stock' }}
                   </span>
                 </td>
                 <td class="px-6 py-4">
@@ -181,12 +142,12 @@ const filteredProducts = computed(() => {
                 </td>
                 <td class="px-6 py-4">
                   <span class="text-sm font-medium text-gray-900"
-                    >${{ product.stockPrice.toFixed(2) }}</span
+                    >${{ product.stock_price.toFixed(2) }}</span
                   >
                 </td>
                 <td class="px-6 py-4">
                   <span class="text-sm font-medium text-gray-900"
-                    >${{ product.salePrice.toFixed(2) }}</span
+                    >${{ product.sale_price.toFixed(2) }}</span
                   >
                 </td>
                 <td class="px-6 py-4">

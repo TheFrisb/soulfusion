@@ -1,13 +1,23 @@
 <script setup>
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/authStore.js'
+import { useLogout } from '@/composables/useLogout.js'
+import { computed } from 'vue'
 
 const router = useRouter()
-const userFullName = 'John Doe'
+const authStore = useAuthStore()
+const { logoutAndRedirect } = useLogout()
 
-function handleLogout() {
-  localStorage.removeItem('isAuthenticated')
-  router.push('/login')
-}
+const userFullName = computed(() => {
+  return `${authStore.user.first_name} ${authStore.user.last_name}`
+})
+
+const userInitials = computed(() => {
+  return userFullName.value
+    .split(' ')
+    .map((n) => n[0])
+    .join('')
+})
 </script>
 
 <template>
@@ -17,17 +27,12 @@ function handleLogout() {
         <div
           class="w-8 h-8 rounded-full bg-gradient-to-r from-brand-soul to-brand-fusion flex items-center justify-center text-white font-medium"
         >
-          {{
-            userFullName
-              .split(' ')
-              .map((n) => n[0])
-              .join('')
-          }}
+          {{ userInitials }}
         </div>
         <span class="text-lg font-semibold text-gray-900">{{ userFullName }}</span>
       </div>
       <button
-        @click="handleLogout"
+        @click="logoutAndRedirect"
         class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors flex items-center gap-2"
       >
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

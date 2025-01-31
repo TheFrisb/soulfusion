@@ -4,15 +4,7 @@ import MyPendingsView from '../views/MyPendingsView.vue'
 import OrderDetailView from '../views/OrderDetailView.vue'
 import ProductsView from '../views/ProductsView.vue'
 import LoginView from '../views/LoginView.vue'
-
-// Navigation guard
-function requireAuth(to, from, next) {
-  if (!localStorage.getItem('isAuthenticated')) {
-    next('/login')
-  } else {
-    next()
-  }
-}
+import { useAuthStore } from '@/stores/authStore.js'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -21,32 +13,38 @@ const router = createRouter({
       path: '/',
       name: 'orders',
       component: DashboardView,
-      beforeEnter: requireAuth,
     },
     {
       path: '/my-pendings',
       name: 'my-pendings',
       component: MyPendingsView,
-      beforeEnter: requireAuth,
     },
     {
       path: '/order/:id',
       name: 'order-detail',
       component: OrderDetailView,
-      beforeEnter: requireAuth,
     },
     {
       path: '/products',
       name: 'products',
       component: ProductsView,
-      beforeEnter: requireAuth,
     },
     {
       path: '/login',
-      name: 'login',
+      name: 'LoginView',
       component: LoginView,
     },
   ],
+})
+
+router.beforeEach(async (to, from, next) => {
+  const authStore = useAuthStore()
+  await authStore.updateSession()
+  if (!authStore.isAuthenticated() && to.name !== 'LoginView') {
+    return next({ name: 'LoginView' })
+  }
+
+  next()
 })
 
 export default router

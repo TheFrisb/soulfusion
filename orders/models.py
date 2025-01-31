@@ -15,7 +15,7 @@ class Customer(BaseInternalModel):
 class Order(BaseInternalModel):
     class Status(models.TextChoices):
         PENDING = "PENDING", "Pending"
-        ASSIGNED = "ASSIGNED", "Assigned"
+        TAKE = "TAKE", "Take"
         CALL_AGAIN = "CALL_AGAIN", "Call Again"
         CONFIRMED = "CONFIRMED", "Confirmed"
         SHIPPED = "SHIPPED", "Shipped"
@@ -39,7 +39,9 @@ class Order(BaseInternalModel):
 
 
 class OrderItem(BaseInternalModel):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    order = models.OneToOneField(
+        Order, on_delete=models.CASCADE, related_name="order_item"
+    )
     product = models.ForeignKey("products.Product", on_delete=models.CASCADE)
     quantity = models.IntegerField()
     price = models.IntegerField()

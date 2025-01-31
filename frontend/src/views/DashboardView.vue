@@ -1,195 +1,47 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import TopBar from '../components/layout/TopBar.vue'
 import SideBar from '../components/layout/SideBar.vue'
 import DateFilter from '../components/dashboard/DateFilter.vue'
 import StatusCount from '../components/dashboard/StatusCount.vue'
-import CallRow from '../components/dashboard/CallRow.vue'
-import CustomerHistoryModal from '../components/dashboard/CustomerHistoryModal.vue'
+import { Calendar } from 'lucide-vue-next'
+import { fetchOrders } from '@/http/orders.js'
+import ORDER_STATUS from '@/utils/constants/orderStatus.js'
 
+const orders = ref([])
 const selectedPeriod = ref('today')
-const selectedCustomer = ref(null)
 const searchQuery = ref('')
-const showStatusDropdown = ref(null)
+const selectedCustomer = ref(null)
 
-const statuses = [
-  'pending',
-  'take',
-  'callAgain',
-  'confirmed',
-  'shipped',
-  'returned',
-  'paid',
-  'trash',
-  'canceled',
-]
-
-// Mock data for demonstration
-const calls = [
-  {
-    id: '1',
-    status: 'pending',
-    productId: 'P001',
-    productName: 'Premium Widget',
-    quantity: 2,
-    totalPrice: 199.99,
-    clickId: '1',
-    createdAt: '2024-02-20 14:30',
-    agent: null,
-    stock: 150,
-    comments: null,
-    customer: {
-      id: '1',
-      name: 'John Smith',
-      email: 'john.smith@example.com',
-      phone: '+1 (555) 123-4567',
-    },
-  },
-  {
-    id: '2',
-    status: 'confirmed',
-    productId: 'P002',
-    productName: 'Super Gadget',
-    quantity: 1,
-    totalPrice: 299.99,
-    clickId: '2',
-    createdAt: '2024-02-20 15:45',
-    agent: 'Jane Smith',
-    stock: 75,
-    comments: [
-      {
-        id: '1',
-        text: 'Customer requested express shipping',
-        agent: 'Jane Smith',
-        createdAt: '2024-02-20 15:46',
-      },
-    ],
-    customer: null,
-  },
-  {
-    id: '3',
-    status: 'paid',
-    productId: 'P003',
-    productName: 'Deluxe Package',
-    quantity: 3,
-    totalPrice: 599.99,
-    clickId: '3',
-    createdAt: '2024-02-20 16:15',
-    agent: 'Bob Wilson',
-    stock: 200,
-    comments: [
-      {
-        id: '1',
-        text: 'Follow-up order from previous purchase. Very satisfied customer.',
-        agent: 'Bob Wilson',
-        createdAt: '2024-02-20 16:16',
-      },
-      {
-        id: '2',
-        text: 'Customer mentioned interest in bulk ordering next month',
-        agent: 'Bob Wilson',
-        createdAt: '2024-02-20 16:20',
-      },
-    ],
-    customer: {
-      id: '1',
-      name: 'John Smith',
-      email: 'john.smith@example.com',
-      phone: '+1 (555) 123-4567',
-    },
-  },
-  {
-    id: '4',
-    status: 'shipped',
-    productId: 'P004',
-    productName: 'Basic Kit',
-    quantity: 1,
-    totalPrice: 99.99,
-    clickId: '4',
-    createdAt: '2024-02-20 17:00',
-    agent: 'Alice Johnson',
-    stock: 100,
-    comments: [
-      {
-        id: '1',
-        text: 'First time customer, interested in premium packages',
-        agent: 'Alice Johnson',
-        createdAt: '2024-02-20 17:01',
-      },
-      {
-        id: '2',
-        text: 'Scheduled follow-up call for next week',
-        agent: 'Alice Johnson',
-        createdAt: '2024-02-20 17:05',
-      },
-    ],
-    customer: {
-      id: '2',
-      name: 'Sarah Williams',
-      email: 'sarah.w@example.com',
-      phone: '+1 (555) 987-6543',
-    },
-  },
-  {
-    id: '5',
-    status: 'returned',
-    productId: 'P005',
-    productName: 'Premium Bundle',
-    quantity: 2,
-    totalPrice: 399.99,
-    clickId: '5',
-    createdAt: '2024-02-20 17:30',
-    agent: 'Jane Smith',
-    stock: 50,
-    comments: [
-      {
-        id: '1',
-        text: 'Product returned due to size mismatch. Customer wants to exchange.',
-        agent: 'Jane Smith',
-        createdAt: '2024-02-20 17:31',
-      },
-      {
-        id: '2',
-        text: 'Processed exchange request for smaller size',
-        agent: 'Jane Smith',
-        createdAt: '2024-02-20 17:35',
-      },
-      {
-        id: '3',
-        text: 'New order created with correct size',
-        agent: 'Jane Smith',
-        createdAt: '2024-02-20 17:40',
-      },
-    ],
-    customer: {
-      id: '2',
-      name: 'Sarah Williams',
-      email: 'sarah.w@example.com',
-      phone: '+1 (555) 987-6543',
-    },
-  },
-]
-
-const filteredCalls = computed(() => {
-  return calls.filter((call) => {
-    if (!searchQuery.value) return true
-    return call.productName.toLowerCase().includes(searchQuery.value.toLowerCase())
-  })
+onMounted(async () => {
+  try {
+    orders.value = await fetchOrders()
+  } catch (error) {
+    console.error(error)
+  }
 })
 
-function updateCallStatus(callId, newStatus) {
-  const call = calls.find((c) => c.id === callId)
-  if (call) call.status = newStatus
-  showStatusDropdown.value = null
-}
+const statusCounts = computed(() => {
+  const counts = {
+    [ORDER_STATUS.PENDING]: 0,
+    [ORDER_STATUS.TAKE]: 0,
+    [ORDER_STATUS.CALL_AGAIN]: 0,
+    [ORDER_STATUS.CONFIRMED]: 0,
+    [ORDER_STATUS.SHIPPED]: 0,
+    [ORDER_STATUS.RETURNED]: 0,
+    [ORDER_STATUS.PAID]: 0,
+    [ORDER_STATUS.TRASHED]: 0,
+    [ORDER_STATUS.CANCELLED]: 0,
+  }
 
-function handlePeriodChange(period) {
-  selectedPeriod.value = period
-}
+  orders.value.forEach((order) => {
+    if (Object.prototype.hasOwnProperty.call(counts, order.status)) {
+      counts[order.status]++
+    }
+  })
 
-function showCustomerHistory(customer) {
-  selectedCustomer.value = customer
-}
+  return Object.entries(counts).map(([status, count]) => ({ status, count }))
+})
 </script>
 
 <template>
@@ -209,14 +61,7 @@ function showCustomerHistory(customer) {
             </h1>
 
             <div class="flex items-center gap-2 text-sm text-gray-600">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                />
-              </svg>
+              <Calendar class="w-5 h-5" />
               <span>{{
                 new Date().toLocaleDateString('en-US', {
                   weekday: 'long',
@@ -233,7 +78,7 @@ function showCustomerHistory(customer) {
         <!-- Combined Status and Orders Section -->
         <div class="bg-white rounded-xl shadow-sm border border-gray-200">
           <!-- Status Counts -->
-          <StatusCount />
+          <StatusCount :statusCounts="statusCounts" />
 
           <!-- Divider -->
           <div class="h-px bg-transparent mx-6" />
@@ -306,63 +151,19 @@ function showCustomerHistory(customer) {
               </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
-              <template v-for="call in calls" :key="call.id">
-                <CallRow :call="call" @showCustomerHistory="showCustomerHistory" />
+              <template v-for="order in orders" :key="order.id">
+                <OrderRow :order="order" @showCustomerHistory="showCustomerHistory" />
               </template>
             </tbody>
           </table>
-
-          <!-- Mobile List -->
-          <div class="md:hidden divide-y divide-gray-200">
-            <div v-for="call in calls" :key="call.id" class="p-4 space-y-3">
-              <div class="flex items-center justify-between">
-                <StatusBadge :status="call.status" />
-                <span class="text-sm font-medium text-gray-900">#{{ call.clickId }}</span>
-              </div>
-
-              <div>
-                <p class="text-sm text-gray-600">{{ call.productName }} x {{ call.quantity }}</p>
-                <p class="text-sm font-medium text-gray-900 mt-1">${{ call.totalPrice }}</p>
-              </div>
-
-              <div class="flex items-center justify-between">
-                <div class="relative">
-                  <div v-if="call.agent" class="flex items-center space-x-2">
-                    <span class="text-sm text-gray-900">{{ call.agent }}</span>
-                  </div>
-                  <button
-                    v-else
-                    class="px-4 py-2 text-sm font-medium text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"
-                  >
-                    Assign Agent
-                  </button>
-                </div>
-
-                <button
-                  class="text-gray-400 hover:text-primary-600"
-                  @click="isExpanded = !isExpanded"
-                >
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </div>
         </div>
 
-        <!-- Customer History Modal -->
-        <CustomerHistoryModal
-          v-if="selectedCustomer"
-          :customer="selectedCustomer"
-          :calls="calls.filter((call) => call.customer?.id === selectedCustomer.id)"
-          @close="selectedCustomer = null"
-        />
+        <!--        <CustomerHistoryModal-->
+        <!--          v-if="selectedCustomer"-->
+        <!--          :customer="selectedCustomer"-->
+        <!--          :orders="orders.filter((order) => order.customer?.id === selectedCustomer.id)"-->
+        <!--          @close="selectedCustomer = null"-->
+        <!--        />-->
       </div>
     </main>
   </div>

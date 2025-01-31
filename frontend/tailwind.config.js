@@ -26,8 +26,8 @@ export default {
           shipped: '#94A3B8', // Greyish faded
           returned: '#FDA4AF', // Pinkish faded
           paid: '#059669', // Deep strong green
-          trash: '#475569', // Bold grey
-          canceled: '#DC2626', // Strong red
+          trashed: '#475569', // Bold grey
+          cancelled: '#DC2626', // Strong red
         },
         brand: {
           soul: '#F97316', // Vibrant orange
