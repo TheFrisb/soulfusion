@@ -1,0 +1,1818 @@
+{% load static %}
+{% load math_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="ie=edge" http-equiv="X-UA-Compatible">
+  <title>Bee Venom</title>
+  <link rel="shortcut icon" href="{% static 'assets/bee-venom/footer-sale-bg.png' %}" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,800&subset=cyrillic-ext,latin-ext"
+        rel="stylesheet">
+  <style>
+      * {
+          margin: 0;
+          padding: 0;
+          -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+      }
+
+      body {
+          font-family: 'Open Sans',
+          sans-serif;
+          font-size: 20px;
+          font-weight: 400;
+          color: #4b4b4b;
+          line-height: 1.3;
+      }
+
+      .overflow {
+          overflow: hidden;
+      }
+
+      img {
+          max-width: 100%;
+
+          outline: none;
+          border: 0;
+      }
+
+      .mobile-only {
+          display: none;
+
+      }
+
+      .cf {
+          display: table;
+          clear: both;
+      }
+
+      ul {
+          margin: 0;
+          list-style-type: none;
+      }
+
+
+      .wrapper {
+          max-width: 970px;
+          padding: 0 10px;
+          margin: auto;
+          position: relative;
+      }
+
+      section,
+      header,
+      footer {
+          position: relative;
+      }
+
+      .header {
+          padding-top: 55px;
+          padding-bottom: 200px;
+          background: #cbebf8 -webkit-gradient(linear, left top, left bottom, from(#7bc9eb), color-stop(50%, #d1e9f4), color-stop(90%, #fdf4d7));
+          background: #cbebf8 linear-gradient(#7bc9eb 0%, #d1e9f4 50%, #fdf4d7 90%);
+          z-index: 1;
+          position: relative;
+      }
+
+      .header .wrapper::after {
+          content: "";
+          background: url({% static 'assets/bee-venom/header-woman.png' %}) no-repeat;
+          position: absolute;
+          right: -130px;
+          bottom: -200px;
+          width: 475px;
+          height: 501px;
+      }
+
+      .title {
+          color: #852571;
+          font-size: 37px;
+          font-weight: 800;
+          padding-left: 240px;
+          padding-right: 180px;
+          margin-bottom: 25px;
+      }
+
+      .header p {
+          font-size: 24px;
+          padding-left: 240px;
+          padding-right: 300px;
+      }
+
+      .sec2 {
+          padding: 90px 0 60px;
+          margin-top: -160px;
+          background: url({% static 'assets/bee-venom/sec2-wave.png' %}) no-repeat center;
+          color: #d4d1dc;
+          font-size: 0;
+          z-index: 2;
+      }
+
+      .sec2__prod,
+      .sec2__list,
+      .sec2__prices {
+          display: inline-block;
+          width: 40%;
+          vertical-align: bottom;
+          font-size: 20px;
+          position: relative;
+      }
+
+      .sec2__prod {
+          width: 26%;
+      }
+
+      .sec2__prod .sale {
+          position: absolute;
+          left: -20px;
+          bottom: -130px;
+      }
+
+      .sale {
+          display: table;
+          background: url({% static 'assets/bee-venom/price-bg.png' %}) no-repeat;
+          background-size: contain;
+          font-size: 16px;
+          color: #fff;
+          width: 165px;
+          height: 165px;
+          font-weight: 700;
+      }
+
+      .sale div {
+          display: table-cell;
+          vertical-align: middle;
+          text-align: center;
+
+      }
+
+      .sale span {
+          display: block;
+          font-size: 35px;
+      }
+
+      .sec2__prod::before {
+          content: "";
+          background: url({% static 'assets/bee-venom/nautubone-1.png' %}) no-repeat;
+          background-size: contain;
+          width: 256px;
+          height: 526px;
+          position: absolute;
+          bottom: -120px;
+          left: -40px;
+      }
+
+      .sec2__list {
+          padding-right: 15px;
+      }
+
+      .sec2__item {
+          position: relative;
+          margin-bottom: 15px;
+          padding-left: 45px;
+      }
+
+      .sec2__item:last-child {
+          margin-bottom: 0;
+      }
+
+      .sec2__item::before {
+          content: "";
+          background: url({% static 'assets/bee-venom/checked.png' %}) no-repeat;
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 29px;
+          height: 23px;
+      }
+
+      .sec2__prices {
+          width: 34%;
+      }
+
+      .prices {
+          background: #e6f8f8;
+          border-radius: 60px 60px 40px 40px;
+
+          text-align: center;
+          color: #843773;
+          font-size: 18px;
+      }
+
+      .prices__container {
+          padding: 22px 40px 22px 40px;
+      }
+
+      .prices p {
+          margin-bottom: 15px;
+      }
+
+      .prices span {
+
+          text-transform: uppercase;
+      }
+
+      .prices__item {
+          font-size: 40px;
+          text-transform: uppercase;
+          font-weight: 700;
+          line-height: 1;
+      }
+
+      .prices__new {
+          color: #f17b30;
+
+      }
+
+      .prices__old {
+          display: inline-block;
+          position: relative;
+
+      }
+
+      .prices__old::before {
+          content: "";
+          height: 3px;
+          width: 100%;
+          position: absolute;
+          top: 50%;
+          left: 0;
+          background: #f17b30;
+      }
+
+      .button {
+          cursor: pointer;
+          -webkit-transition: .4s;
+          transition: .4s;
+          outline: none;
+          border: 0;
+          font-family: 'Open Sans';
+      }
+
+      .button--orange {
+          width: 100%;
+          border-radius: 100px;
+          background: #f17b30;
+          text-transform: uppercase;
+          font-size: 30px;
+          color: #f0f0d5;
+
+          padding: 13px 0;
+
+      }
+
+      .button--orange:hover {
+          background: #f25d00;
+      }
+
+      .sec3 {
+          padding-top: 360px;
+          padding-bottom: 70px;
+          background: #d3e6e3 -webkit-gradient(linear, left top, left bottom, color-stop(11%, #fbf2ac), color-stop(55%, #e6f8f8));
+          background: #d3e6e3 linear-gradient(#fbf2ac 11%, #e6f8f8 55%);
+          margin-top: -262px;
+          color: #843773;
+          font-size: 18px;
+      }
+
+      .sec3__text {
+          padding-right: 310px;
+          position: relative;
+          font-weight: 700;
+      }
+
+      .sec3__text::before {
+          content: "";
+          background: url({% static 'assets/bee-venom/nautubone-1.png' %}) no-repeat;
+          background-size: contain;
+          position: absolute;
+          bottom: -60px;
+          right: 30px;
+          width: 259px;
+          height: 503px;
+      }
+
+      .sec3 p {
+          margin-bottom: 30px;
+      }
+
+      .button--purple {
+          background: #843773;
+          color: #ffffcd;
+          border-radius: 100px;
+          padding: 15px 25px;
+          font-size: 18px;
+          font-weight: 700;
+          margin-top: 20px;
+      }
+
+      .button--purple:hover {
+          background: #622255;
+      }
+
+      .sec4 {
+          background: #e6f8f8;
+          padding-bottom: 200px;
+          padding-top: 85px;
+      }
+
+      .test {
+          background: #fffada;
+          border-radius: 50px;
+          padding: 30px 60px 30px 385px;
+          -webkit-box-shadow: 0 28px 40px -14px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 28px 40px -14px rgba(0, 0, 0, 0.1);
+      }
+
+      .test__title {
+          font-size: 27px;
+          font-weight: 700;
+          color: #852571;
+          margin-bottom: 35px;
+      }
+
+      .question {
+          position: relative;
+          min-height: 370px;
+      }
+
+      .question::before {
+          content: "";
+          background: url({% static 'assets/bee-venom/question-woman.png' %}) no-repeat;
+          position: absolute;
+          left: -395px;
+          bottom: -30px;
+          width: 418px;
+          height: 560px;
+      }
+
+      .question:not(.active) {
+          display: none;
+      }
+
+      .question__title {
+          font-size: 24px;
+          font-weight: 700;
+          margin-bottom: 30px;
+      }
+
+      .question__variants li {
+          margin-bottom: 30px;
+          padding-left: 45px;
+          position: relative;
+          cursor: pointer;
+      }
+
+      .question__variants li::before {
+          content: "";
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          border: 3px solid #852571;
+          position: absolute;
+          top: 5px;
+          left: 0;
+
+      }
+
+      .question__variants li:hover::before,
+      .question__variants li.checked::before {
+          background: #852571;
+      }
+
+      .button--next {
+          font-size: 24px;
+          font-weight: 700;
+          color: #ffffcd;
+          padding: 10px 30px 12px 35px;
+          background: #852571;
+          -webkit-box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.3);
+          box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.3);
+          margin-top: 25px;
+          display: inline-block;
+          border-radius: 100px;
+      }
+
+      .test__final {
+          position: relative;
+          font-weight: 700;
+          font-size: 24px;
+          line-height: 1.5;
+      }
+
+      .test__final span {
+          color: #843773;
+      }
+
+      .test__final::before {
+          content: "";
+          background: url({% static 'assets/bee-venom/final-woman.png' %}) no-repeat;
+          position: absolute;
+          left: -345px;
+          bottom: -30px;
+          width: 305px;
+          height: 560px;
+      }
+
+      .sec5 {
+          background: url({% static 'assets/bee-venom/sec5_wave.png' %}) no-repeat center;
+          font-weight: 700;
+          font-size: 29px;
+          color: #ffffcd;
+          text-align: center;
+          padding: 66px 0 125px;
+          margin-top: -120px;
+          position: relative;
+          z-index: 1;
+      }
+
+      .sec6 {
+          margin-top: -110px;
+          padding-top: 140px;
+          padding-bottom: 240px;
+          background: #e5ebca -webkit-gradient(linear, left top, left bottom, from(#d3e6e1), color-stop(70%, #f9f1af));
+          background: #e5ebca linear-gradient(#d3e6e1, #f9f1af 70%);
+      }
+
+      .sec6__list {
+          font-size: 0;
+          text-align: center;
+      }
+
+      .sec6__item {
+          display: inline-block;
+          vertical-align: top;
+          width: 33.33%;
+          font-size: 22px;
+          padding: 0 18px;
+          margin-bottom: 45px;
+      }
+
+      .sec6__item-img {
+          background: #ffffcd;
+          border-radius: 50%;
+          width: 145px;
+          height: 145px;
+          display: block;
+          margin: 0 auto 15px;
+          position: relative;
+      }
+
+      .sec6__item .sec6__item-img::before {
+          content: "";
+          background: url({% static 'assets/bee-venom/sec6_img1.png' %}) no-repeat;
+          position: absolute;
+          width: 108px;
+          height: 119px;
+          left: 20px;
+          top: 12px;
+      }
+
+      .sec6__item:nth-child(2) .sec6__item-img::before {
+          background-image: url({% static 'assets/bee-venom/sec6_img2.png' %});
+          width: 110px;
+          height: 115px;
+          left: 21px;
+          top: 13px;
+      }
+
+      .sec6__item:nth-child(3) .sec6__item-img::before {
+          background-image: url({% static 'assets/bee-venom/sec6_img3.png' %});
+          width: 111px;
+          height: 111px;
+          left: 18px;
+          top: 20px;
+      }
+
+      .sec6__item:nth-child(4) .sec6__item-img::before {
+          background-image: url({% static 'assets/bee-venom/sec6_img4.png' %});
+          width: 121px;
+          height: 119px;
+          left: 13px;
+          top: 10px;
+      }
+
+      .sec6__item:nth-child(5) .sec6__item-img::before {
+          background-image: url({% static 'assets/bee-venom/sec6_img5.png' %});
+          width: 102px;
+          height: 118px;
+          left: 31px;
+          top: 10px;
+      }
+
+      .sec6__item-title {
+          font-weight: 700;
+          text-transform: uppercase;
+          color: #843773;
+          margin-bottom: 15px;
+      }
+
+      .sec7 {
+          color: #fafeac;
+          background: url({% static 'assets/bee-venom/sec7_wave.png' %}) no-repeat center;
+          padding: 200px 0;
+          position: relative;
+          z-index: 2;
+          font-weight: 700;
+          margin-top: -340px;
+      }
+
+      .sec7__title {
+          text-align: center;
+          font-size: 28px;
+          margin-bottom: 70px;
+      }
+
+      .sec7__list {
+          font-size: 0;
+          text-align: center;
+      }
+
+      .sec7__item {
+          display: inline-block;
+          vertical-align: top;
+          width: 33.33%;
+          font-size: 22px;
+          padding: 0 20px;
+      }
+
+      .sec7__img {
+
+          border-radius: 50%;
+          width: 153px;
+          height: 153px;
+          display: block;
+          margin: 0 auto 35px;
+          background: url({% static 'assets/bee-venom/sec7_img1.jpg' %}) no-repeat;
+      }
+
+      .sec7__item:nth-child(2) .sec7__img {
+          background-image: url({% static 'assets/bee-venom/sec7_img2.jpg' %});
+      }
+
+      .sec7__item:nth-child(3) .sec7__img {
+          background-image: url({% static 'assets/bee-venom/sec7_img3.jpg' %});
+      }
+
+      .sec8 {
+          padding-top: 200px;
+          margin-top: -270px;
+          padding-bottom: 250px;
+          background: #fad68c -webkit-gradient(linear, left top, left bottom, from(#fdeba0), color-stop(40%, #f6c177), color-stop(60%, #f6c177), to(#fdeba0));
+          background: #fad68c linear-gradient(#fdeba0, #f6c177 40%, #f6c177 60%, #fdeba0);
+          position: relative;
+          z-index: 1;
+      }
+
+      .sec8__block {
+          background: #e6f8f8;
+          border-radius: 30px;
+          font-size: 36px;
+          color: #843773;
+          text-align: center;
+          padding: 35px 40px 280px 40px;
+          position: relative;
+          font-weight: 700;
+          margin-bottom: 260px;
+          -webkit-box-shadow: 0 28px 40px -14px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 28px 40px -14px rgba(0, 0, 0, 0.1);
+      }
+
+      .sec8__block::after {
+          content: "";
+          background: url({% static 'assets/bee-venom/sec8_block.png' %}) no-repeat;
+          position: absolute;
+          left: 50%;
+          -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+
+          width: 773px;
+          height: 449px;
+          bottom: -190px;
+      }
+
+
+      .sec8__title {
+          text-align: center;
+          color: #843773;
+          font-weight: 700;
+          font-size: 30px;
+          margin-bottom: 60px;
+      }
+
+      .sec8__list {
+          font-size: 0;
+          text-align: center;
+          color: #000;
+      }
+
+      .sec8__item {
+          display: inline-block;
+          vertical-align: top;
+          width: 33.33%;
+          font-size: 22px;
+          padding: 0 40px;
+      }
+
+      .sec8__item-img {
+          background: #e6f8f8;
+          border-radius: 50%;
+          width: 135px;
+          height: 135px;
+          display: block;
+          margin: 0 auto 15px;
+          position: relative;
+      }
+
+      .sec8__item .sec8__item-img::before {
+          content: "";
+          background: url({% static 'assets/bee-venom/sec8_img1.png' %}) no-repeat;
+          position: absolute;
+          width: 88px;
+          height: 107px;
+          left: 27px;
+          top: 14px;
+      }
+
+      .sec8__item:nth-child(2) .sec8__item-img::before {
+          background-image: url({% static 'assets/bee-venom/sec8_img2.png' %});
+          width: 108px;
+          height: 107px;
+          left: 13px;
+          top: 10px;
+      }
+
+      .sec8__item:nth-child(3) .sec8__item-img::before {
+          background-image: url({% static 'assets/bee-venom/sec8_img3.png' %});
+          width: 114px;
+          height: 112px;
+          left: 13px;
+          top: 10px;
+      }
+
+      .foot {
+          font-size: 0;
+          background: url({% static 'assets/bee-venom/footer_wave.png' %}) no-repeat center;
+          margin-top: -400px;
+          position: relative;
+          z-index: 2;
+          padding-top: 320px;
+      }
+
+      .footer__prod {
+          display: inline-block;
+          vertical-align: bottom;
+          width: 33.33%;
+          position: relative;
+      }
+
+      .footer__prod::before {
+          content: "";
+          background: url({% static 'assets/bee-venom/nautubone-1.png' %}) no-repeat;
+          background-size: contain;
+          position: absolute;
+          left: 0;
+          bottom: 110px;
+          width: 300px;
+          height: 450px;
+      }
+
+      .footer__right {
+          display: inline-block;
+          vertical-align: bottom;
+          width: 66.66%;
+          padding-left: 15px;
+          padding-top: 150px;
+      }
+
+      .prices--footer {
+          background: none;
+          color: #fff;
+          padding-left: 65px;
+          max-width: 360px;
+          text-align: left;
+          margin-bottom: 20px;
+      }
+
+      .prices--footer p {
+          margin-bottom: 20px;
+          font-size: 20px;
+      }
+
+      .prices--footer .prices__old {
+          color: #e6f8f8;
+      }
+
+      .sale--footer {
+          background: url({% static 'assets/bee-venom/footer-sale-bg.png' %}) no-repeat;
+          font-size: 24px;
+          width: 235px;
+          height: 235px;
+          background-size: contain;
+          right: 0;
+          position: absolute;
+          top: 60px;
+      }
+
+      .sale--footer span {
+          font-size: 50px;
+      }
+
+      form {
+          background: #e6f8f8;
+
+          padding: 38px 77px 0 77px;
+          border-radius: 40px;
+          -webkit-box-shadow: 0 15px 20px -6px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 15px 20px -6px rgba(0, 0, 0, 0.1)
+      }
+
+      label {
+          font-size: 20px;
+          font-weight: 700;
+          color: #843773;
+          display: inline-block;
+          vertical-align: baseline;
+          width: 50%;
+          margin-bottom: 5px;
+      }
+
+      .hint {
+          text-align: right;
+          display: inline-block;
+          vertical-align: baseline;
+          width: 50%;
+          font-size: 18px;
+          font-style: italic;
+          color: #f17b30;
+          margin-bottom: 5px;
+      }
+
+      select,
+      input {
+          display: block;
+          height: 43px;
+          line-height: 43px;
+          background: #fff;
+          width: 100%;
+          margin-bottom: 25px;
+          outline: none;
+          padding: 0 20px;
+          border: 2px solid #843773;
+          font-family: 'Open Sans', sans-serif;
+          color: #843773;
+          font-size: 18px;
+          line-height: 1.4;
+      }
+
+      select::-ms-expand {
+          display: none;
+      }
+
+      select {
+
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          -ms-appearance: none;
+          appearance: none !important;
+          background: #fff url({% static 'assets/bee-venom/sel.png' %}) no-repeat 97% 50%;
+      }
+
+      form .button {
+          display: block;
+          position: relative;
+          bottom: -32px;
+          margin: auto;
+          max-width: 235px;
+      }
+
+      .sec10 {
+          margin-top: -710px;
+          background: #dfddbf -webkit-gradient(linear, left top, left bottom, from(#f0ae6f), to(#d9f2e1));
+          background: #dfddbf linear-gradient(#f0ae6f, #d9f2e1);
+          min-height: 750px;
+      }
+
+      .form__pack {
+          display: inline-block;
+          width: 23%;
+          max-width: 30%;
+          margin-right: 2%;
+          border: 2px solid #843773;
+          border-radius: 5px;
+          padding: 10px;
+      }
+
+      .form__pack--img {
+          margin-bottom: 20px;
+      }
+
+      .form__pack-label {
+          display: block;
+          -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+          margin: 0 auto;
+          cursor: pointer;
+          width: 100%;
+      }
+
+      .on {
+          border: 2px solid #457f00;
+      }
+
+      .form__pack-img {
+          max-height: 125px;
+          display: block;
+          margin: 0 auto;
+          margin-bottom: 10px;
+      }
+
+      .form__price {
+          display: block;
+          margin: 0 auto;
+          text-align: center;
+      }
+
+      .form__price--old {
+          text-decoration: line-through;
+          font-size: 14px;
+      }
+
+      .form__pack-text {
+          text-align: center;
+      }
+
+      form .input-wrapper label {
+          display: none !important;
+          pointer-events: none;
+      }
+
+      form .input-wrapper {
+          width: 100%;
+          position: relative;
+          margin: 0 auto 15px;
+      }
+
+      form .input-wrapper .error {
+          border: 1px solid red !important;
+          padding-top: 8px !important;
+      }
+
+      form .input-wrapper .error + label {
+          font-family: "Arial", sans-serif !important;
+          width: 100% !important;
+          height: 100%;
+          color: red;
+          display: block !important;
+          font-size: 11px !important;
+          line-height: 16px;
+          font-weight: inherit !important;
+          position: absolute;
+          top: 0;
+          left: 0;
+          margin: 0 !important;
+          padding-left: 15px !important;
+          text-align: left !important;
+          -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+      }
+
+      form .input-wrapper .error + label:before,
+      form .input-wrapper .error + label:after {
+          content: "";
+          position: absolute;
+          right: 30px;
+          top: 50%;
+          width: 3px;
+          height: 21px;
+          background-color: red
+      }
+
+      form .input-wrapper .error + label:before {
+          -webkit-transform: translate(0, -50%) rotate(135deg);
+          transform: translate(0, -50%) rotate(135deg)
+      }
+
+      form .input-wrapper .error + label:after {
+          -webkit-transform: translate(0, -50%) rotate(45deg);
+          transform: translate(0, -50%) rotate(45deg)
+      }
+
+      .main-lnk {
+          text-decoration: none;
+          color: inherit !important;
+      }
+
+      .footer {
+          background: #d9f2e1 !important;
+      }
+
+      @media (max-width: 991px) {
+          .wrapper {
+              width: 320px;
+          }
+
+          .header {
+              padding: 30px 0 290px;
+          }
+
+          .logo {
+              margin-bottom: 20px;
+          }
+
+          .title {
+              font-size: 30px;
+          }
+
+          .header p {
+              font-size: 20px;
+          }
+
+          .title,
+          .header p {
+              padding: 0;
+          }
+
+          .header .wrapper::after {
+              display: none;
+          }
+
+          section {
+              margin-top: 0 !important;
+          }
+
+          .sec2 {
+              background: #7e2b72;
+              padding: 50px 0;
+          }
+
+          .sec2::before,
+          .sec5::before,
+          .sec7::before,
+          .foot::before {
+              content: "";
+              background: url({% static 'assets/bee-venom/wave-mob.png' %}) no-repeat;
+              position: absolute;
+              left: 0;
+              top: -81px;
+              width: 100%;
+              height: 83px;
+          }
+
+          .sec2__prod,
+          .sec2__list,
+          .sec2__prices,
+          .footer__prod,
+          .footer__right,
+          .sec6__item,
+          .sec7__item,
+          .sec8__item {
+              display: block;
+              width: 100%;
+              padding: 0;
+          }
+
+          .sec2__list {
+              margin-bottom: 30px;
+              font-size: 18px;
+          }
+
+          .sec2__prod::before {
+              background: url({% static 'assets/bee-venom/nautubone-1.png' %}) no-repeat;
+              background-size: contain;
+              width: 150px;
+              height: 308px;
+              bottom: 10px;
+              left: 0;
+          }
+
+          .sec2__prod .sale {
+              left: 120px;
+              bottom: 180px;
+          }
+
+          .sec3 {
+              padding: 50px 0 330px;
+          }
+
+          .sec3__text {
+              padding-right: 0;
+          }
+
+          .sec3__text::before {
+              background: url({% static 'assets/bee-venom/nautubone-1.png' %}) no-repeat;
+              background-size: contain;
+              bottom: -320px;
+              left: 50%;
+              -webkit-transform: translateX(-50%);
+              transform: translateX(-50%);
+              width: 175px;
+              height: 300px;
+          }
+
+          .sec4 {
+              padding: 10px 0 50px;
+          }
+
+          .test {
+              padding: 15px 20px;
+              border-radius: 20px;
+          }
+
+          .test__title {
+              font-size: 22px;
+          }
+
+          .question {
+              min-height: none;
+          }
+
+          .question::before {
+              display: none;
+          }
+
+          .question__title {
+              font-size: 18px;
+          }
+
+          .question__variants li {
+              margin-bottom: 15px;
+              font-size: 18px;
+              padding-left: 35px;
+          }
+
+          .test__final {
+              font-size: 18px;
+              line-height: 1.3;
+          }
+
+          .sec5 {
+              background: #7e2b72;
+              font-size: 25px;
+              padding: 20px 0;
+
+          }
+
+          .sec5::after {
+              content: "";
+              background: url({% static 'assets/bee-venom/wave-mob.png' %}) no-repeat;
+              position: absolute;
+              left: 0;
+              bottom: -81px;
+              width: 100%;
+              height: 83px;
+              -webkit-transform: scale(-1);
+              transform: scale(-1);
+          }
+
+          .sec6 {
+              padding: 80px 0 50px;
+          }
+
+          .sec6__item {
+
+              font-size: 18px;
+          }
+
+          .bx-wrapper {
+              -webkit-box-shadow: none !important;
+              box-shadow: none !important;
+              border: 0 !important;
+              background: none !important;
+          }
+
+          .bx-wrapper .bx-pager.bx-default-pager a {
+              background: #7e2b72 !important;
+
+
+              width: 20px !important;
+              height: 20px !important;
+              border-radius: 50px !important;
+          }
+
+          .bx-wrapper .bx-pager.bx-default-pager a:hover,
+          .bx-wrapper .bx-pager.bx-default-pager a.active,
+          .bx-wrapper .bx-pager.bx-default-pager a:focus {
+              background: #f17b30 !important;
+          }
+
+          .sec7 {
+              background: #7e2b72;
+              font-size: 25px;
+              padding: 50px 0;
+
+          }
+
+          .sec7__item {
+
+              margin-bottom: 40px;
+              font-size: 18px;
+          }
+
+          .sec7__item:last-child {
+              margin-bottom: 0;
+          }
+
+          .sec7__title {
+              margin-bottom: 50px;
+          }
+
+          .sec7__img {
+              margin-bottom: 20px;
+          }
+
+          .sec8 {
+              padding: 50px 0 100px;
+          }
+
+          .sec8__block::after {
+              background: url({% static 'assets/bee-venom/sec8_block.png' %}) no-repeat;
+              background-size: contain;
+              left: 48%;
+              width: 300px;
+              height: 184px;
+              bottom: -80px;
+          }
+
+          .sec8__block {
+              border-radius: 20px;
+              font-size: 31px;
+              padding: 15px;
+              margin-bottom: 130px;
+              line-height: 1;
+              padding-bottom: 120px;
+          }
+
+          .sec8__title {
+              font-size: 23px;
+              margin-bottom: 40px;
+          }
+
+          .sec8__item {
+
+              margin-bottom: 40px;
+              font-size: 18px;
+          }
+
+          .sec8__item:last-child {
+              margin-bottom: 0;
+          }
+
+          .foot {
+              background: #7e2b72;
+              margin-top: 0;
+              padding: 50px 0;
+          }
+
+          .sec10 {
+              display: none;
+          }
+
+
+          .foot .wrapper {
+              display: table;
+          }
+
+          .footer__prod {
+              margin-bottom: 40px;
+              display: table-cell;
+          }
+
+          .footer__right {
+              display: table-caption;
+              padding: 0 10px;
+          }
+
+          .footer__prod::before {
+              background: url({% static 'assets/bee-venom/mob/nautubone-1.png' %}) no-repeat;
+              left: 60px;
+              bottom: 440px;
+              width: 171px;
+              height: 350px;
+              background-size: contain;
+
+
+          }
+
+          form {
+              border-radius: 20px;
+              padding: 20px 25px;
+              margin-top: 430px;
+          }
+
+          .prices--footer {
+              max-width: none;
+              padding-left: 0;
+              text-align: center;
+          }
+
+          .sale--footer {
+              font-size: 16px;
+              color: #fff;
+              width: 165px;
+              height: 165px;
+              top: auto;
+              bottom: 750px;
+              background-image: url({% static 'assets/bee-venom/price-bg' %});
+          }
+
+          .sale--footer span {
+              font-size: 35px;
+          }
+
+          label {
+              font-size: 18px;
+              line-height: 1;
+          }
+
+          .hint {
+              font-size: 11px;
+          }
+
+          form .button {
+              position: static;
+          }
+      }
+
+      @media (min-width: 2000px) {
+
+          .sec2,
+          .sec5,
+          .sec7 {
+              background-size: 100% 100%;
+          }
+
+          .sec6 {
+              padding-bottom: 320px;
+          }
+
+          .sec8 {
+              padding-top: 340px;
+          }
+
+          .sec7 {
+              padding: 80px 0;
+          }
+
+          .foot {
+              background-size: contain;
+          }
+      }
+
+      @media (max-width: 991px) {
+          form {
+              margin-top: 50px;
+          }
+
+          .form__pack {
+              display: block;
+              width: 100%;
+              margin-right: 0;
+              max-width: none;
+              margin-bottom: 20px;
+          }
+
+          .footer__prod::before {
+              bottom: 1175px;
+          }
+
+          .sale--footer {
+              bottom: 1135px;
+          }
+
+          .button--orange {
+              padding: 13px 20px;
+              max-width: 100%;
+          }
+
+          .footer__prod,
+          .sale--footer {
+              display: none;
+          }
+
+          .prices--footer p {
+              font-size: 25px;
+              color: #fafeac;
+          }
+
+          .footer {
+              background: #7e2b72 !important;
+              color: #fff !important;
+          }
+      }
+
+      @media (max-width: 500px) {
+
+          .footer__right {
+              display: block;
+          }
+
+          .footer__prod::before {
+              top: 190px;
+              left: 40px;
+          }
+
+          .wrapper {
+              padding: 0 10px;
+          }
+
+          form {
+              padding: 15px 10px;
+          }
+      }
+
+      /** VARIABLES
+===================================*/
+
+      /** RESET AND LAYOUT
+	  ===================================*/
+
+      .bx-wrapper {
+          position: relative;
+          margin-bottom: 60px;
+          padding: 0;
+          *zoom: 1;
+          -ms-touch-action: pan-y;
+          touch-action: pan-y;
+      }
+
+      .bx-wrapper img {
+          max-width: 100%;
+          display: block;
+      }
+
+      .bxslider {
+          margin: 0;
+          padding: 0;
+      }
+
+      ul.bxslider {
+          list-style: none;
+      }
+
+      .bx-viewport {
+          /*fix other elements on the page moving (on Chrome)*/
+          -webkit-transform: translatez(0);
+      }
+
+      /** THEME
+	  ===================================*/
+
+      .bx-wrapper {
+          -moz-box-shadow: 0 0 5px #ccc;
+          -webkit-box-shadow: 0 0 5px #ccc;
+          box-shadow: 0 0 5px #ccc;
+          border: 5px solid #fff;
+          background: #fff;
+      }
+
+      .bx-wrapper .bx-pager,
+      .bx-wrapper .bx-controls-auto {
+          position: absolute;
+          bottom: -30px;
+          width: 100%;
+      }
+
+      /* LOADER */
+
+      .bx-wrapper .bx-loading {
+          min-height: 50px;
+
+          height: 100%;
+          width: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 2000;
+      }
+
+      /* PAGER */
+
+      .bx-wrapper .bx-pager {
+          text-align: center;
+          font-size: .85em;
+          font-family: Arial;
+          font-weight: bold;
+          color: #666;
+          padding-top: 20px;
+      }
+
+      .bx-wrapper .bx-pager.bx-default-pager a {
+          background: #666;
+          text-indent: -9999px;
+          display: block;
+          width: 10px;
+          height: 10px;
+          margin: 0 5px;
+          outline: 0;
+          -moz-border-radius: 5px;
+          -webkit-border-radius: 5px;
+          border-radius: 5px;
+      }
+
+      .bx-wrapper .bx-pager.bx-default-pager a:hover,
+      .bx-wrapper .bx-pager.bx-default-pager a.active,
+      .bx-wrapper .bx-pager.bx-default-pager a:focus {
+          background: #000;
+      }
+
+      .bx-wrapper .bx-pager-item,
+      .bx-wrapper .bx-controls-auto .bx-controls-auto-item {
+          display: inline-block;
+          vertical-align: bottom;
+          *zoom: 1;
+          *display: inline;
+      }
+
+      .bx-wrapper .bx-pager-item {
+          font-size: 0;
+          line-height: 0;
+      }
+
+      /* DIRECTION CONTROLS (NEXT / PREV) */
+
+      .bx-wrapper .bx-prev {
+          left: 10px;
+
+      }
+
+      .bx-wrapper .bx-prev:hover,
+      .bx-wrapper .bx-prev:focus {
+          background-position: 0 0;
+      }
+
+      .bx-wrapper .bx-next {
+          right: 10px;
+
+      }
+
+      .bx-wrapper .bx-next:hover,
+      .bx-wrapper .bx-next:focus {
+          background-position: -43px 0;
+      }
+
+      .bx-wrapper .bx-controls-direction a {
+          position: absolute;
+          top: 50%;
+          margin-top: -16px;
+          outline: 0;
+          width: 32px;
+          height: 32px;
+          text-indent: -9999px;
+          z-index: 9999;
+      }
+
+      .bx-wrapper .bx-controls-direction a.disabled {
+          display: none;
+      }
+
+      /* AUTO CONTROLS (START / STOP) */
+
+      .bx-wrapper .bx-controls-auto {
+          text-align: center;
+      }
+
+      .bx-wrapper .bx-controls-auto .bx-start {
+          display: block;
+          text-indent: -9999px;
+          width: 10px;
+          height: 11px;
+          outline: 0;
+
+          margin: 0 3px;
+      }
+
+      .bx-wrapper .bx-controls-auto .bx-start:hover,
+      .bx-wrapper .bx-controls-auto .bx-start.active,
+      .bx-wrapper .bx-controls-auto .bx-start:focus {
+          background-position: -86px 0;
+      }
+
+      .bx-wrapper .bx-controls-auto .bx-stop {
+          display: block;
+          text-indent: -9999px;
+          width: 9px;
+          height: 11px;
+          outline: 0;
+
+          margin: 0 3px;
+      }
+
+      .bx-wrapper .bx-controls-auto .bx-stop:hover,
+      .bx-wrapper .bx-controls-auto .bx-stop.active,
+      .bx-wrapper .bx-controls-auto .bx-stop:focus {
+          background-position: -86px -33px;
+      }
+
+      /* PAGER WITH AUTO-CONTROLS HYBRID LAYOUT */
+
+      .bx-wrapper .bx-controls.bx-has-controls-auto.bx-has-pager .bx-pager {
+          text-align: left;
+          width: 80%;
+      }
+
+      .bx-wrapper .bx-controls.bx-has-controls-auto.bx-has-pager .bx-controls-auto {
+          right: 0;
+          width: 35px;
+      }
+
+      /* IMAGE CAPTIONS */
+
+      .bx-wrapper .bx-caption {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          background: #666;
+          background: rgba(80, 80, 80, 0.75);
+          width: 100%;
+      }
+
+      .bx-wrapper .bx-caption span {
+          color: #fff;
+          font-family: Arial;
+          display: block;
+          font-size: .85em;
+          padding: 10px;
+      }
+
+      @media (max-width: 768px) {
+          .mobile-hidden {
+              display: none;
+          }
+      }
+  </style>
+
+
+  <script src="{% static 'js/libs/jquery-1.12.4.min.js' %}" type="text/javascript"></script>
+  <script src="{% static 'js/libs/dr-dtime.min.js' %}" type="text/javascript"></script>
+</head>
+<body>
+<div class="blockRedLine3103"
+     style="color: rgb(255, 255, 255); background: red; box-sizing: border-box; font: 400 16px / 1.15 Arial, sans-serif; position: relative; z-index: 1000000; padding: 0px; margin: 0px; direction: ltr; text-transform: none;">
+  <div
+    style="font: inherit; margin: 0px auto; padding: 10px; max-width: 1200px; width: 100%; display: flex; justify-content: center; align-items: center; box-sizing: border-box;">
+    <div class="blockRedLine3103__image mobile-hidden"
+         style="flex-shrink: 0; box-sizing: border-box; padding: 0px; margin: 0px;">
+      <div
+        style="width: 65px; height: 5px; border-radius: 2px; background: rgba(255, 255, 255, 0.3); margin: 0px 0px 10px; box-sizing: border-box;"></div>
+      <div
+        style="width: 65px; height: 5px; border-radius: 2px; background: rgba(255, 255, 255, 0.3); margin: 0px 0px 10px 20px; box-sizing: border-box;"></div>
+      <div
+        style="width: 65px; height: 5px; border-radius: 2px; background: rgba(255, 255, 255, 0.3); margin: 0px 0px 0px 10px; box-sizing: border-box;"></div>
+    </div>
+    <img class="blockRedLine3103__image"
+         src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI0LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCA0NS40IDM3LjgiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDQ1LjQgMzcuODsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPgoJLnN0MHtmaWxsOiNGRkZGRkY7fQoJLnN0MXtmaWxsOiMwMEE2NTE7fQo8L3N0eWxlPgo8Zz4KCTxnPgoJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xNS45LDI5LjNjLTIuNCwwLTQuMywxLjktNC4zLDQuM3MxLjksNC4zLDQuMyw0LjNjMi40LDAsNC4zLTEuOSw0LjMtNC4zUzE4LjMsMjkuMywxNS45LDI5LjN6IE0xNS45LDM1LjIKCQkJYy0wLjksMC0xLjctMC43LTEuNy0xLjdzMC43LTEuNywxLjctMS43YzAuOSwwLDEuNywwLjcsMS43LDEuN1MxNi44LDM1LjIsMTUuOSwzNS4yeiIvPgoJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0zNS40LDI5LjNjLTIuNCwwLTQuMywxLjktNC4zLDQuM3MxLjksNC4zLDQuMyw0LjNjMi40LDAsNC4zLTEuOSw0LjMtNC4zUzM3LjgsMjkuMywzNS40LDI5LjN6IE0zNS40LDM1LjIKCQkJYy0wLjksMC0xLjctMC43LTEuNy0xLjdzMC43LTEuNywxLjctMS43YzAuOSwwLDEuNywwLjcsMS43LDEuN1MzNi40LDM1LjIsMzUuNCwzNS4yeiIvPgoJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0zLjQsMzIuNGg3LjNjMC4yLTEsMC43LTEuOCwxLjMtMi41SDMuNFYzMi40eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik00My44LDI5Ljl2LTguN2wtNi05LjdoLTkuN3YxOC4zaC04LjNjMC43LDAuNywxLjEsMS41LDEuMywyLjVoOS4yYzAuNS0yLjQsMi42LTQuMiw1LjItNC4yczQuNywxLjgsNS4yLDQuMgoJCQloNC44di0yLjVINDMuOHogTTMxLDIwLjF2LTUuN2g0LjVsNCw1LjdIMzF6Ii8+CgkJPHBhdGggY2xhc3M9InN0MCIgZD0iTTE3LjMsOGMwLDEuMSwwLDIuMiwwLDMuNGMwLDcuNC05LjMsMTAuMi05LjMsMTAuMnMtMS41LDAtMywwdjYuNGgyMS40VjhIMTcuM3oiLz4KCTwvZz4KCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xNS43LDMuNEMxMi40LDMuNCw5LjYsMiw4LjYsMEg3LjFDNi4xLDIsMy4zLDMuNCwwLDMuNGMwLDIuMSwwLDUsMCw3LjdjMCw1LjQsOCw4LjUsOCw4LjVzNy43LTIuMyw3LjctOC41CgkJQzE1LjgsOC4xLDE1LjgsNS40LDE1LjcsMy40QzE1LjcsMy40LDE1LjcsMy40LDE1LjcsMy40eiIvPgoJPHBhdGggY2xhc3M9InN0MSIgZD0iTTE0LjUsNC40Yy0yLjgsMC01LjEtMS4yLTYtMi45SDcuM0M2LjQsMy4yLDQsNC40LDEuMyw0LjRjMCwxLjgsMCw0LjIsMCw2LjZjMCw0LjYsNi43LDcuMiw2LjcsNy4yCgkJczYuNS0yLDYuNS03LjJDMTQuNSw4LjQsMTQuNSw2LjEsMTQuNSw0LjRDMTQuNSw0LjQsMTQuNSw0LjQsMTQuNSw0LjR6Ii8+Cgk8Zz4KCQk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNy4zLDEyLjJDNy4zLDEyLjIsNy4yLDEyLjIsNy4zLDEyLjJjLTAuMiwwLTAuNC0wLjEtMC42LTAuMkw0LjgsOS44Yy0wLjMtMC4zLTAuMy0wLjgsMC0xLjEKCQkJYzAuMy0wLjMsMC44LTAuMywxLjEsMGwxLjQsMS41bDIuNi0yLjdjMC4zLTAuMywwLjgtMC4zLDEuMSwwYzAuMywwLjMsMC4zLDAuOCwwLDEuMWwtMy4yLDMuM0M3LjcsMTIuMSw3LjUsMTIuMiw3LjMsMTIuMnoiLz4KCTwvZz4KPC9nPgo8L3N2Zz4K"
+         style="flex-shrink: 0; box-sizing: border-box; width: 60px; height: auto; margin: 0px; padding: 0px;">
+    <div style="font: inherit; text-align: center; box-sizing: border-box; padding: 0px 5px; margin: 0px;">
+      <div
+        style="font-style: inherit; font-variant: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; font-weight: 700; color: inherit; padding: 0px; margin: 0px 0px 5px; box-sizing: border-box;">
+        БЕЗБЕДНА ДОСТАВА! Не грижете се - безбедноста на нашите клиенти е многу важна за нас!
+      </div>
+      <div
+        style="font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; font-family: inherit; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; font-size: 15px; color: inherit; padding: 0px; margin: 0px; box-sizing: border-box;">
+        Нашите доставувачи ги менуваат маските на секои два часа. Доставата и плаќањето се вршат без директен контакт.
+      </div>
+    </div>
+    <div class="blockRedLine3103__image mobile-hidden"
+         style="flex-shrink: 0; box-sizing: border-box; padding: 0px; margin: 0px;">
+      <div
+        style="width: 65px; height: 5px; border-radius: 2px; background: rgba(255, 255, 255, 0.3); margin: 0px 0px 10px; box-sizing: border-box;"></div>
+      <div
+        style="width: 65px; height: 5px; border-radius: 2px; background: rgba(255, 255, 255, 0.3); margin: 0px 0px 10px 20px; box-sizing: border-box;"></div>
+      <div
+        style="width: 65px; height: 5px; border-radius: 2px; background: rgba(255, 255, 255, 0.3); margin: 0px 0px 0px 10px; box-sizing: border-box;"></div>
+    </div>
+  </div>
+</div>
+<div class="overflow">
+  <header class="header">
+    <div class="wrapper">
+      <h4 class="header__title title"> Дали чувствувате болка во зглобовите или 'рбетот? </h4>
+      <p> Гелот Bee Venom е ефикасен лек за остеохондроза, остеоартритис и повреди! </p>
+    </div>
+  </header>
+  <section class="sec2">
+    <div class="wrapper">
+      <div class="sec2__prod">
+        <div class="sale">
+          <div> ПОПУСТ <span> 50% </span></div>
+        </div>
+      </div>
+      <ul class="sec2__list">
+        <li class="sec2__item"> Ја ублажува болката</li>
+        <li class="sec2__item"> Го стимулира процесот на регенерација на 'рскавицата</li>
+        <li class="sec2__item"> Ја елиминира мускулната хипертензија</li>
+        <li class="sec2__item"> Го спречува отекувањето</li>
+        <li class="sec2__item"> Ги елиминира воспаленијата</li>
+      </ul>
+      <div class="sec2__prices prices">
+        <div class="prices__container">
+          <p> Рекламирање <span> ЦЕНА СО ПОПУСТ </span></p>
+          <div class="prices__new prices__item al-cost">{{ product_page.product.sale_price }}MKD</div>
+          <div class="prices__old prices__item al-cost-promo">{{ product_page.product.sale_price|multiply:2 }}MKD</div>
+        </div>
+        <button class="button button--orange toform"> НАРАЧАЈТЕ СЕГА</button>
+      </div>
+    </div>
+  </section>
+  <section class="sec3">
+    <div class="wrapper">
+      <div class="sec3__text">
+        <p><i> Bee Venom </i> е лек што може брзо да ја отстрани болката од остеоартритис и остеохондроза. Исто така,
+          може да го намали грчењето на мускулите и воспалението. Bee Venom е ефикасен во лекувањето на
+          остеохондрозата и остеоартритисот затоа што го забавува процесот на дегенерација на 'рскавичното ткиво и го
+          подобрува неговиот метаболизам, промовирајќи ја регенерацијата на 'рскавицата на зглобот. </p>
+        <p> Позитивниот ефект може да се види по првото нанесување, Ако се користи редовно, заболувањата на зглобовите и
+          'рбетот престануваат да напредуваат. </p>
+        <button class="button button--purple toform"> Bee Venom е направен исклучиво од активни компоненти</button>
+      </div>
+    </div>
+  </section>
+  <section class="sec4">
+    <div class="wrapper">
+      <div class="test">
+        <div class="test__title"> Пополнете го следното истражување за да откриете дали ви е потребен Bee Venom или
+          не:
+        </div>
+        <ul>
+          <li class="question active">
+            <div class="question__title"> 1. После долгиот ден на работа, чувствувате тежина и вкочанетост во
+              екстремитетите:
+            </div>
+            <ul class="question__variants">
+              <li> Речиси никогаш</li>
+              <li> Многу често</li>
+              <li> Секогаш</li>
+            </ul>
+            <div class="question__button button button--next"> НАПРЕД >>></div>
+          </li>
+          <li class="question">
+            <div class="question__title"> 2. Дали имате повреди, истегнувања, модринки, скршеници?</div>
+            <ul class="question__variants">
+              <li> Да, имам скршеница секоја втора година</li>
+              <li> Ништо сериозно што бара посета на болница</li>
+              <li> Мали повреди што ни се имаат случено на сите</li>
+            </ul>
+            <div class="question__button button button--next"> НАПРЕД >>></div>
+          </li>
+          <li class="question">
+            <div class="question__title"> 3. Колку години имате?</div>
+            <ul class="question__variants">
+              <li> До 30</li>
+              <li> 30 – 45</li>
+              <li> Над 45</li>
+            </ul>
+            <div class="question__button button button--next button--next--last"> НАПРЕД >>></div>
+          </li>
+          <li class="question test__final"> Никогаш однапред не може да знаете дали ќе се повредите и дали ќе ви излезе
+            модринка, но лесно е да ги излечите што е можно побрзо! Пробајте <span> Bee Venom </span> – производ што
+            ќе ви помогне во која било ситуација, од исчашување, контузија, дури и остеоартритис. Уникатната способност
+            на <span> Bee Venom </span> да ја ублажи болката и воспалението ќе ви ја зголеми самодовербата во секоја
+            ситуација. Долготрајната употреба на овој гел ќе ви помогне да се ослободите од старите заболувања, но и ќе
+            ја поттикне регенерацијата на 'рскавичните ткива.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <section class="sec5">
+    <div class="wrapper"> Предности на гелот за грб и зглобови Bee Venom</div>
+  </section>
+  <section class="sec6">
+    <div class="wrapper">
+      <ul class="sec6__list">
+        <li class="sec6__item">
+          <div class="sec6__item-img"></div>
+          <div class="sec6__item-title"> Широка спектар на дејствување</div>
+          <p> Ги лечи болестите на зглобовите и 'рбетот предизвикани од повреди и старост. </p>
+        </li>
+        <li class="sec6__item">
+          <div class="sec6__item-img"></div>
+          <div class="sec6__item-title"> НЕМА НЕСАКАНИ ЕФЕКТИ</div>
+          <p> Сосема безбедна еднократна или редовна употреба </p>
+        </li>
+        <li class="sec6__item">
+          <div class="sec6__item-img"></div>
+          <div class="sec6__item-title"> 100% ПРИРОДЕН СОСТАВ</div>
+          <p> Само билни активни компоненти </p>
+        </li>
+        <li class="sec6__item">
+          <div class="sec6__item-img"></div>
+          <div class="sec6__item-title"> ВИСОКА ЕФИКАСНОСТ</div>
+          <p> Ја подобрува општата состојба и ја намалува болката по првото нанесување </p>
+        </li>
+        <li class="sec6__item">
+          <div class="sec6__item-img"></div>
+          <div class="sec6__item-title"> ТЕСТИРАН ОД СТРУЧНИ ЛИЦА</div>
+          <p> Производот е сертифициран и ги исполнува барањата според стандардите* </p>
+        </li>
+      </ul>
+    </div>
+  </section>
+  <section class="sec7">
+    <div class="wrapper">
+      <div class="sec7__title"> Како се користи Bee Venom</div>
+      <ul class="sec7__list">
+        <li class="sec7__item">
+          <div class="sec7__img"></div>
+          <p> Нанесете на сува кожа и тријте додека не се апсорбира целосно </p>
+        </li>
+        <li class="sec7__item">
+          <div class="sec7__img"></div>
+          <p> Мачкајте 3-4 пати на ден </p>
+        </li>
+        <li class="sec7__item">
+          <div class="sec7__img"></div>
+          <p> Не измивајте го во текот на првиот час после нанесувањето </p>
+        </li>
+      </ul>
+    </div>
+  </section>
+  <section class="sec8">
+    <div class="wrapper">
+      <div class="sec8__block"> ВНИМАВАЈТЕ НА ФАЛСИФИКАТИ!</div>
+      <div class="sec8__title"> Како да го нарачате гелот за 'рбет и зглобови Bee Venom</div>
+      <ul class="sec8__list">
+        <li class="sec8__item">
+          <div class="sec8__item-img"></div>
+          <p> Пополнете го формуларот за нарачки подолу </p>
+        </li>
+        <li class="sec8__item">
+          <div class="sec8__item-img"></div>
+          <p> Изберете метод на испорака </p>
+        </li>
+        <li class="sec8__item">
+          <div class="sec8__item-img"></div>
+          <p> Платете за производот при прием на пратката </p>
+        </li>
+      </ul>
+    </div>
+  </section>
+  <footer class="foot">
+    <div class="wrapper">
+      <div class="footer__prod"></div>
+      <div class="footer__right">
+        <div class="sale sale--footer">
+          <div> ПОПУСТ <span> 50% </span></div>
+        </div>
+        <div class="prices prices--footer">
+          <p> ОГРАНИЧЕНИ КОЛИЧИНИ СО ПОПУСТ </p>
+          <div class="prices__new prices__item"><span class="js_new_price al-cost">{{ product_page.product.sale_price }} MKD</span>
+          </div>
+          <div class="prices__old prices__item"><span
+            class="js_old_price al-cost-promo">{{ product_page.product.sale_price|multiply:2 }} MKD</span></div>
+        </div>
+        <form action="{% url 'core:product-page' slug=product_page.slug %}" method="post" class="al-form">
+          {% csrf_token %}
+          <select class="al-country" name="country" style="display: none;">
+            <option value="MK" selected="selected">Macedonia</option>
+          </select>
+          <input type="hidden" name="product_id" value="{{ product_page.product.id }}">
+          <div class="form__row">
+            <label for> ИМЕ/ПРЕЗИМЕ </label>
+            <div class="input-wrapper">
+              <input name="name" id="name" placeholder="Име" type="text" required="">
+              <label for="name"></label>
+            </div>
+          </div>
+          <div class="form__row">
+            <label for> ТЕЛЕФОНСКИ БРОЈ </label>
+            <div class="input-wrapper">
+              <input class="only_number" name="phone" id="phone" placeholder="Телефонски број" type="tel" required="">
+              <label for="phone"></label>
+            </div>
+          </div>
+          <button type="submit" class="button button--orange js_submit button__text"> НАРАЧКА</button>
+        </form>
+      </div>
+    </div>
+  </footer>
+
+  <section class="sec10"></section>
+  <div class="footer"
+       style="font: 400 16px / 1 Helvetica, Arial, sans-serif; max-width: 100%; width: 100%; text-align: center; color: rgb(71, 71, 71); padding: 40px 0px; margin: 0px auto; background: rgb(255, 255, 255); direction: ltr; text-transform: none; height: auto; text-indent: initial;">
+    <div class="footer__in">
+      <div class="footer__copyright">2025 Copyright. All rights reserved.</div>
+      <div class="footer__list" style="margin: 13px 0px 0px; font: inherit; text-align: center;"><a
+        href="javascript:void(0);"
+        style="display: inline-block; vertical-align: bottom; padding: 0px 5px; font: inherit; color: inherit; text-decoration: none;">Terms
+        &amp; Conditions</a><span> | </span><a href="javascript:void(0);"
+                                               style="display: inline-block; vertical-align: bottom; padding: 0px 5px; font: inherit; color: inherit; text-decoration: none;">Privacy
+        Policy</a><span> | </span><a class="footer__feedback-btn" href="javascript:void(0);"
+                                     style="display: inline-block; text-align: center; font: inherit; color: inherit; text-decoration: none; padding-left: 27px; cursor: pointer; background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAMCAYAAAHzImYpAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA4RpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTExIDc5LjE1ODMyNSwgMjAxNS8wOS8xMC0wMToxMDoyMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo0NmFlN2NhOS0yMDM3LWJkNDYtOTlmMi0yMjI1ZjJjZDM4YmYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6ODU0RUNENzAxRUUwMTFFOEIyODRFMEU4NzMyRTQ4NEQiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6ODU0RUNENkYxRUUwMTFFOEIyODRFMEU4NzMyRTQ4NEQiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6OTA3NzI0NjctNmFmMy00MGFjLWIyNDktNjlkNmQ4NTcyZDhlIiBzdFJlZjpkb2N1bWVudElEPSJhZG9iZTpkb2NpZDpwaG90b3Nob3A6YTBhMTc2ZDgtNjRiNC04MTRhLWI5ZjctMTQxNjY3YjYzMTcyIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+89GJJAAAAVpJREFUeNpibGqbPJuBgeEvEDOzAIkXQPwciCUBAogRKDMDyGAAiWaAGAABxAhVex6IpwFxLhDrAQQQXBkMgJQvA+JDUL4dE5CYgKRgAkAAgbTcBTIMgfgTAybgA9kB0rUfqqAOiOdDJRcAcQ1UfD/ILhcgZkNSIAvEtVA2SNwFIIBA1vUDGZwM2MF3kCkyQByKQ8EaJqjkJSySV4E4hAXK0QPiz0AsD+U/AmIeWKD4A7EyEPMCsQ4Q/4dKFgHxXZCCc1AM8sFHJN+sBjEAAgzki3tA2gbqd0EG4sE7IOYH4iNM0LhxA+KjQKwKxI+JwBpAfAKqbxnIEAloTOgD8WWooT04bAfF/XJostGF6pMAGcIEVSANxCuB+CcQVwNxKRDvBOJGIN4O5ZeBIgqIV0HVgwATKNDMgHgdNE04IdnaDcXoIAlKawHxZCBWAxlyHBpveQykgwdA/BYAbmlSeKHjCzAAAAAASUVORK5CYII=&quot;); background-position: 2px 50%; background-repeat: no-repeat;">Feedback</a>
+      </div>
+      <div class="footer__t"></div>
+      <p class="footer__cm"
+         style="padding: 0px 5px; margin: 20px 0px 0px; font: inherit; color: inherit; text-align: center;">By clicking
+        the «order» button you confirm that you have read <a href="javascript:void(0);" target="_blank"
+                                                             style="display: inline-block; vertical-align: bottom; padding: 0px 5px; font: inherit; color: inherit; text-decoration: none;">Privacy
+          Policy</a> and give your consent to the procession of your personal data.</p></div>
+  </div>
+</div>
+<script src="{% static 'js/libs/jquery.bxslider.min.js' %}"></script>
+<script src="{% static 'js/libs/common.js' %}"></script>
+<script src="{% static 'js/libs/tl-validator.js' %}?country=mk&label=true"></script>
+</body>
+</html>

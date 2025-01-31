@@ -152,7 +152,7 @@ const statusCounts = computed(() => {
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
               <template v-for="order in orders" :key="order.id">
-                <OrderRow :order="order" @showCustomerHistory="showCustomerHistory" />
+                <OrderRow :="order" @showCustomerHistory="showCustomerHistory" />
               </template>
             </tbody>
           </table>
