@@ -1,4 +1,4 @@
-<script setup lang="jsx"></script>
+<script setup></script>
 <template>
   <router-view />
 </template>
