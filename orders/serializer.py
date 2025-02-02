@@ -6,9 +6,11 @@ from products.serializers import ProductSerializer
 
 
 class CustomerSerializer(serializers.ModelSerializer):
+    has_history = serializers.BooleanField(read_only=True)
+
     class Meta:
         model = Customer
-        fields = ["id", "name", "phone"]
+        fields = ["id", "name", "phone", "has_history"]
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
@@ -26,4 +28,13 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ["id", "status", "agent", "customer", "order_item"]
+        fields = [
+            "id",
+            "status",
+            "agent",
+            "customer",
+            "order_item",
+            "address",
+            "created_at",
+            "updated_at",
+        ]

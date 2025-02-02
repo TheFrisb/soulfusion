@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "core",
     "products",
     "orders",
+    "scripts",
 ]
 
 MIDDLEWARE = [

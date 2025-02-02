@@ -1,143 +1,52 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import TopBar from '../components/layout/TopBar.vue'
 import SideBar from '../components/layout/SideBar.vue'
 import StatusBadge from '../components/dashboard/StatusBadge.vue'
 import ProductInfoModal from '../components/dashboard/ProductInfoModal.vue'
 import ConfirmOrderModal from '../components/dashboard/ConfirmOrderModal.vue'
+import { getOrder } from '@/http/orders.js'
+import { getOrderProductName, getOrderQuantity, getOrderTotalPrice } from '../utils/helpers.js'
+import { useOrdersStore } from '@/stores/useOrdersStore.js'
+import { ORDER_STATUS } from '@/utils/constants/orderStatus.js'
+import { useToast } from 'vue-toastification'
 
 const router = useRouter()
 const newComment = ref('')
 const showProductInfo = ref(false)
 const showConfirmModal = ref(false)
+const order = ref({})
 
-// Mock data for the current order
-const order = {
-  id: '1',
-  status: 'take',
-  productId: 'P001',
-  productName: 'Premium Widget',
-  quantity: 2,
-  totalPrice: 199.99,
-  clickId: '1',
-  createdAt: '2024-02-20 14:30',
-  agent: 'John Doe',
-  customer: {
-    id: '1',
-    name: 'John Smith',
-    email: 'john.smith@example.com',
-    phone: '+1 (555) 123-4567',
-    address: '123 Main St, Anytown, USA',
-  },
-  comments: [
-    {
-      id: '1',
-      text: 'Initial contact made',
-      agent: 'John Doe',
-      createdAt: '2024-02-20 14:35',
-    },
-  ],
-}
+const orderStore = useOrdersStore()
 
-// Mock data for customer's order history
-const customerHistory = [
-  {
-    id: '2',
-    status: 'paid',
-    productId: 'P003',
-    productName: 'Deluxe Package',
-    quantity: 3,
-    totalPrice: 599.99,
-    clickId: '3',
-    createdAt: '2024-02-19 16:15',
-    agent: 'Bob Wilson',
-    comments: [
-      {
-        id: '1',
-        text: 'Follow-up order from previous purchase. Very satisfied customer.',
-        agent: 'Bob Wilson',
-        createdAt: '2024-02-19 16:16',
-      },
-      {
-        id: '2',
-        text: 'Customer mentioned interest in bulk ordering next month',
-        agent: 'Bob Wilson',
-        createdAt: '2024-02-19 16:20',
-      },
-    ],
-    customer: order.customer,
-  },
-  {
-    id: '3',
-    status: 'shipped',
-    productId: 'P002',
-    productName: 'Premium Widget Pro',
-    quantity: 1,
-    totalPrice: 299.99,
-    clickId: '4',
-    createdAt: '2024-02-18 10:30',
-    agent: 'Jane Smith',
-    comments: [
-      {
-        id: '1',
-        text: 'Customer requested express shipping',
-        agent: 'Jane Smith',
-        createdAt: '2024-02-18 10:35',
-      },
-    ],
-    customer: order.customer,
-  },
-]
+const toast = useToast({
+  position: 'bottom-right',
+})
 
-function formatDate(dateString) {
-  const date = new Date(dateString)
-  return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}, ${date
-    .getDate()
-    .toString()
-    .padStart(
-      2,
-      '0',
-    )}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear().toString().slice(-2)}`
-}
+onMounted(async () => {
+  console.log(router.currentRoute.value.params.id)
+  try {
+    const orderId = router.currentRoute.value.params.id
+    order.value = await getOrder(orderId)
+  } catch (error) {
+    console.error('Failed to fetch order:', error)
+  }
+})
 
 function addComment() {
-  if (!newComment.value.trim()) return
-
-  order.comments.push({
-    id: Date.now().toString(),
-    text: newComment.value,
-    agent: 'John Doe',
-    createdAt: new Date().toISOString(),
-  })
-
-  newComment.value = ''
+  console.log(`New comment added: `)
 }
 
 async function updateStatus(newStatus) {
-  if (newStatus === 'confirmed') {
-    showConfirmModal.value = true
-    return
-  }
-
-  order.status = newStatus
-  router.push('/my-pendings')
+  orderStore.changeOrderStatus(order.value.id, newStatus).then(() => {
+    toast.success(`Order #${order.value.id} status updated to ${newStatus}`)
+    router.push('/my-pendings')
+  })
 }
 
-function handleOrderConfirm({ quantity, address, comment }) {
-  order.quantity = quantity
-  order.customer.address = address
-  if (comment) {
-    order.comments.push({
-      id: Date.now().toString(),
-      text: comment,
-      agent: 'John Doe',
-      createdAt: new Date().toISOString(),
-    })
-  }
-  order.status = 'confirmed'
-  showConfirmModal.value = false
-  router.push('/my-pendings')
+function handleOrderConfirm() {
+  console.log('Order confirmed')
 }
 </script>
 
@@ -165,36 +74,38 @@ function handleOrderConfirm({ quantity, address, comment }) {
           <span class="font-medium">Go Back</span>
         </button>
 
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+        <div v-if="!order.id" class="text-gray-500 text-center">Loading order details...</div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-8" v-else>
           <!-- Order Header -->
           <div class="flex items-center justify-between mb-8">
             <div>
-              <h1 class="text-2xl font-bold text-gray-900 mb-2">Order #{{ order.clickId }}</h1>
+              <h1 class="text-2xl font-bold text-gray-900 mb-2">Order #{{ order.id }}</h1>
               <StatusBadge :status="order.status" />
             </div>
 
             <!-- Action Buttons -->
             <div class="flex items-center gap-3">
               <button
-                @click="updateStatus('callAgain')"
+                @click="updateStatus(ORDER_STATUS.CALL_AGAIN)"
                 class="px-4 py-2 text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-lg transition-colors"
               >
                 Call Again
               </button>
               <button
-                @click="updateStatus('confirmed')"
+                @click="updateStatus(ORDER_STATUS.CONFIRMED)"
                 class="px-4 py-2 text-sm font-medium text-white bg-green-600 hover:bg-green-700 rounded-lg transition-colors"
               >
                 Confirm
               </button>
               <button
-                @click="updateStatus('trash')"
+                @click="updateStatus(ORDER_STATUS.TRASHED)"
                 class="px-4 py-2 text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 rounded-lg transition-colors"
               >
                 Trash
               </button>
               <button
-                @click="updateStatus('canceled')"
+                @click="updateStatus(ORDER_STATUS.CANCELLED)"
                 class="px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-lg transition-colors"
               >
                 Cancel
@@ -214,14 +125,6 @@ function handleOrderConfirm({ quantity, address, comment }) {
                 <span class="text-sm text-gray-500">Phone</span>
                 <p class="text-gray-900 font-bold">{{ order.customer.phone }}</p>
               </div>
-              <div>
-                <span class="text-sm text-gray-500">Email</span>
-                <p class="text-gray-900 font-medium">{{ order.customer.email }}</p>
-              </div>
-              <div>
-                <span class="text-sm text-gray-500">Address</span>
-                <p class="text-gray-900 font-medium">{{ order.customer.address }}</p>
-              </div>
             </div>
           </div>
 
@@ -231,7 +134,7 @@ function handleOrderConfirm({ quantity, address, comment }) {
             <div class="grid grid-cols-3 gap-4">
               <div>
                 <span class="text-sm text-gray-500">Product</span>
-                <p class="text-gray-900 font-medium">{{ order.productName }}</p>
+                <p class="text-gray-900 font-medium">{{ getOrderProductName(order) }}</p>
                 <button
                   @click="showProductInfo = true"
                   class="mt-2 text-primary-600 hover:text-primary-700 text-sm font-medium inline-flex items-center gap-1"
@@ -249,11 +152,11 @@ function handleOrderConfirm({ quantity, address, comment }) {
               </div>
               <div>
                 <span class="text-sm text-gray-500">Quantity</span>
-                <p class="text-gray-900 font-medium">{{ order.quantity }}</p>
+                <p class="text-gray-900 font-medium">{{ getOrderQuantity(order) }}</p>
               </div>
               <div>
                 <span class="text-sm text-gray-500">Total Price</span>
-                <p class="text-gray-900 font-medium">${{ order.totalPrice }}</p>
+                <p class="text-gray-900 font-medium">{{ getOrderTotalPrice(order) }} MKD</p>
               </div>
             </div>
           </div>
@@ -282,93 +185,93 @@ function handleOrderConfirm({ quantity, address, comment }) {
             </div>
 
             <!-- Comments List -->
-            <div class="space-y-4">
-              <div
-                v-for="comment in order.comments"
-                :key="comment.id"
-                class="bg-blue-50 rounded-lg p-4"
-              >
-                <div class="flex items-center justify-between mb-2">
-                  <span class="font-medium text-primary-600">{{ comment.agent }}</span>
-                  <span class="text-sm text-gray-500">{{ formatDate(comment.createdAt) }}</span>
-                </div>
-                <p class="text-sm text-gray-700">{{ comment.text }}</p>
-              </div>
-            </div>
+            <!--            <div class="space-y-4">-->
+            <!--              <div-->
+            <!--                v-for="comment in order.comments"-->
+            <!--                :key="comment.id"-->
+            <!--                class="bg-blue-50 rounded-lg p-4"-->
+            <!--              >-->
+            <!--                <div class="flex items-center justify-between mb-2">-->
+            <!--                  <span class="font-medium text-primary-600">{{ comment.agent }}</span>-->
+            <!--                  <span class="text-sm text-gray-500">{{ formatDate(comment.createdAt) }}</span>-->
+            <!--                </div>-->
+            <!--                <p class="text-sm text-gray-700">{{ comment.text }}</p>-->
+            <!--              </div>-->
+            <!--            </div>-->
           </div>
 
           <!-- Customer History Section -->
-          <div class="mt-12 pt-8 border-t border-gray-200">
-            <h2 class="text-lg font-semibold text-gray-900 mb-6">Customer History</h2>
-            <div class="space-y-6">
-              <div
-                v-for="historyOrder in customerHistory"
-                :key="historyOrder.id"
-                class="bg-white rounded-lg p-6 space-y-4 border border-gray-200 shadow-sm hover:shadow-md transition-shadow"
-              >
-                <!-- Header Section -->
-                <div class="flex items-center justify-between border-b border-gray-100 pb-4">
-                  <div class="flex items-center gap-3">
-                    <span class="text-sm font-medium text-gray-500">Order ID: </span>
-                    <span class="text-sm font-bold text-gray-900">#{{ historyOrder.clickId }}</span>
-                    <StatusBadge :status="historyOrder.status" />
-                  </div>
-                  <span class="text-sm font-medium text-gray-600">{{
-                    formatDate(historyOrder.createdAt)
-                  }}</span>
-                </div>
+          <!--          <div class="mt-12 pt-8 border-t border-gray-200">-->
+          <!--            <h2 class="text-lg font-semibold text-gray-900 mb-6">Customer History</h2>-->
+          <!--            <div class="space-y-6">-->
+          <!--              <div-->
+          <!--                v-for="historyOrder in customerHistory"-->
+          <!--                :key="historyOrder.id"-->
+          <!--                class="bg-white rounded-lg p-6 space-y-4 border border-gray-200 shadow-sm hover:shadow-md transition-shadow"-->
+          <!--              >-->
+          <!--                &lt;!&ndash; Header Section &ndash;&gt;-->
+          <!--                <div class="flex items-center justify-between border-b border-gray-100 pb-4">-->
+          <!--                  <div class="flex items-center gap-3">-->
+          <!--                    <span class="text-sm font-medium text-gray-500">Order ID: </span>-->
+          <!--                    <span class="text-sm font-bold text-gray-900">#{{ historyOrder.id }}</span>-->
+          <!--                    <StatusBadge :status="historyOrder.status" />-->
+          <!--                  </div>-->
+          <!--                  <span class="text-sm font-medium text-gray-600">{{-->
+          <!--                    formatDate(historyOrder.createdAt)-->
+          <!--                  }}</span>-->
+          <!--                </div>-->
 
-                <!-- Order Details -->
-                <div class="grid grid-cols-3 gap-6 py-4 border-b border-gray-100">
-                  <div>
-                    <span class="text-xs uppercase tracking-wider text-gray-500">Products</span>
-                    <p class="mt-1 text-sm font-medium text-gray-900">
-                      {{ historyOrder.productName }} x {{ historyOrder.quantity }}
-                    </p>
-                  </div>
-                  <div>
-                    <span class="text-xs uppercase tracking-wider text-gray-500">Total Price</span>
-                    <p class="mt-1 text-sm font-medium text-gray-900">
-                      ${{ historyOrder.totalPrice.toFixed(2) }}
-                    </p>
-                  </div>
-                  <div>
-                    <span class="text-xs uppercase tracking-wider text-gray-500">Agent</span>
-                    <p class="mt-1 text-sm font-medium text-gray-900">
-                      <span :class="historyOrder.agent ? 'text-primary-600' : ''">
-                        {{ historyOrder.agent || 'Unassigned' }}
-                      </span>
-                    </p>
-                  </div>
-                </div>
+          <!--                &lt;!&ndash; Order Details &ndash;&gt;-->
+          <!--                <div class="grid grid-cols-3 gap-6 py-4 border-b border-gray-100">-->
+          <!--                  <div>-->
+          <!--                    <span class="text-xs uppercase tracking-wider text-gray-500">Products</span>-->
+          <!--                    <p class="mt-1 text-sm font-medium text-gray-900">-->
+          <!--                      {{ historyOrder.productName }} x {{ historyOrder.quantity }}-->
+          <!--                    </p>-->
+          <!--                  </div>-->
+          <!--                  <div>-->
+          <!--                    <span class="text-xs uppercase tracking-wider text-gray-500">Total Price</span>-->
+          <!--                    <p class="mt-1 text-sm font-medium text-gray-900">-->
+          <!--                      ${{ historyOrder.totalPrice.toFixed(2) }}-->
+          <!--                    </p>-->
+          <!--                  </div>-->
+          <!--                  <div>-->
+          <!--                    <span class="text-xs uppercase tracking-wider text-gray-500">Agent</span>-->
+          <!--                    <p class="mt-1 text-sm font-medium text-gray-900">-->
+          <!--                      <span :class="historyOrder.agent ? 'text-primary-600' : ''">-->
+          <!--                        {{ historyOrder.agent || 'Unassigned' }}-->
+          <!--                      </span>-->
+          <!--                    </p>-->
+          <!--                  </div>-->
+          <!--                </div>-->
 
-                <!-- Comments Section -->
-                <div class="pt-4">
-                  <h4 class="text-sm font-semibold text-gray-900 mb-3">Comments</h4>
-                  <div class="space-y-3">
-                    <div
-                      v-for="comment in historyOrder.comments"
-                      :key="comment.id"
-                      class="bg-blue-50 rounded-lg p-3 space-y-2"
-                    >
-                      <div class="flex items-center justify-between">
-                        <span class="text-sm font-medium text-primary-600">{{
-                          comment.agent
-                        }}</span>
-                        <span class="text-xs text-gray-500">{{
-                          formatDate(comment.createdAt)
-                        }}</span>
-                      </div>
-                      <p class="text-sm text-gray-700">{{ comment.text }}</p>
-                    </div>
-                    <p v-if="!historyOrder.comments?.length" class="text-sm text-gray-500 italic">
-                      No comments yet
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <!--                &lt;!&ndash; Comments Section &ndash;&gt;-->
+          <!--                <div class="pt-4">-->
+          <!--                  <h4 class="text-sm font-semibold text-gray-900 mb-3">Comments</h4>-->
+          <!--                  <div class="space-y-3">-->
+          <!--                    <div-->
+          <!--                      v-for="comment in historyOrder.comments"-->
+          <!--                      :key="comment.id"-->
+          <!--                      class="bg-blue-50 rounded-lg p-3 space-y-2"-->
+          <!--                    >-->
+          <!--                      <div class="flex items-center justify-between">-->
+          <!--                        <span class="text-sm font-medium text-primary-600">{{-->
+          <!--                          comment.agent-->
+          <!--                        }}</span>-->
+          <!--                        <span class="text-xs text-gray-500">{{-->
+          <!--                          formatDate(comment.createdAt)-->
+          <!--                        }}</span>-->
+          <!--                      </div>-->
+          <!--                      <p class="text-sm text-gray-700">{{ comment.text }}</p>-->
+          <!--                    </div>-->
+          <!--                    <p v-if="!historyOrder.comments?.length" class="text-sm text-gray-500 italic">-->
+          <!--                      No comments yet-->
+          <!--                    </p>-->
+          <!--                  </div>-->
+          <!--                </div>-->
+          <!--              </div>-->
+          <!--            </div>-->
+          <!--          </div>-->
         </div>
 
         <!-- Product Information Modal -->

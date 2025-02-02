@@ -142,12 +142,12 @@ const filteredProducts = computed(() => {
                 </td>
                 <td class="px-6 py-4">
                   <span class="text-sm font-medium text-gray-900"
-                    >${{ product.stock_price.toFixed(2) }}</span
+                    >{{ product.stock_price.toFixed(2) }} MKD</span
                   >
                 </td>
                 <td class="px-6 py-4">
                   <span class="text-sm font-medium text-gray-900"
-                    >${{ product.sale_price.toFixed(2) }}</span
+                    >{{ product.sale_price.toFixed(2) }} MKD</span
                   >
                 </td>
                 <td class="px-6 py-4">

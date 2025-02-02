@@ -22,7 +22,7 @@ class OrderForm(forms.Form):
 
         product = Product.objects.get(id=product_id)
         OrderItem.objects.create(
-            order=order, product=product, quantity=1, price=product.sale_price 
+            order=order, product=product, quantity=1, price=product.sale_price
         )
 
         return order

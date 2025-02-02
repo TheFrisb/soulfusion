@@ -7,7 +7,7 @@ urlpatterns = [
     path(
         "product-page/<slug:slug>/",
         ProductPageFormView.as_view(),
-        name="product-page", 
+        name="product-page",
     ),
     path("thank-you/", ThankYouView.as_view(), name="thank-you"),
 ]

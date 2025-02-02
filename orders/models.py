@@ -12,6 +12,19 @@ class Customer(BaseInternalModel):
         return f"{self.name} - {self.phone}"
 
 
+class CustomerComment(BaseInternalModel):
+    customer = models.ForeignKey(
+        Customer, on_delete=models.CASCADE, related_name="comments"
+    )
+    comment = models.TextField()
+    agent = models.ForeignKey(
+        "accounts.User", on_delete=models.CASCADE, null=True, blank=True
+    )
+
+    def __str__(self):
+        return f"{self.customer} - {self.comment}"
+
+
 class Order(BaseInternalModel):
     class Status(models.TextChoices):
         PENDING = "PENDING", "Pending"
@@ -32,7 +45,10 @@ class Order(BaseInternalModel):
     agent = models.ForeignKey(
         "accounts.User", on_delete=models.CASCADE, null=True, blank=True
     )
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    customer = models.ForeignKey(
+        Customer, on_delete=models.CASCADE, related_name="orders"
+    )
+    address = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
         return f"{self.pk} - {self.status} - {self.customer}"

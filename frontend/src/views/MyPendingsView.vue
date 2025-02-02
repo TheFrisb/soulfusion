@@ -1,62 +1,18 @@
 <script setup>
-import { computed, ref } from 'vue'
 import TopBar from '../components/layout/TopBar.vue'
 import SideBar from '../components/layout/SideBar.vue'
 import StatusBadge from '../components/dashboard/StatusBadge.vue'
-import CustomerHistoryModal from '../components/dashboard/CustomerHistoryModal.vue'
+import { usePendingOrdersStore } from '@/stores/usePendingOrdersStore.js'
+import {
+  getCurrentDate,
+  getOrderProductName,
+  getOrderQuantity,
+  getOrderTotalPrice,
+} from '../utils/helpers.js'
 
-const selectedCustomer = ref(null)
-// Mock data - would come from a store in production
-const currentUser = 'John Doe'
+const pendingOrdersStore = usePendingOrdersStore()
 
-const orders = [
-  {
-    id: '1',
-    status: 'take',
-    productId: 'P001',
-    productName: 'Premium Widget',
-    quantity: 2,
-    totalPrice: 199.99,
-    clickId: '1',
-    createdAt: '2024-02-20 14:30',
-    agent: 'John Doe',
-    customer: {
-      id: '1',
-      name: 'John Smith',
-      email: 'john.smith@example.com',
-      phone: '+1 (555) 123-4567',
-    },
-  },
-  {
-    id: '2',
-    status: 'callAgain',
-    productId: 'P002',
-    productName: 'Super Gadget',
-    quantity: 1,
-    totalPrice: 299.99,
-    clickId: '2',
-    createdAt: '2024-02-20 15:45',
-    agent: 'John Doe',
-    customer: {
-      id: '2',
-      name: 'Jane Wilson',
-      email: 'jane.wilson@example.com',
-      phone: '+1 (555) 987-6543',
-    },
-  },
-]
-
-const myPendings = computed(() =>
-  orders.filter(
-    (order) =>
-      (order.status === 'take' || order.status === 'callAgain') && order.agent === currentUser,
-  ),
-)
-
-function formatDate(dateString) {
-  const date = new Date(dateString)
-  return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}, ${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear().toString().slice(-2)}`
-}
+pendingOrdersStore.loadPendingOrders()
 </script>
 
 <template>
@@ -84,14 +40,7 @@ function formatDate(dateString) {
                   d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                 />
               </svg>
-              <span>{{
-                new Date().toLocaleDateString('en-US', {
-                  weekday: 'long',
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                })
-              }}</span>
+              <span>{{ getCurrentDate() }}</span>
             </div>
           </div>
         </div>
@@ -134,7 +83,7 @@ function formatDate(dateString) {
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
               <tr
-                v-for="order in myPendings"
+                v-for="order in pendingOrdersStore.pendingOrders"
                 :key="order.id"
                 class="hover:bg-gray-50 transition-colors"
               >
@@ -142,19 +91,21 @@ function formatDate(dateString) {
                   <StatusBadge :status="order.status" />
                 </td>
                 <td class="px-6 py-4">
-                  <span class="text-sm font-medium text-gray-900">#{{ order.clickId }}</span>
+                  <span class="text-sm font-medium text-gray-900">#{{ order.id }}</span>
                 </td>
                 <td class="px-6 py-4">
                   <span class="text-sm text-gray-600">
-                    {{ order.productName }} x {{ order.quantity }}
+                    {{ getOrderProductName(order) }} x {{ getOrderQuantity(order) }}
                   </span>
                 </td>
                 <td class="px-6 py-4">
-                  <span class="text-sm font-medium text-gray-900">${{ order.totalPrice }}</span>
+                  <span class="text-sm font-medium text-gray-900"
+                    >{{ getOrderTotalPrice(order) }} MKD</span
+                  >
                 </td>
                 <td class="px-6 py-4">
                   <span
-                    v-if="order.customer"
+                    v-if="order.customer.has_history"
                     class="text-sm text-primary-600 hover:text-primary-700 cursor-pointer flex items-center gap-1"
                     @click="selectedCustomer = order.customer"
                   >
@@ -168,7 +119,8 @@ function formatDate(dateString) {
                       />
                     </svg>
                   </span>
-                  <span v-else class="text-sm text-gray-500 italic"> No customer </span>
+
+                  <span v-else class="text-sm text-gray-600">{{ order.customer.name }}</span>
                 </td>
                 <td class="px-6 py-4">
                   <router-link
@@ -191,12 +143,12 @@ function formatDate(dateString) {
           </table>
 
           <!-- Customer History Modal -->
-          <CustomerHistoryModal
-            v-if="selectedCustomer"
-            :customer="selectedCustomer"
-            :calls="orders.filter((call) => call.customer?.id === selectedCustomer.id)"
-            @close="selectedCustomer = null"
-          />
+          <!--          <CustomerHistoryModal-->
+          <!--            v-if="selectedCustomer"-->
+          <!--            :customer="selectedCustomer"-->
+          <!--            :calls="orders.filter((call) => call.customer?.id === selectedCustomer.id)"-->
+          <!--            @close="selectedCustomer = null"-->
+          <!--          />-->
         </div>
       </div>
     </main>

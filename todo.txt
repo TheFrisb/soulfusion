@@ -1,0 +1,15 @@
+4. Call page:
+- Render call details
+- Render customer history (if exists)
+- Add comment functionality
+
+5. Call confirm
+- Render the modal
+- Make the modal save the order with details
+- Make add comment optional
+- Make the modal close after saving
+
+6. Orders filtering
+- Filter by date
+- Filter by status
+- Pagination

@@ -1,19 +1,14 @@
 <script setup>
 import { computed } from 'vue'
 import StatusBadge from './StatusBadge.vue'
+import { formatDate } from '@/utils/helpers.js'
 
 const props = defineProps({
   customer: {
     type: Object,
     required: true,
-    default: () => ({
-      id: '',
-      name: '',
-      email: '',
-      phone: '',
-    }),
   },
-  calls: {
+  orders: {
     type: Array,
     required: true,
     default: () => [],
@@ -22,22 +17,11 @@ const props = defineProps({
 
 const emit = defineEmits(['close'])
 
-const sortedCalls = computed(() => {
-  return [...props.calls].sort(
+const sortedOrders = computed(() => {
+  return [...props.orders].sort(
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
   )
 })
-
-function formatDate(dateString) {
-  const date = new Date(dateString)
-  return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}, ${date
-    .getDate()
-    .toString()
-    .padStart(
-      2,
-      '0',
-    )}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear().toString().slice(-2)}`
-}
 </script>
 
 <template>
@@ -70,19 +54,19 @@ function formatDate(dateString) {
       <div class="flex-1 overflow-y-auto p-6">
         <div class="space-y-6">
           <div
-            v-for="call in sortedCalls"
-            :key="call.id"
+            v-for="order in sortedOrders"
+            :key="order.id"
             class="bg-white rounded-lg p-6 space-y-4 border border-gray-200 shadow-sm hover:shadow-md transition-shadow"
           >
             <!-- Header Section -->
             <div class="flex items-center justify-between border-b border-gray-100 pb-4">
               <div class="flex items-center gap-3">
                 <span class="text-sm font-medium text-gray-500">Order ID: </span>
-                <span class="text-sm font-bold text-gray-900">#{{ call.clickId }}</span>
-                <StatusBadge :status="call.status" />
+                <span class="text-sm font-bold text-gray-900">#{{ order.clickId }}</span>
+                <StatusBadge :status="order.status" />
               </div>
               <span class="text-sm font-medium text-gray-600">{{
-                formatDate(call.createdAt)
+                formatDate(order.createdAt)
               }}</span>
             </div>
 
@@ -91,20 +75,20 @@ function formatDate(dateString) {
               <div>
                 <span class="text-xs uppercase tracking-wider text-gray-500">Products</span>
                 <p class="mt-1 text-sm font-medium text-gray-900">
-                  {{ call.productName }} x {{ call.quantity }}
+                  {{ order.productName }} x {{ order.quantity }}
                 </p>
               </div>
               <div>
                 <span class="text-xs uppercase tracking-wider text-gray-500">Total Price</span>
                 <p class="mt-1 text-sm font-medium text-gray-900">
-                  ${{ call.totalPrice.toFixed(2) }}
+                  ${{ order.totalPrice.toFixed(2) }}
                 </p>
               </div>
               <div>
                 <span class="text-xs uppercase tracking-wider text-gray-500">Agent</span>
                 <p class="mt-1 text-sm font-medium text-gray-900">
-                  <span :class="call.agent ? 'text-primary-600' : ''">
-                    {{ call.agent || 'Unassigned' }}
+                  <span :class="order.agent ? 'text-primary-600' : ''">
+                    {{ order.agent || 'Unassigned' }}
                   </span>
                 </p>
               </div>
@@ -115,7 +99,7 @@ function formatDate(dateString) {
               <h4 class="text-sm font-semibold text-gray-900 mb-3">Comments</h4>
               <div class="space-y-3">
                 <div
-                  v-for="comment in call.comments"
+                  v-for="comment in order.comments"
                   :key="comment.id"
                   class="bg-blue-50 rounded-lg p-3 space-y-2"
                 >
@@ -125,7 +109,7 @@ function formatDate(dateString) {
                   </div>
                   <p class="text-sm text-gray-700">{{ comment.text }}</p>
                 </div>
-                <p v-if="!call.comments?.length" class="text-sm text-gray-500 italic">
+                <p v-if="!order.comments?.length" class="text-sm text-gray-500 italic">
                   No comments yet
                 </p>
               </div>

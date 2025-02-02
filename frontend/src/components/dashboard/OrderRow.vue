@@ -1,36 +1,27 @@
 <script setup>
 import { computed, ref } from 'vue'
 import StatusBadge from './StatusBadge.vue'
-
-// Mock agents data
-const agents = [
-  { id: 0, name: 'John Doe' },
-  { id: 1, name: 'Jane Smith' },
-  { id: 3, name: 'Alice Johnson' },
-  { id: 4, name: 'Bob Wilson' },
-  { id: 5, name: 'Sarah Davis' },
-]
+import {
+  formatDate,
+  getAgentName,
+  getOrderProductName,
+  getOrderQuantity,
+  getOrderTotalPrice,
+} from '@/utils/helpers.js'
+import { ORDER_STATUS_CSS_MAP, ORDER_STATUS_LIST } from '@/utils/constants/orderStatus.js'
+import { CheckCheck } from 'lucide-vue-next'
+import { useOrdersStore } from '@/stores/useOrdersStore.js'
+import { useAgentStore } from '@/stores/useAgentStore.js'
 
 const props = defineProps({
   order: {
     type: Object,
     required: true,
-    default: () => ({
-      id: '',
-      stock: 0,
-      status: '',
-      productId: '',
-      productName: '',
-      quantity: 0,
-      totalPrice: 0,
-      clickId: '',
-      createdAt: '',
-      agent: null,
-      comments: null,
-      customer: null,
-    }),
   },
 })
+
+const ordersStore = useOrdersStore()
+const agentStore = useAgentStore()
 
 const emit = defineEmits(['showCustomerHistory'])
 
@@ -38,45 +29,25 @@ const isExpanded = ref(false)
 const showAgentDropdown = ref(false)
 const agentSearch = ref('')
 
+const showStatusDropdown = ref(false)
+const statuses = ORDER_STATUS_LIST
+
+function assignAgent(agentId) {
+  ordersStore.assignOrderToAgent(props.order.id, agentId)
+  showAgentDropdown.value = false
+}
+
+function clearOrderAgent() {
+  ordersStore.removeAgentFromOrder(props.order.id)
+  showAgentDropdown.value = false
+}
+
 const filteredAgents = computed(() => {
   const search = agentSearch.value.toLowerCase()
-  return agents.filter((agent) => agent.name.toLowerCase().includes(search))
+  return (agentStore.agents || []).filter((agent) =>
+    (agent.name || '').toLowerCase().includes(search),
+  )
 })
-
-const showStatusDropdown = ref(false)
-const statuses = [
-  'pending',
-  'take',
-  'callgain',
-  'confirmed',
-  'shipped',
-  'returned',
-  'paid',
-  'trash',
-  'canceled',
-]
-
-const formattedDate = computed(() => {
-  const date = new Date(props.call.createdAt)
-  return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}, ${date
-    .getDate()
-    .toString()
-    .padStart(
-      2,
-      '0',
-    )}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear().toString().slice(-2)}`
-})
-
-function assignAgent(agentName) {
-  props.call.agent = agentName
-  showAgentDropdown.value = false
-  agentSearch.value = ''
-}
-
-function updateStatus(newStatus) {
-  props.call.status = newStatus
-  showStatusDropdown.value = false
-}
 </script>
 
 <template>
@@ -88,8 +59,8 @@ function updateStatus(newStatus) {
   >
     <td class="px-6 py-4 w-[180px]">
       <div class="relative">
-        <button @click.stop="showStatusDropdown = !showStatusDropdown" class="w-full text-left">
-          <StatusBadge :status="call.status" />
+        <button @click.stop="showStatusDropdown = !showStatusDropdown" class="w-auto text-left">
+          <StatusBadge :status="order.status" />
         </button>
 
         <!-- Status Dropdown -->
@@ -102,41 +73,46 @@ function updateStatus(newStatus) {
             <button
               v-for="status in statuses"
               :key="status"
-              @click="updateStatus(status)"
+              @click="ordersStore.changeOrderStatus(order.id, status)"
               class="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 flex items-center gap-2"
             >
-              <div class="w-3 h-3 rounded-full" :class="`bg-status-${status}`" />
+              <div class="w-3 h-3 rounded-full" :class="ORDER_STATUS_CSS_MAP[status].bg" />
               <span
                 class="capitalize"
                 :class="{
-                  'text-gray-900 font-medium': call.status === status,
-                  'text-gray-600': call.status !== status,
+                  'text-gray-900 font-bold': order.status === status,
+                  'text-gray-600': order.status !== status,
                 }"
               >
                 {{ status }}
               </span>
+
+              <CheckCheck v-if="order.status === status" class="w-6 h-6 text-brand-soul" />
             </button>
           </div>
         </div>
       </div>
     </td>
     <td class="px-6 py-4 w-[200px]">
-      <span class="text-sm font-medium text-gray-900">#{{ call.clickId }}</span>
+      <span class="text-sm font-medium text-gray-900">#{{ order.id }}</span>
     </td>
     <td class="px-6 py-4 w-[300px]">
-      <span class="text-sm text-gray-600"> {{ call.productName }} x {{ call.quantity }} </span>
+      <span class="text-sm text-gray-600">
+        {{ getOrderProductName(order) }} x {{ getOrderQuantity(order) }}
+      </span>
     </td>
     <td class="px-6 py-4 w-[150px]">
-      <span class="text-sm font-medium text-gray-900">${{ call.totalPrice }}</span>
+      <span class="text-sm font-medium text-gray-900">{{ getOrderTotalPrice(order) }} MKD</span>
     </td>
     <td class="px-6 py-4 w-[200px]">
       <div class="relative">
-        <div v-if="call.agent" class="flex items-center space-x-2">
-          <span class="text-sm text-gray-900">{{ call.agent }}</span>
-          <button
-            class="p-1 text-gray-400 hover:text-primary-600"
-            @click.stop="showAgentDropdown = true"
-          >
+        <div
+          v-if="order.agent"
+          class="flex items-center space-x-2"
+          @click.stop="showAgentDropdown = true"
+        >
+          <span class="text-sm text-gray-900">{{ getAgentName(order.agent) }}</span>
+          <button class="p-1 text-gray-400 hover:text-primary-600">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 stroke-linecap="round"
@@ -172,7 +148,7 @@ function updateStatus(newStatus) {
           <div class="max-h-48 overflow-y-auto">
             <button
               class="w-full px-4 py-2 text-left text-sm text-gray-600 hover:bg-gray-50"
-              @click="assignAgent(null)"
+              @click="clearOrderAgent"
             >
               Unassigned
             </button>
@@ -180,9 +156,9 @@ function updateStatus(newStatus) {
               v-for="agent in filteredAgents"
               :key="agent.id"
               class="w-full px-4 py-2 text-left text-sm text-gray-900 hover:bg-gray-50"
-              @click="assignAgent(agent.name)"
+              @click="assignAgent(agent.id)"
             >
-              {{ agent.name }}
+              {{ agent.first_name }} {{ agent.last_name }}
             </button>
           </div>
         </div>
@@ -209,15 +185,15 @@ function updateStatus(newStatus) {
         <div class="space-y-3 py-3">
           <div>
             <span class="font-medium text-gray-700">Click ID:</span>
-            <span class="ml-2 text-gray-600">{{ call.clickId }}</span>
+            <span class="ml-2 text-gray-600">{{ order.id }}</span>
           </div>
           <div>
             <span class="font-medium text-gray-700">Created:</span>
-            <span class="ml-2 text-gray-600">{{ formattedDate }}</span>
+            <span class="ml-2 text-gray-600">{{ formatDate(order.created_at) }}</span>
           </div>
           <div>
             <span class="font-medium text-gray-700">Agent:</span>
-            <span class="ml-2 text-gray-600">{{ call.agent || 'Unassigned' }}</span>
+            <span class="ml-2 text-gray-600">{{ order.agent || 'Unassigned' }}</span>
           </div>
         </div>
 
@@ -227,12 +203,12 @@ function updateStatus(newStatus) {
           <div class="flex items-center justify-start gap-2">
             <span class="font-medium text-gray-700">Customer:</span>
             <div>
-              <span v-if="!call.customer" class="text-gray-600">None</span>
-              <div v-else class="flex items-center gap-2">
-                <span class="text-gray-900">{{ call.customer.name }}</span>
+              <div class="flex items-center gap-2">
+                <span class="text-gray-900">{{ order.customer.name }}</span>
 
                 <button
-                  @click.stop="emit('showCustomerHistory', call.customer)"
+                  v-if="order.customer.has_history"
+                  @click.stop="emit('showCustomerHistory', order.customer)"
                   class="text-primary-600 hover:text-primary-700 font-medium flex items-center gap-2"
                 >
                   View History
@@ -252,7 +228,7 @@ function updateStatus(newStatus) {
           <!-- Phone -->
           <div>
             <span class="font-medium text-gray-700">Phone:</span>
-            <span class="ml-2 text-gray-600">{{ call.customer?.phone || 'N/A' }}</span>
+            <span class="ml-2 text-gray-600">{{ order.customer?.phone || 'N/A' }}</span>
           </div>
 
           <!-- Address -->
@@ -266,7 +242,7 @@ function updateStatus(newStatus) {
         <div class="pt-3">
           <div>
             <span class="font-medium text-gray-700">Product Stock:</span>
-            <span class="ml-2 text-gray-600">{{ call.stock }} units</span>
+            <span class="ml-2 text-gray-600">{{ order.order_item.product.stock }} units</span>
           </div>
         </div>
       </div>

@@ -5,21 +5,24 @@ import SideBar from '../components/layout/SideBar.vue'
 import DateFilter from '../components/dashboard/DateFilter.vue'
 import StatusCount from '../components/dashboard/StatusCount.vue'
 import { Calendar } from 'lucide-vue-next'
-import { fetchOrders } from '@/http/orders.js'
-import ORDER_STATUS from '@/utils/constants/orderStatus.js'
+import { ORDER_STATUS } from '@/utils/constants/orderStatus.js'
+import OrderRow from '@/components/dashboard/OrderRow.vue'
+import { useOrdersStore } from '@/stores/useOrdersStore.js'
+import { useAgentStore } from '@/stores/useAgentStore.js'
+import { getCurrentDate } from '../utils/helpers.js'
 
-const orders = ref([])
+const ordersStore = useOrdersStore()
+const agentStore = useAgentStore()
+
+onMounted(() => {
+  ordersStore.loadOrders()
+  agentStore.loadAgents()
+})
+
+const orders = computed(() => ordersStore.orders)
+
 const selectedPeriod = ref('today')
 const searchQuery = ref('')
-const selectedCustomer = ref(null)
-
-onMounted(async () => {
-  try {
-    orders.value = await fetchOrders()
-  } catch (error) {
-    console.error(error)
-  }
-})
 
 const statusCounts = computed(() => {
   const counts = {
@@ -42,6 +45,10 @@ const statusCounts = computed(() => {
 
   return Object.entries(counts).map(([status, count]) => ({ status, count }))
 })
+
+function handlePeriodChange(newPeriod) {
+  selectedPeriod.value = newPeriod
+}
 </script>
 
 <template>
@@ -62,14 +69,7 @@ const statusCounts = computed(() => {
 
             <div class="flex items-center gap-2 text-sm text-gray-600">
               <Calendar class="w-5 h-5" />
-              <span>{{
-                new Date().toLocaleDateString('en-US', {
-                  weekday: 'long',
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                })
-              }}</span>
+              <span>{{ getCurrentDate() }}</span>
             </div>
           </div>
           <DateFilter @period-change="handlePeriodChange" />
@@ -89,7 +89,7 @@ const statusCounts = computed(() => {
               <span class="hidden md:inline text-sm text-gray-600">
                 Showing orders for:
                 <span class="font-medium text-gray-900">
-                  {{ selectedPeriod.charAt(0).toUpperCase() + selectedPeriod.slice(1) }}
+                  {{ selectedPeriod === 'today' ? 'Today' : 'This Week' }}
                 </span>
               </span>
             </div>
@@ -151,9 +151,7 @@ const statusCounts = computed(() => {
               </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
-              <template v-for="order in orders" :key="order.id">
-                <OrderRow :="order" @showCustomerHistory="showCustomerHistory" />
-              </template>
+              <OrderRow :order="order" v-for="order in orders" :key="order.id" />
             </tbody>
           </table>
         </div>
