@@ -23,7 +23,7 @@ class OrderListView(ListAPIView):
             .select_related("agent", "order_item__product")
             .prefetch_related(
                 Prefetch("customer", queryset=self.get_customer_queryset())
-            )
+            ).order_by("-id")
         )
 
     def get_customer_queryset(self):

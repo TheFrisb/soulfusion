@@ -234,7 +234,7 @@ const filteredAgents = computed(() => {
           <!-- Address -->
           <div>
             <span class="font-medium text-gray-700">Address:</span>
-            <span class="ml-2 text-gray-600">Leninova 99</span>
+            <span class="ml-2 text-gray-600"></span>
           </div>
         </div>
 
