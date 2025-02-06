@@ -143,7 +143,7 @@ REST_FRAMEWORK = {
 
 # JWT Configuration
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),  # Access token lifetime
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=20),  # Access token lifetime
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),  # Refresh token lifetime
     "ROTATE_REFRESH_TOKENS": True,  # Rotate refresh tokens
     "BLACKLIST_AFTER_ROTATION": True,  # Blacklist old refresh tokens
