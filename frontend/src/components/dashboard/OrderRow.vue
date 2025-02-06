@@ -193,7 +193,7 @@ const filteredAgents = computed(() => {
           </div>
           <div>
             <span class="font-medium text-gray-700">Agent:</span>
-            <span class="ml-2 text-gray-600">{{ order.agent || 'Unassigned' }}</span>
+            <span class="ml-2 text-gray-600">{{ getAgentName(order.agent) || 'Unassigned' }}</span>
           </div>
         </div>
 
