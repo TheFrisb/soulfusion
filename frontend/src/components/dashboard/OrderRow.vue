@@ -12,6 +12,7 @@ import { ORDER_STATUS_CSS_MAP, ORDER_STATUS_LIST } from '@/utils/constants/order
 import { CheckCheck } from 'lucide-vue-next'
 import { useOrdersStore } from '@/stores/useOrdersStore.js'
 import { useAgentStore } from '@/stores/useAgentStore.js'
+import { onClickOutside } from '@vueuse/core'
 
 const props = defineProps({
   order: {
@@ -31,6 +32,18 @@ const agentSearch = ref('')
 
 const showStatusDropdown = ref(false)
 const statuses = ORDER_STATUS_LIST
+
+// Define refs for the dropdown container elements
+const statusDropdownRef = ref(null)
+const agentDropdownRef = ref(null)
+
+onClickOutside(statusDropdownRef, () => {
+  showStatusDropdown.value = false
+})
+
+onClickOutside(agentDropdownRef, () => {
+  showAgentDropdown.value = false
+})
 
 function assignAgent(agentId) {
   ordersStore.assignOrderToAgent(props.order.id, agentId)
@@ -58,7 +71,7 @@ const filteredAgents = computed(() => {
     @click="isExpanded = !isExpanded"
   >
     <td class="px-6 py-4 w-[180px]">
-      <div class="relative">
+      <div class="relative" ref="statusDropdownRef">
         <button @click.stop="showStatusDropdown = !showStatusDropdown" class="w-auto text-left">
           <StatusBadge :status="order.status" />
         </button>
@@ -105,7 +118,7 @@ const filteredAgents = computed(() => {
       <span class="text-sm font-medium text-gray-900">{{ getOrderTotalPrice(order) }} MKD</span>
     </td>
     <td class="px-6 py-4 w-[200px]">
-      <div class="relative">
+      <div ref="agentDropdownRef" class="relative">
         <div
           v-if="order.agent"
           class="flex items-center space-x-2"
