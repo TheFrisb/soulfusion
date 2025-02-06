@@ -31,5 +31,8 @@ export function getOrderTotalPrice(order) {
 }
 
 export function getAgentName(agent) {
+  if (!agent) {
+    return 'N/A'
+  }
   return `${agent.first_name} ${agent.last_name}`
 }

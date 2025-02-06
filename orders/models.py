@@ -12,19 +12,6 @@ class Customer(BaseInternalModel):
         return f"{self.name} - {self.phone}"
 
 
-class CustomerComment(BaseInternalModel):
-    customer = models.ForeignKey(
-        Customer, on_delete=models.CASCADE, related_name="comments"
-    )
-    comment = models.TextField()
-    agent = models.ForeignKey(
-        "accounts.User", on_delete=models.CASCADE, null=True, blank=True
-    )
-
-    def __str__(self):
-        return f"{self.customer} - {self.comment}"
-
-
 class Order(BaseInternalModel):
     class Status(models.TextChoices):
         PENDING = "PENDING", "Pending"
@@ -64,3 +51,17 @@ class OrderItem(BaseInternalModel):
 
     def __str__(self):
         return f"{self.product} - {self.quantity} - {self.price}"
+
+
+class CustomerComment(BaseInternalModel):
+    customer = models.ForeignKey(
+        Customer, on_delete=models.CASCADE, related_name="comments"
+    )
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True)
+    comment = models.TextField()
+    agent = models.ForeignKey(
+        "accounts.User", on_delete=models.CASCADE, null=True, blank=True
+    )
+
+    def __str__(self):
+        return f"{self.customer} - {self.comment}"

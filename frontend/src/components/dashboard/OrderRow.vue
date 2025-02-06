@@ -50,6 +50,11 @@ function assignAgent(agentId) {
   showAgentDropdown.value = false
 }
 
+function updateOrderStatus(status) {
+  ordersStore.changeOrderStatus(props.order.id, status)
+  showStatusDropdown.value = false
+}
+
 function clearOrderAgent() {
   ordersStore.removeAgentFromOrder(props.order.id)
   showAgentDropdown.value = false
@@ -86,7 +91,7 @@ const filteredAgents = computed(() => {
             <button
               v-for="status in statuses"
               :key="status"
-              @click="ordersStore.changeOrderStatus(order.id, status)"
+              @click="updateOrderStatus(status)"
               class="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 flex items-center gap-2"
             >
               <div class="w-3 h-3 rounded-full" :class="ORDER_STATUS_CSS_MAP[status].bg" />
@@ -247,7 +252,7 @@ const filteredAgents = computed(() => {
           <!-- Address -->
           <div>
             <span class="font-medium text-gray-700">Address:</span>
-            <span class="ml-2 text-gray-600"></span>
+            <span class="ml-2 text-gray-600">{{ order.address || 'N/A' }}</span>
           </div>
         </div>
 

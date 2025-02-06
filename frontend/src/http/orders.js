@@ -53,3 +53,21 @@ export const fetchPendingOrdersForAuthenticatedUser = async () => {
       throw error.response.data
     })
 }
+
+export const addCommentToOrder = async (orderId, comment) => {
+  return await jsonHttp
+    .post(`/api/orders/${orderId}/add-comment/`, { comment: comment })
+    .then((response) => response.data)
+    .catch((error) => {
+      throw error.response.data
+    })
+}
+
+export const markOrderConfirmed = async (orderId, quantity, address) => {
+  return await jsonHttp
+    .post(`/api/orders/${orderId}/confirm/`, { quantity: quantity, address: address })
+    .then((response) => response.data)
+    .catch((error) => {
+      throw error.response.data
+    })
+}

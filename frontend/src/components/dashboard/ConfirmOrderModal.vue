@@ -1,31 +1,32 @@
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import { getOrderProductName, getOrderQuantity } from '@/utils/helpers.js'
+import { useToast } from 'vue-toastification'
 
 const props = defineProps({
   order: {
     type: Object,
     required: true,
-    default: () => ({
-      customer: {
-        name: '',
-        phone: '',
-        address: '',
-      },
-      productName: '',
-      quantity: 0,
-      totalPrice: 0,
-    }),
   },
 })
 
+const toast = useToast({
+  position: 'bottom-right',
+})
+
 const emit = defineEmits(['close', 'confirm'])
-const quantity = ref(props.order.quantity)
+const quantity = ref(getOrderQuantity(props.order))
 const showCommentForm = ref(false)
 const comment = ref('')
-const address = ref(props.order.customer.address)
+const address = ref('')
 
 function handleConfirm() {
   if (!showCommentForm.value) {
+    if (!address.value) {
+      toast.error('Please provide a delivery address')
+      return
+    }
+
     showCommentForm.value = true
     return
   }
@@ -36,6 +37,10 @@ function handleConfirm() {
     comment: comment.value,
   })
 }
+
+const totalPrice = computed(() => {
+  return (props.order.order_item.price * quantity.value).toFixed(2)
+})
 </script>
 
 <template>
@@ -87,7 +92,7 @@ function handleConfirm() {
           <div class="grid grid-cols-3 gap-4">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1"> Product </label>
-              <p class="text-gray-900">{{ order.productName }}</p>
+              <p class="text-gray-900">{{ getOrderProductName(order) }}</p>
             </div>
 
             <div>
@@ -102,9 +107,7 @@ function handleConfirm() {
 
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1"> Total Price </label>
-              <p class="text-gray-900">
-                ${{ ((order.totalPrice / order.quantity) * quantity).toFixed(2) }}
-              </p>
+              <p class="text-gray-900">${{ totalPrice }}</p>
             </div>
           </div>
         </div>

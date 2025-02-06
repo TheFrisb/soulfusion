@@ -34,19 +34,44 @@ onMounted(async () => {
   }
 })
 
-function addComment() {
-  console.log(`New comment added: `)
+function addComment(newComment) {
+  const comment = newComment.value.trim()
+
+  if (!comment) {
+    return
+  }
+
+  orderStore.addOrderComment(order.value.id, comment).then(() => {
+    toast.success('Comment added successfully')
+    newComment.value = ''
+  })
 }
 
 async function updateStatus(newStatus) {
+  if (newStatus === ORDER_STATUS.CONFIRMED) {
+    showConfirmModal.value = true
+    return
+  }
   orderStore.changeOrderStatus(order.value.id, newStatus).then(() => {
     toast.success(`Order #${order.value.id} status updated to ${newStatus}`)
     router.push('/my-pendings')
   })
 }
 
-function handleOrderConfirm() {
-  console.log('Order confirmed')
+function handleOrderConfirm(orderData) {
+  const quantity = orderData.quantity
+  const address = orderData.address.trim()
+  const comment = orderData.comment.trim()
+
+  if (comment) {
+    toast.success('Comment added successfully')
+    orderStore.addOrderComment(order.value.id, comment)
+  }
+
+  orderStore.confirmOrder(order.value.id, quantity, address).then(() => {
+    toast.success(`Order #${order.value.id} confirmed successfully`)
+    router.push('/my-pendings')
+  })
 }
 </script>
 

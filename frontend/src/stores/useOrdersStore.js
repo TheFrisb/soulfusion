@@ -1,7 +1,14 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { useToast } from 'vue-toastification'
-import { clearOrderAgent, fetchOrders, updateOrderAgent, updateOrderStatus } from '@/http/orders.js'
+import {
+  addCommentToOrder,
+  clearOrderAgent,
+  fetchOrders,
+  markOrderConfirmed,
+  updateOrderAgent,
+  updateOrderStatus,
+} from '@/http/orders.js'
 
 export const useOrdersStore = defineStore('ordersStore', () => {
   const toast = useToast()
@@ -83,6 +90,29 @@ export const useOrdersStore = defineStore('ordersStore', () => {
     }
   }
 
+  async function addOrderComment(orderId, comment) {
+    try {
+      await addCommentToOrder(orderId, comment)
+    } catch (err) {
+      console.error(err)
+      toast.error('Failed to add comment to order')
+    }
+  }
+
+  async function confirmOrder(orderId, quantity, address) {
+    try {
+      const response = await markOrderConfirmed(orderId, quantity, address)
+      const orderIndex = orders.value.findIndex((order) => order.id === orderId)
+
+      if (orderIndex !== -1) {
+        orders.value[orderIndex] = response
+      }
+    } catch (err) {
+      console.error(err)
+      toast.error('Failed to confirm order')
+    }
+  }
+
   function updatePageSize(newPageSize) {
     pageSize.value = newPageSize
     loadOrders()
@@ -107,5 +137,7 @@ export const useOrdersStore = defineStore('ordersStore', () => {
     changeOrderStatus,
     assignOrderToAgent,
     removeAgentFromOrder,
+    addOrderComment,
+    confirmOrder,
   }
 })
