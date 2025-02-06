@@ -81,7 +81,7 @@ const sortedOrders = computed(() => {
               <div>
                 <span class="text-xs uppercase tracking-wider text-gray-500">Total Price</span>
                 <p class="mt-1 text-sm font-medium text-gray-900">
-                  ${{ order.totalPrice.toFixed(2) }}
+                  {{ order.totalPrice.toFixed(2) }} MKD
                 </p>
               </div>
               <div>

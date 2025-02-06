@@ -107,7 +107,7 @@ const totalPrice = computed(() => {
 
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1"> Total Price </label>
-              <p class="text-gray-900">${{ totalPrice }}</p>
+              <p class="text-gray-900">{{ totalPrice }} MKD</p>
             </div>
           </div>
         </div>
