@@ -1059,7 +1059,7 @@
           <p> - Обичните луѓе, особено оние на возраст од 50 години и повеќе, се првите што страдаат од застарената
             босанска медицина. Не се тие виновни, така функционира здравството. </p>
           <div class="page-img-wrapper naut-price-wrapper" style="cursor: pointer;">
-            <img src="{% static 'assets/bee-venom-2/nautubone-product1.png' %}">
+            <img src="{% static 'assets/bee-venom-2/nautubone-product1.png' %}" style="height:500px; width:auto;">
             <div class="prices">
               <span class="old-product-price"><s>4800 MKD</s></span><span class="new-product-price">2400 MKD</span>
             </div>
@@ -1113,7 +1113,8 @@
           <h3 style="color: red; text-align: center;"> Пополнете го формуларот подолу за да добиете Bee Venom по
             намалена цена од 2400 MKD</h3>
           <div class="page-form-wrapper-img"><img class="form-product-img"
-                                                  src="{% static 'assets/bee-venom-2/product.png' %}" alt="product-img">
+                                                  src="{% static 'assets/bee-venom-2/nautubone-product1.png' %}"
+                                                  alt="product-img">
           </div>
           <div class="head_form_2 new_999 dis_bl_480">
             <div class="form_content_head" id="form2">
@@ -1132,10 +1133,12 @@
                   </li>
                 </ul>
               </div>
-              <form <form action="{% url 'core:product-page' slug=product_page.slug %}" class="x_order_form form_top clearfix" method="post" id="form"
+              <form
+              <form action="{% url 'core:product-page' slug=product_page.slug %}" class="x_order_form form_top clearfix"
+                    method="post" id="form"
                     onsubmit="validateform(this); return false;">
-              {% csrf_token %}
-              <input type="hidden" name="product_id" value="{{ product_page.product.id }}">
+                {% csrf_token %}
+                <input type="hidden" name="product_id" value="{{ product_page.product.id }}">
 
                 <div class="form_container">
                   <input class="input__inner x_client_name" name="name" placeholder="Внесете го вашето име" type="text"
@@ -1143,7 +1146,8 @@
                 </div>
                 <div class="form_container">
                   <input class="input__inner x_client_phone only_number" name="phone"
-                         placeholder="Внесете го вашиот телефонски број" type="tel" id="phone" name="phone" value="" required="required"
+                         placeholder="Внесете го вашиот телефонски број" type="tel" id="phone" name="phone" value=""
+                         required="required"
                          minlength="5" maxlength="17">
                 </div>
                 <button class="form_btn js_submit button__text" type="submit">При рака</button>
@@ -1154,17 +1158,17 @@
         </div>
         <div class="contact-comments-separator"></div>
 
-        <div class="page-comments">
-          <h4>Komentari (12)</h4>
+        <div class="page-comments wrapper">
+          <h4 style="padding: 24px 0px">Коментари (12)</h4>
         </div>
-        <div class="contact-comments-separator"></div>
-        <div class="comments-content">
+        <div class="contact-comments-separator wrapper" style="margin-bottom: 24px"></div>
+        <div class="comments-content " style="max-width:920px; margin: 0 auto;">
           <div class="comment-pack">
             <div class="main-comment">
               <div class="comment-top">
                 <div class="comment-top-img"><i class="far fa-user"></i></div>
                 <div class="comment-top-info">
-                  <div class="comment-top-info-name">gooUser159827282</div>
+                  <div class="comment-top-info-name">Goran</div>
                   <div class="comment-top-info-time">порано 2h 07min</div>
                 </div>
                 <a href="#form2" style="text-decoration: none;">
@@ -1174,7 +1178,8 @@
               <div class="comment-bot">
                 <p> Ви благодарам. Многу корисно! Морав да платам за инекции од 5000 MKD во приватна клиника. Нарачав
                   Bee Venom додека сеуште е на специјална понуда. Операторот рече дека сеуште е достапен, но дека се
-                  соочуваат со многу
+                  соочуваат
+                  со многу
                   нарачки. Мило ми е што ја открив оваа можност. </p>
               </div>
               <div class="comment-bot-separator"></div>
@@ -1202,7 +1207,7 @@
                   <div class="comment-top">
                     <div class="comment-top-img"><i class="far fa-user"></i></div>
                     <div class="comment-top-info">
-                      <div class="comment-top-info-name">gooUser1233124</div>
+                      <div class="comment-top-info-name">Boris</div>
                       <div class="comment-top-info-time">порано 1h 12min</div>
                     </div>
                     <a href="#form2" style="text-decoration: none;">
@@ -1213,7 +1218,8 @@
                   <div class="comment-bot">
                     <p> Јас сум еден од среќниците кои успеаја да го испробаат Bee Venom. Тој навистина е најдобар. Имам
                       остеоартритис 7 години, тоа е вистинска тортура. Бев подготвен да користам апчиња и инјекции до
-                      крајот на животот,
+                      крајот
+                      на животот,
                       но на крајот, по текот на Bee Venom, болката исчезна. Целосно ја нема. Го препорачувам на сите -
                       помага! </p>
                   </div>
@@ -1238,7 +1244,7 @@
                   <div class="comment-top">
                     <div class="comment-top-img"><i class="far fa-user"></i></div>
                     <div class="comment-top-info">
-                      <div class="comment-top-info-name">gooUser159321321</div>
+                      <div class="comment-top-info-name">Ana</div>
                       <div class="comment-top-info-time">порано 1h 12min</div>
                     </div>
                     <a href="#form2" style="text-decoration: none;">
@@ -1248,10 +1254,13 @@
                   </div>
                   <div class="comment-bot">
                     <p> Имам 63 години. Колената ме болат уште од 53 -годишна возраст. Неодамна, болката стана
-                      неподнослива. Еден пријател на докторот (ние сме пријатели од детството) ми кажа за оваа програма
-                      и ме советуваше да го
+                      неподнослива.
+                      Еден пријател на докторот (ние сме пријатели од детството) ми кажа за оваа програма и ме
+                      советуваше да
+                      го
                       добијам овој производ 3 месеци порано. Сега скокам како зајаче ... Иако треба да бидам
-                      повнимателен. Како и да е, овој производ е најдобар! </p>
+                      повнимателен.
+                      Како и да е, овој производ е најдобар! </p>
                   </div>
                   <div class="comment-bot-separator"></div>
                   <div class="comment-votes">
@@ -1278,7 +1287,7 @@
               <div class="comment-top">
                 <div class="comment-top-img"><i class="far fa-user"></i></div>
                 <div class="comment-top-info">
-                  <div class="comment-top-info-name">admiral77</div>
+                  <div class="comment-top-info-name">Dimitar</div>
                   <div class="comment-top-info-time">порано 1h 12min</div>
                 </div>
                 <a href="#form2" style="text-decoration: none;">
@@ -1288,7 +1297,8 @@
               </div>
               <div class="comment-bot">
                 <p> Го нарачав мојот како дел од специјалната понуда. Тие ветија дека ќе го достават во рок од 5 дена,
-                  можат да го подигнат во поштата. Со нетрпение очекувам да го.
+                  можат
+                  да го подигнат во поштата. Со нетрпение очекувам да го.
                 </p>
               </div>
               <div class="comment-bot-separator"></div>
@@ -1313,7 +1323,7 @@
               <div class="comment-top">
                 <div class="comment-top-img"><i class="far fa-user"></i></div>
                 <div class="comment-top-info">
-                  <div class="comment-top-info-name">mladić61</div>
+                  <div class="comment-top-info-name">Marija</div>
                   <div class="comment-top-info-time">порано 1h 12min</div>
                 </div>
                 <a href="#form2" style="text-decoration: none;">
@@ -1326,8 +1336,10 @@
                   Добивав инјекција на секои шест месеци. Ми препиша толку многу работи минатата есен што се исплашив да
                   започнам со
                   лекување. Таа дури и не размислуваше дека имам други болести и можни несакани ефекти. Таа не се
-                  грижеше и само ми даде рецепт за производ со кој е запознаена. Можеби другите лекари се различни, не
-                  сум сигурен. Здравјето
+                  грижеше и
+                  само ми даде рецепт за производ со кој е запознаена. Можеби другите лекари се различни, не сум
+                  сигурен.
+                  Здравјето
                   е гадно. Мило ми е што има достапен европски бренд! </p>
               </div>
               <div class="comment-bot-separator"></div>
@@ -1353,7 +1365,7 @@
               <div class="comment-top">
                 <div class="comment-top-img"><i class="far fa-user"></i></div>
                 <div class="comment-top-info">
-                  <div class="comment-top-info-name">gooUser1231232</div>
+                  <div class="comment-top-info-name">Riste</div>
                   <div class="comment-top-info-time">порано 4h 28min</div>
                 </div>
                 <a href="#form2" style="text-decoration: none;">
@@ -1364,7 +1376,8 @@
               <div class="comment-bot">
                 <p> Да, во нашата земја можеш само да умреш. Имам 59 години. Две третини од моите врсници починаа, а
                   останатите едвај можат да се движат поради вечната болка во нозете, рацете, грбот ... Вреди да се
-                  размислува за ова. </p>
+                  размислува
+                  за ова. </p>
               </div>
               <div class="comment-bot-separator"></div>
               <div class="comment-votes">
@@ -1390,7 +1403,7 @@
                   <div class="comment-top">
                     <div class="comment-top-img"><i class="far fa-user"></i></div>
                     <div class="comment-top-info">
-                      <div class="comment-top-info-name">gooUser1233124</div>
+                      <div class="comment-top-info-name">Slavica</div>
                       <div class="comment-top-info-time">порано 1h 12min</div>
                     </div>
                     <a href="#form2" style="text-decoration: none;">
@@ -1400,8 +1413,10 @@
                   </div>
                   <div class="comment-bot">
                     <p> Овој производ е навистина феноменален. Го пробав минатото лето (син ми го донесе од Германија).
-                      Гихт го нема! Засега нема нови воспаленија. И самиот сум изненаден. Се чувствувам како повторно да
-                      имам 20 години.
+                      Гихт
+                      го нема! Засега нема нови воспаленија. И самиот сум изненаден. Се чувствувам како повторно да имам
+                      20
+                      години.
                       На сите им препорачувам. Не пропуштајте бидејќи сега чини само 2400 MKD, нема што да
                       загубите! </p>
                   </div>
@@ -1426,7 +1441,7 @@
                   <div class="comment-top">
                     <div class="comment-top-img"><i class="far fa-user"></i></div>
                     <div class="comment-top-info">
-                      <div class="comment-top-info-name">gooUser159321321</div>
+                      <div class="comment-top-info-name">Petar</div>
                       <div class="comment-top-info-time">порано 1h 12min</div>
                     </div>
                     <a href="#form2" style="text-decoration: none;">
@@ -1436,7 +1451,8 @@
                   </div>
                   <div class="comment-bot">
                     <p> Исто така, имам позитивно искуство со производот Bee Venom. Секогаш сум бил на инјекции, и
-                      откако го користев Bee Venom еден месец, летам како птица! </p>
+                      откако го
+                      користев Bee Venom еден месец, летам како птица! </p>
                   </div>
                   <div class="comment-bot-separator"></div>
                   <div class="comment-votes">
@@ -1463,7 +1479,7 @@
               <div class="comment-top">
                 <div class="comment-top-img"><i class="far fa-user"></i></div>
                 <div class="comment-top-info">
-                  <div class="comment-top-info-name">fbUser1231239231</div>
+                  <div class="comment-top-info-name">Igor</div>
                   <div class="comment-top-info-time">порано 8h 55min</div>
                 </div>
                 <a href="#form2" style="text-decoration: none;">
@@ -1473,10 +1489,13 @@
               </div>
               <div class="comment-bot">
                 <p> Исто така, ми се допадна овој производ. Прво зедов некои хемиски терапии:. Но, тогаш тие одеднаш
-                  престанаа да работат. Отидов кај пријател и таа ме советуваше да го пробам новиот Bee Venom. Bee Venom
-                  ми помогна од првата
+                  престанаа
+                  да работат. Отидов кај пријател и таа ме советуваше да го пробам новиот Bee Venom. Bee Venom ми
+                  помогна од
+                  првата
                   апликација. Болката исчезна речиси веднаш, но јас зедов еден третман, како што препорача таа. Три
-                  недели подоцна заборавив колку болки имав. Се чувствувам одлично, како да сум повторно млада! </p>
+                  недели
+                  подоцна заборавив колку болки имав. Се чувствувам одлично, како да сум повторно млада! </p>
               </div>
               <div class="comment-bot-separator"></div>
               <div class="comment-votes">
@@ -1500,7 +1519,7 @@
               <div class="comment-top">
                 <div class="comment-top-img"><i class="far fa-user"></i></div>
                 <div class="comment-top-info">
-                  <div class="comment-top-info-name">fbUser42042011</div>
+                  <div class="comment-top-info-name">Vesna</div>
                   <div class="comment-top-info-time">порано 4h 20min</div>
                 </div>
                 <a href="#form2" style="text-decoration: none;">
@@ -1510,7 +1529,8 @@
               </div>
               <div class="comment-bot">
                 <p> Мојот сосед, кој има 72 години, честопати се жалеше на грбот. Но, минатиот месец го видов активен и
-                  весел. Тој рече дека користи Bee Venom, дека внукот го донел од некаде. </p>
+                  весел.
+                  Тој рече дека користи Bee Venom, дека внукот го донел од некаде. </p>
               </div>
               <div class="comment-bot-separator"></div>
               <div class="comment-votes">
@@ -1534,7 +1554,7 @@
               <div class="comment-top">
                 <div class="comment-top-img"><i class="far fa-user"></i></div>
                 <div class="comment-top-info">
-                  <div class="comment-top-info-name">avdija123123</div>
+                  <div class="comment-top-info-name">Evgenija</div>
                   <div class="comment-top-info-time">порано 5h 31min</div>
                 </div>
                 <a href="#form2" style="text-decoration: none;">
@@ -1544,8 +1564,9 @@
               </div>
               <div class="comment-bot">
                 <p> Читам прегледи за производот Bee Venom на германски форуми направени од Германците, сфаќам дека
-                  истекуваат без залиха! Фала му на Бога што успеав да нарачам за 2400 MKD. Ми рекоа на телефон дека
-                  многу малку предмети
+                  истекуваат
+                  без залиха! Фала му на Бога што успеав да нарачам за 2400 MKD. Ми рекоа на телефон дека многу малку
+                  предмети
                   се уште има на залиха. Македонци без напор!
                 </p>
               </div>
@@ -1571,7 +1592,7 @@
               <div class="comment-top">
                 <div class="comment-top-img"><i class="far fa-user"></i></div>
                 <div class="comment-top-info">
-                  <div class="comment-top-info-name">fbUser12312312</div>
+                  <div class="comment-top-info-name">Jovan</div>
                   <div class="comment-top-info-time">порано 1h 15min</div>
                 </div>
                 <a href="#form2" style="text-decoration: none;">
@@ -1581,10 +1602,12 @@
               </div>
               <div class="comment-bot">
                 <p> Открив Bee Venom на еден од форумите за проблеми со зглобовите. Многумина се фалат со резултатите.
-                  Решив и јас да нарачам. Го користам само 3 дена и гледам очигледно подобрување. Болката помина
-                  целосно, с still уште
+                  Решив и
+                  јас да нарачам. Го користам само 3 дена и гледам очигледно подобрување. Болката помина целосно, с
+                  still уште
                   сум малку отечена, но многу помалку отколку порано. Ќе се вратам кај вас откако ќе го завршам
-                  третманот, но засега сум многу среќен.</p>
+                  третманот, но
+                  засега сум многу среќен.</p>
               </div>
               <div class="comment-bot-separator"></div>
               <div class="comment-votes">
