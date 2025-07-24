@@ -1,6 +1,6 @@
-<script setup>
+<script setup lang="ts">
 import { useRouter } from 'vue-router'
-import { useAuthStore } from '@/stores/authStore.js'
+import { useAuthStore } from '@/stores/authStore.ts'
 import { useLogout } from '@/composables/useLogout.js'
 import { computed } from 'vue'
 

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import TopBar from '../components/layout/TopBar.vue'
@@ -8,7 +8,7 @@ import ProductInfoModal from '../components/dashboard/ProductInfoModal.vue'
 import ConfirmOrderModal from '../components/dashboard/ConfirmOrderModal.vue'
 import { getOrder } from '@/http/orders.js'
 import { getOrderProductName, getOrderQuantity, getOrderTotalPrice } from '../utils/helpers.js'
-import { useOrdersStore } from '@/stores/useOrdersStore.js'
+import { useOrdersStore } from '@/stores/useOrdersStore.ts'
 import { ORDER_STATUS } from '@/utils/constants/orderStatus.js'
 import { useToast } from 'vue-toastification'
 

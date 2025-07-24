@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import TopBar from '../components/layout/TopBar.vue'
 import SideBar from '../components/layout/SideBar.vue'
@@ -7,16 +7,16 @@ import StatusCount from '../components/dashboard/StatusCount.vue'
 import { Calendar } from 'lucide-vue-next'
 import { ORDER_STATUS } from '@/utils/constants/orderStatus.js'
 import OrderRow from '@/components/dashboard/OrderRow.vue'
-import { useOrdersStore } from '@/stores/useOrdersStore.js'
-import { useAgentStore } from '@/stores/useAgentStore.js'
+import { useOrdersStore } from '@/stores/useOrdersStore.ts'
+import { useUsersStore } from '@/stores/useUsersStore.ts'
 import { getCurrentDate } from '../utils/helpers.js'
 
 const ordersStore = useOrdersStore()
-const agentStore = useAgentStore()
+const agentStore = useUsersStore()
 
 onMounted(() => {
   ordersStore.loadOrders()
-  agentStore.loadAgents()
+  agentStore.loadUsers()
 })
 
 const orders = computed(() => ordersStore.orders)

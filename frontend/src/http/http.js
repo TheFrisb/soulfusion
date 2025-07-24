@@ -9,13 +9,17 @@ const commonConfig = {
   headers: {
     Accept: 'application/json',
   },
+  xsrfHeaderName: 'X-CSRFToken',
+  xsrfCookieName: 'csrftoken',
 }
 
 const addAuthToken = (config) => {
   const token = localStorage.getItem('accessToken')
+
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
   }
+
   return config
 }
 
@@ -25,6 +29,7 @@ export const jsonHttp = axios.create({
     ...commonConfig.headers,
     'Content-Type': 'application/json',
   },
+  withCredentials: true,
 })
 
 export const formDataHttp = axios.create({

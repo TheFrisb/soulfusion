@@ -5,7 +5,7 @@ from accounts.views import (
     LoginView,
     RefreshTokenView,
     UsersListView,
-    GetMeOrdersView,
+    GetMeOrdersView, GroupsListView, CreateUserView, UsersDeleteView, UpdateUserGroupsView,
 )
 
 urlpatterns = [
@@ -14,4 +14,9 @@ urlpatterns = [
     path("me/", GetMeView.as_view(), name="get_me"),
     path("me/orders/", GetMeOrdersView.as_view(), name="get_me_orders"),
     path("users/", UsersListView.as_view(), name="users_list"),
+    path("groups/", GroupsListView.as_view(), name="groups_list"),
+    path("users/create/", CreateUserView.as_view(), name="create_user"),
+    path("users/<int:pk>/", UsersDeleteView.as_view(), name="delete_user"),
+    path("users/<int:pk>/groups/", UpdateUserGroupsView.as_view(), name="update_user_permissions"),
+
 ]

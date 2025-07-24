@@ -2,11 +2,12 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { useToast } from 'vue-toastification'
 import { getMe } from '@/http/auth.js'
+import { User } from '@/types/user.ts'
 
 const toast = useToast()
 
 export const useAuthStore = defineStore('authStore', () => {
-  const user = ref(null)
+  const user = ref<User | null>(null)
 
   async function updateSession() {
     const accessToken = localStorage.getItem('accessToken')
@@ -34,7 +35,7 @@ export const useAuthStore = defineStore('authStore', () => {
     user.value = null
   }
 
-  function setUser(data) {
+  function setUser(data: User) {
     user.value = data
   }
 

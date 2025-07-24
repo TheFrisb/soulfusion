@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ORDER_STATUS, ORDER_STATUS_CSS_MAP } from '@/utils/constants/orderStatus.js'
 
 const props = defineProps({

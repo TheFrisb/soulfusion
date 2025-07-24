@@ -1,8 +1,8 @@
-<script setup>
+<script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import TopBar from '../components/layout/TopBar.vue'
 import SideBar from '../components/layout/SideBar.vue'
-import { useProductStore } from '@/stores/useProductsStore.js'
+import { useProductStore } from '@/stores/useProductsStore.ts'
 
 const searchQuery = ref('')
 

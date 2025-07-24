@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { computed, ref } from 'vue'
 import { getOrderProductName, getOrderQuantity } from '@/utils/helpers.js'
 import { useToast } from 'vue-toastification'

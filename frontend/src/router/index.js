@@ -4,7 +4,8 @@ import MyPendingsView from '../views/MyPendingsView.vue'
 import OrderDetailView from '../views/OrderDetailView.vue'
 import ProductsView from '../views/ProductsView.vue'
 import LoginView from '../views/LoginView.vue'
-import { useAuthStore } from '@/stores/authStore.js'
+import UsersView from '../views/UsersView.vue'
+import { useAuthStore } from '@/stores/authStore.ts'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -34,6 +35,11 @@ const router = createRouter({
       name: 'LoginView',
       component: LoginView,
     },
+    {
+      path: '/users',
+      name: 'users',
+      component: UsersView,
+    }, 
   ],
 })
 

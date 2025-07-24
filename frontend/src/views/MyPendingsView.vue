@@ -1,8 +1,8 @@
-<script setup>
+<script setup lang="ts">
 import TopBar from '../components/layout/TopBar.vue'
 import SideBar from '../components/layout/SideBar.vue'
 import StatusBadge from '../components/dashboard/StatusBadge.vue'
-import { usePendingOrdersStore } from '@/stores/usePendingOrdersStore.js'
+import { usePendingOrdersStore } from '@/stores/usePendingOrdersStore.ts'
 import {
   getCurrentDate,
   getOrderProductName,

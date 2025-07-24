@@ -1,10 +1,71 @@
-<script setup>
+<script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
+import { BoxIcon, PhoneIcon, ShoppingCartIcon, StoreIcon, UserRoundCogIcon } from 'lucide-vue-next'
 
 const route = useRoute()
 const isActive = computed(() => (path) => route.path === path)
-const isOrdersOpen = ref(true)
+
+const baseNavigation = [
+  {
+    name: 'Orders',
+    icon: StoreIcon,
+    path: null,
+    children: [
+      {
+        name: 'All Orders',
+        icon: ShoppingCartIcon,
+        path: '/',
+      },
+      {
+        name: 'Assigned to me',
+        icon: PhoneIcon,
+        path: '/my-pendings',
+      },
+    ],
+  },
+  {
+    name: 'Products',
+    icon: BoxIcon,
+    path: '/products',
+  },
+  {
+    name: 'Users',
+    icon: UserRoundCogIcon,
+    path: '/users',
+  },
+]
+
+const navigation = computed(() => {
+  return baseNavigation.map((item) => {
+    if (item.children) {
+      return {
+        ...item,
+        children: item.children.map((child) => ({
+          ...child,
+          isActive: isActive.value(child.path),
+        })),
+      }
+    }
+    return {
+      ...item,
+      isActive: isActive.value(item.path),
+    }
+  })
+})
+
+const openStates = ref(
+  baseNavigation
+    .filter((item) => item.children)
+    .reduce((acc, item) => {
+      acc[item.name] = true // Open by default, matching original behavior
+      return acc
+    }, {}),
+)
+
+const toggleOpen = (name) => {
+  openStates.value[name] = !openStates.value[name]
+}
 </script>
 
 <template>
@@ -19,103 +80,65 @@ const isOrdersOpen = ref(true)
     </div>
 
     <!-- Navigation -->
-    <nav class="p-4">
-      <!-- Orders Accordion -->
-      <div class="space-y-2">
-        <button
-          @click="isOrdersOpen = !isOrdersOpen"
-          class="w-full flex items-center justify-between px-4 py-2 text-gray-300 hover:text-white transition-colors rounded-lg"
-        >
-          <div class="flex items-center gap-3">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <nav class="p-4 space-y-4">
+      <template v-for="item in navigation" :key="item.name">
+        <!-- Items with children (e.g., Orders) -->
+        <div v-if="item.children" class="space-y-2">
+          <button
+            @click="toggleOpen(item.name)"
+            class="w-full flex items-center justify-between px-4 py-2 text-gray-300 hover:text-white transition-colors rounded-lg"
+          >
+            <div class="flex items-center gap-3">
+              <component :is="item.icon" class="w-5 h-5" />
+              <span class="text-sm font-medium">{{ item.name }}</span>
+            </div>
+            <svg
+              class="w-4 h-4 transition-transform"
+              :class="{ 'rotate-180': openStates[item.name] }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
               <path
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="2"
-                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                d="M19 9l-7 7-7-7"
               />
             </svg>
-            <span class="text-sm font-medium">Orders</span>
+          </button>
+          <div v-show="openStates[item.name]" class="pl-4 space-y-1">
+            <router-link
+              v-for="child in item.children"
+              :key="child.name"
+              :to="child.path"
+              class="flex items-center gap-2 px-4 py-2 rounded-lg transition-colors"
+              :class="
+                child.isActive
+                  ? 'bg-gradient-to-r from-brand-soul to-brand-fusion text-white shadow-lg shadow-brand-soul/20'
+                  : 'text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-brand-soul/20 hover:to-brand-fusion/20'
+              "
+            >
+              <component :is="child.icon" class="w-4 h-4" />
+              <span class="text-sm font-medium">{{ child.name }}</span>
+            </router-link>
           </div>
-          <svg
-            class="w-4 h-4 transition-transform"
-            :class="{ 'rotate-180': isOrdersOpen }"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M19 9l-7 7-7-7"
-            />
-          </svg>
-        </button>
-
-        <div v-show="isOrdersOpen" class="pl-4 space-y-1">
-          <router-link
-            to="/"
-            class="flex items-center gap-2 px-4 py-2 rounded-lg transition-colors"
-            :class="
-              isActive('/')
-                ? 'bg-gradient-to-r from-brand-soul to-brand-fusion text-white shadow-lg shadow-brand-soul/20'
-                : 'text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-brand-soul/20 hover:to-brand-fusion/20'
-            "
-          >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-              />
-            </svg>
-            <span class="text-sm font-medium">All Orders</span>
-          </router-link>
-
-          <router-link
-            to="/my-pendings"
-            class="flex items-center gap-2 px-4 py-2 rounded-lg transition-colors"
-            :class="
-              isActive('/my-pendings')
-                ? 'bg-gradient-to-r from-brand-soul to-brand-fusion text-white shadow-lg shadow-brand-soul/20'
-                : 'text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-brand-soul/20 hover:to-brand-fusion/20'
-            "
-          >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-              />
-            </svg>
-            <span class="text-sm font-medium">Assigned to me</span>
-          </router-link>
         </div>
-      </div>
-
-      <!-- Products Link -->
-      <router-link
-        to="/products"
-        class="flex items-center gap-2 px-4 py-2 rounded-lg transition-colors mt-2"
-        :class="
-          isActive('/products')
-            ? 'bg-gradient-to-r from-brand-soul to-brand-fusion text-white shadow-lg shadow-brand-soul/20'
-            : 'text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-brand-soul/20 hover:to-brand-fusion/20'
-        "
-      >
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
-          />
-        </svg>
-        <span class="text-sm font-medium">Products</span>
-      </router-link>
+        <!-- Items without children (e.g., Products, Users) -->
+        <router-link
+          v-else
+          :to="item.path"
+          class="flex items-center gap-2 px-4 py-2 rounded-lg transition-colors"
+          :class="
+            item.isActive
+              ? 'bg-gradient-to-r from-brand-soul to-brand-fusion text-white shadow-lg shadow-brand-soul/20'
+              : 'text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-brand-soul/20 hover:to-brand-fusion/20'
+          "
+        >
+          <component :is="item.icon" class="w-5 h-5" />
+          <span class="text-sm font-medium">{{ item.name }}</span>
+        </router-link>
+      </template>
     </nav>
   </aside>
 </template>

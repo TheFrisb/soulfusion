@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
 import StatusBadge from './StatusBadge.vue'
 import { formatDate } from '@/utils/helpers.js'

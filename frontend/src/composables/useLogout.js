@@ -1,6 +1,6 @@
 import { useRouter } from 'vue-router'
 import { useToast } from 'vue-toastification'
-import { useAuthStore } from '@/stores/authStore.js'
+import { useAuthStore } from '@/stores/authStore.ts'
 
 export function useLogout() {
   const authStore = useAuthStore()

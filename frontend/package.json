@@ -5,10 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "lint": "eslint . --fix",
-    "format": "prettier --write src/"
+    "build": "vue-tsc -b && vite build",
+    "skip-tsc-build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@vueuse/core": "^12.5.0",

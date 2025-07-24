@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { computed, ref } from 'vue'
 import StatusBadge from './StatusBadge.vue'
 import {
@@ -10,8 +10,8 @@ import {
 } from '@/utils/helpers.js'
 import { ORDER_STATUS_CSS_MAP, ORDER_STATUS_LIST } from '@/utils/constants/orderStatus.js'
 import { CheckCheck } from 'lucide-vue-next'
-import { useOrdersStore } from '@/stores/useOrdersStore.js'
-import { useAgentStore } from '@/stores/useAgentStore.js'
+import { useOrdersStore } from '@/stores/useOrdersStore.ts'
+import { useUsersStore } from '@/stores/useUsersStore.ts'
 import { onClickOutside } from '@vueuse/core'
 
 const props = defineProps({
@@ -22,7 +22,7 @@ const props = defineProps({
 })
 
 const ordersStore = useOrdersStore()
-const agentStore = useAgentStore()
+const agentStore = useUsersStore()
 
 const emit = defineEmits(['showCustomerHistory'])
 
