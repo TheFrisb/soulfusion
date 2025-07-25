@@ -41,3 +41,6 @@ tailwind_output.css
 
 # Bundled JS
 core_v1.bundle.js
+
+# Local temp data
+temp-data

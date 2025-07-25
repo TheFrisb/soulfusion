@@ -1,5 +1,6 @@
 from django import forms
 
+from core.form_fields import PhoneNumberField
 from orders.models import Customer, Order, OrderItem
 from products.models import Product
 
@@ -7,7 +8,7 @@ from products.models import Product
 class OrderForm(forms.Form):
     product_id = forms.IntegerField(widget=forms.HiddenInput())
     name = forms.CharField(max_length=255, label="Име/Презиме")
-    phone = forms.CharField(max_length=255, label="Телефонски број")
+    phone = PhoneNumberField(max_length=255, label="Телефонски број")
 
     def save(self):
         product_id = self.cleaned_data["product_id"]
@@ -18,7 +19,7 @@ class OrderForm(forms.Form):
             phone=phone, defaults={"name": name}
         )
 
-        order = Order.objects.create(customer=customer, status=Order.Status.PENDING)
+        order = Order.objects.create(customer=customer, status=Order.Status.PENDING, type=Order.Type.NORMAL)
 
         product = Product.objects.get(id=product_id)
         OrderItem.objects.create(

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "drf_standardized_errors",
     # Local apps
     "accounts",
+    "order_imports",
     "core",
     "products",
     "orders",
