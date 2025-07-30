@@ -9,11 +9,12 @@ import {
   updateOrderAgent,
   updateOrderStatus,
 } from '@/http/orders.js'
+import type { Order } from '@/types/order'
 
 export const useOrdersStore = defineStore('ordersStore', () => {
   const toast = useToast()
 
-  const orders = ref([])
+  const orders = ref<Order[]>([])
   const totalOrders = ref(0)
   const page = ref(1)
   const pageSize = ref(100)

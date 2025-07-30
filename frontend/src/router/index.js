@@ -5,6 +5,7 @@ import OrderDetailView from '../views/OrderDetailView.vue'
 import ProductsView from '../views/ProductsView.vue'
 import LoginView from '../views/LoginView.vue'
 import UsersView from '../views/UsersView.vue'
+import PredictionListView from '../views/PredictionListView.vue'
 import { useAuthStore } from '@/stores/authStore.ts'
 
 const router = createRouter({
@@ -39,7 +40,12 @@ const router = createRouter({
       path: '/users',
       name: 'users',
       component: UsersView,
-    }, 
+    },
+    {
+      path: '/prediction-lists',
+      name: 'prediction-lists',
+      component: PredictionListView,
+    },
   ],
 })
 

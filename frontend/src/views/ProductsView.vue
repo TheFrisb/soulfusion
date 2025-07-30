@@ -3,6 +3,7 @@ import { computed, onMounted, ref } from 'vue'
 import TopBar from '../components/layout/TopBar.vue'
 import SideBar from '../components/layout/SideBar.vue'
 import { useProductStore } from '@/stores/useProductsStore.ts'
+import type { Product } from '@/types/product.ts'
 
 const searchQuery = ref('')
 
@@ -12,8 +13,8 @@ onMounted(() => {
   productStore.loadProducts()
 })
 
-const filteredProducts = computed(() => {
-  return productStore.products.filter((product) => {
+const filteredProducts = computed<Product[]>(() => {
+  return (productStore.products as Product[]).filter((product) => {
     if (!searchQuery.value) return true
     return product.name.toLowerCase().includes(searchQuery.value.toLowerCase())
   })
@@ -126,7 +127,7 @@ const filteredProducts = computed(() => {
               >
                 <td class="px-6 py-4">
                   <span
-                    class="px-3 py-1 rounded-full text-sm font-medium"
+                    class="px-3 py-1 rounded-full text-sm font-medium whitespace-nowrap"
                     :class="
                       product.stock > 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
                     "

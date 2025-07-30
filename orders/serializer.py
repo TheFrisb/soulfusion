@@ -4,7 +4,6 @@ from accounts.serializers import UserSerializer
 from orders.models import Customer, OrderItem, Order
 from products.serializers import ProductSerializer
 
-
 class CustomerSerializer(serializers.ModelSerializer):
     has_history = serializers.BooleanField(read_only=True)
 

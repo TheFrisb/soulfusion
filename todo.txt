@@ -1,18 +1,5 @@
-3. Call page:
-- Render customer history (if exists)
-- Add comment functionality
+1. Product page - CRUD
+2. Permissions and navigation
+3. Single item view for agent
 
-4. Orders filtering
-- Filter by date
-- Filter by status
-- Pagination
-
-
----------------------
-
-
-1. Call confirm
-- Render the modal
-- Make the modal save the order with details
-- Make add comment optional
-- Make the modal close after saving
+- Total 5 hours

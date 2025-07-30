@@ -3,8 +3,10 @@ import logging
 import magic
 from rest_framework import serializers
 
+from accounts.serializers import UserSerializer
 from order_imports.mime_types import MimeTypes
 from order_imports.models import OrderImport
+from orders.serializer import OrderSerializer
 
 logger = logging.getLogger(__file__)
 
@@ -32,6 +34,8 @@ class XlsxOrderImportSerializer(serializers.Serializer):
 
 class OrderImportListSerializer(serializers.ModelSerializer):
     file_name = serializers.SerializerMethodField()
+    orders_count = serializers.SerializerMethodField()
+    agent = UserSerializer(read_only=True)
 
     class Meta:
         model = OrderImport
@@ -39,3 +43,10 @@ class OrderImportListSerializer(serializers.ModelSerializer):
 
     def get_file_name(self, obj):
         return obj.file.name if obj.file else None
+
+    def get_orders_count(self, obj):
+        return obj.orders.count()
+
+
+class OrderImportDetailSerializer(OrderImportListSerializer):
+    orders = OrderSerializer(many=True, read_only=True)

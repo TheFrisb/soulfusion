@@ -43,6 +43,7 @@ class OrderListView(ListAPIView):
 
 class RetrieveOrderView(RetrieveAPIView):
     serializer_class = OrderSerializer
+    lookup_field = "pk"
 
     def get_queryset(self):
         return Order.objects.select_related(

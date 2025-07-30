@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import StatusBadge from './StatusBadge.vue'
 import {
   formatDate,
@@ -13,6 +13,7 @@ import { CheckCheck } from 'lucide-vue-next'
 import { useOrdersStore } from '@/stores/useOrdersStore.ts'
 import { useUsersStore } from '@/stores/useUsersStore.ts'
 import { onClickOutside } from '@vueuse/core'
+import AgentAssignButton from './AgentAssignButton.vue'
 
 const props = defineProps({
   order: {
@@ -24,7 +25,10 @@ const props = defineProps({
 const ordersStore = useOrdersStore()
 const agentStore = useUsersStore()
 
-const emit = defineEmits(['showCustomerHistory'])
+const emit = defineEmits<{
+  (e: 'showCustomerHistory', customer: any): void
+  (e: 'agent-selected', agentId: number | null): void
+}>()
 
 const isExpanded = ref(false)
 const showAgentDropdown = ref(false)
@@ -45,8 +49,9 @@ onClickOutside(agentDropdownRef, () => {
   showAgentDropdown.value = false
 })
 
-function assignAgent(agentId) {
+function assignAgent(agentId: number) {
   ordersStore.assignOrderToAgent(props.order.id, agentId)
+  emit('agent-selected', agentId)
   showAgentDropdown.value = false
 }
 
@@ -60,11 +65,26 @@ function clearOrderAgent() {
   showAgentDropdown.value = false
 }
 
+function handleAgentSelected(agentId: number | null) {
+  if (agentId === null) {
+    ordersStore.removeAgentFromOrder(props.order.id)
+  } else {
+    ordersStore.assignOrderToAgent(props.order.id, agentId)
+  }
+  emit('agent-selected', agentId)
+}
+
 const filteredAgents = computed(() => {
   const search = agentSearch.value.toLowerCase()
-  return (agentStore.agents || []).filter((agent) =>
-    (agent.name || '').toLowerCase().includes(search),
+  return (agentStore.users || []).filter((user) =>
+    `${user.first_name} ${user.last_name}`.toLowerCase().includes(search)
   )
+})
+
+onMounted(() => {
+  if (!agentStore.users || agentStore.users.length === 0) {
+    agentStore.loadUsers()
+  }
 })
 </script>
 
@@ -123,64 +143,7 @@ const filteredAgents = computed(() => {
       <span class="text-sm font-medium text-gray-900">{{ getOrderTotalPrice(order) }} MKD</span>
     </td>
     <td class="px-6 py-4 w-[200px]">
-      <div ref="agentDropdownRef" class="relative">
-        <div
-          v-if="order.agent"
-          class="flex items-center space-x-2"
-          @click.stop="showAgentDropdown = true"
-        >
-          <span class="text-sm text-gray-900">{{ getAgentName(order.agent) }}</span>
-          <button class="p-1 text-gray-400 hover:text-primary-600">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-              />
-            </svg>
-          </button>
-        </div>
-        <button
-          v-else
-          class="px-4 py-2 text-sm font-medium text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"
-          @click.stop="showAgentDropdown = true"
-        >
-          Assign Agent
-        </button>
-
-        <!-- Agent Dropdown -->
-        <div
-          v-if="showAgentDropdown"
-          class="absolute z-10 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200"
-          @click.stop
-        >
-          <div class="p-2">
-            <input
-              v-model="agentSearch"
-              type="text"
-              placeholder="Search agents..."
-              class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
-            />
-          </div>
-          <div class="max-h-48 overflow-y-auto">
-            <button
-              class="w-full px-4 py-2 text-left text-sm text-gray-600 hover:bg-gray-50"
-              @click="clearOrderAgent"
-            >
-              Unassigned
-            </button>
-            <button
-              v-for="agent in filteredAgents"
-              :key="agent.id"
-              class="w-full px-4 py-2 text-left text-sm text-gray-900 hover:bg-gray-50"
-              @click="assignAgent(agent.id)"
-            >
-              {{ agent.first_name }} {{ agent.last_name }}
-            </button>
-          </div>
-        </div>
-      </div>
+      <AgentAssignButton :agent="order.agent" @agent-selected="handleAgentSelected" />
     </td>
     <td class="px-6 py-4 w-10">
       <svg

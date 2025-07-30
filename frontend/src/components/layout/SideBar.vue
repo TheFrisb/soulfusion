@@ -1,10 +1,18 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { BoxIcon, PhoneIcon, ShoppingCartIcon, StoreIcon, UserRoundCogIcon } from 'lucide-vue-next'
+import {
+  BoxIcon,
+  PhoneIcon,
+  ShoppingCartIcon,
+  StoreIcon,
+  UserRoundCogIcon,
+  FileIcon,
+  ClipboardListIcon
+} from 'lucide-vue-next'
 
 const route = useRoute()
-const isActive = computed(() => (path) => route.path === path)
+const isActive = computed(() => (path: string) => route.path === path)
 
 const baseNavigation = [
   {
@@ -34,6 +42,11 @@ const baseNavigation = [
     icon: UserRoundCogIcon,
     path: '/users',
   },
+    {
+    name: 'Prediction Lists',
+    icon: ClipboardListIcon,
+    path: '/prediction-lists',
+  },
 ]
 
 const navigation = computed(() => {
@@ -54,16 +67,16 @@ const navigation = computed(() => {
   })
 })
 
-const openStates = ref(
+const openStates = ref<Record<string, boolean>>(
   baseNavigation
     .filter((item) => item.children)
-    .reduce((acc, item) => {
+    .reduce((acc: Record<string, boolean>, item) => {
       acc[item.name] = true // Open by default, matching original behavior
       return acc
-    }, {}),
+    }, {} as Record<string, boolean>),
 )
 
-const toggleOpen = (name) => {
+const toggleOpen = (name: string) => {
   openStates.value[name] = !openStates.value[name]
 }
 </script>

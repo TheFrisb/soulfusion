@@ -51,10 +51,12 @@ class Order(BaseInternalModel):
         Customer, on_delete=models.CASCADE, related_name="orders"
     )
     address = models.CharField(max_length=255, blank=True)
+    city = models.CharField(max_length=255, blank=True)
     order_import = models.ForeignKey(
         "order_imports.OrderImport",
         on_delete=models.SET_NULL,
         null=True,
+        related_name="orders",
     )
 
     def __str__(self):
