@@ -178,4 +178,3 @@ class GroupsListView(ListAPIView):
     serializer_class = GroupSerializer
 
 
-class GetPasswordResetCodeView
