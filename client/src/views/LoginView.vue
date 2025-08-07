@@ -2,9 +2,11 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { authenticate } from '@/http/auth.js'
+import { useAuthStore } from '@/stores/authStore'
 import { useToast } from 'vue-toastification'
 
 const router = useRouter()
+const authStore = useAuthStore()
 const username = ref('')
 const password = ref('')
 const error = ref('')
@@ -19,7 +21,26 @@ const handleLogin = async () => {
     }
     const response = await authenticate(data)
     if (response.status === 200) {
-      await router.push({ name: 'orders' })
+      // Update the session to get user data
+      await authStore.updateSession()
+      
+      // Redirect to appropriate page based on user permissions
+      if (authStore.can('view-all-orders')) {
+        // Administrator - can view all orders
+        await router.push({ name: 'orders' })
+      } else if (authStore.can('manage-products')) {
+        // InventoryManager - can manage products
+        await router.push({ name: 'products' })
+      } else if (authStore.can('view-prediction-lists')) {
+        // InventoryManager - can view prediction lists
+        await router.push({ name: 'prediction-lists' })
+      } else if (authStore.can('view-assigned-orders')) {
+        // Agents - can view assigned orders
+        await router.push({ name: 'my-pendings' })
+      } else {
+        // User has no permissions, stay on login
+        toast.error('You do not have permission to access this application')
+      }
     }
   } catch (err) {
     console.error(err)

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
+import { useAuthStore } from '@/stores/authStore'
 import {
   BoxIcon,
   PhoneIcon,
@@ -12,6 +13,7 @@ import {
 } from 'lucide-vue-next'
 
 const route = useRoute()
+const authStore = useAuthStore()
 const isActive = computed(() => (path: string) => route.path === path)
 
 const baseNavigation = [
@@ -24,11 +26,13 @@ const baseNavigation = [
         name: 'All Orders',
         icon: ShoppingCartIcon,
         path: '/',
+        show: () => authStore.can('view-all-orders'),
       },
       {
         name: 'Assigned to me',
         icon: PhoneIcon,
         path: '/my-pendings',
+        show: () => authStore.can('view-assigned-orders'),
       },
     ],
   },
@@ -36,35 +40,40 @@ const baseNavigation = [
     name: 'Products',
     icon: BoxIcon,
     path: '/products',
+    show: () => authStore.can('manage-products'),
   },
   {
     name: 'Users',
     icon: UserRoundCogIcon,
     path: '/users',
+    show: () => authStore.can('manage-users'),
   },
-    {
+  {
     name: 'Prediction Lists',
     icon: ClipboardListIcon,
     path: '/prediction-lists',
+    show: () => authStore.can('view-prediction-lists'),
   },
 ]
 
 const navigation = computed(() => {
-  return baseNavigation.map((item) => {
-    if (item.children) {
-      return {
-        ...item,
-        children: item.children.map((child) => ({
-          ...child,
-          isActive: isActive.value(child.path),
-        })),
+  return baseNavigation
+    .filter(item => {
+      // For items with children, show if any child is visible
+      if (item.children) {
+        return item.children.some(child => child.show())
       }
-    }
-    return {
+      // For items without children, show if the item itself is visible
+      return item.show ? item.show() : true
+    })
+    .map(item => ({
       ...item,
-      isActive: isActive.value(item.path),
-    }
-  })
+      children: item.children?.filter(child => child.show()).map(child => ({
+        ...child,
+        isActive: isActive.value(child.path),
+      })),
+      isActive: item.path ? isActive.value(item.path) : false,
+    }))
 })
 
 const openStates = ref<Record<string, boolean>>(

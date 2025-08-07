@@ -176,3 +176,6 @@ class GetMeOrdersView(ListAPIView):
 class GroupsListView(ListAPIView):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
+
+
+class GetPasswordResetCodeView
