@@ -1,5 +1,7 @@
-1. Product page - CRUD
-2. Permissions and navigation
-3. Single item view for agent
-
-- Total 5 hours
+1. Product Page CRUD
+2. Product Page add script
+3. Permissions and navigation
+4. Single item view for agent
+5. Vidi drugi raboti
+6. Password set
+7. Host app
