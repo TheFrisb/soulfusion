@@ -97,7 +97,7 @@ const toggleOpen = (name: string) => {
       <h1
         class="text-3xl font-black tracking-tight bg-gradient-to-r from-brand-soul via-brand-fusion to-brand-soul bg-clip-text text-transparent bg-[length:200%] animate-[gradient_4s_ease-in-out_infinite]"
       >
-        SoulFusion
+        VitaCall
       </h1>
     </div>
 
