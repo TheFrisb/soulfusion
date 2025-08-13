@@ -37,5 +37,8 @@ class ProductPageFormView(FormView):
         )
 
 
+class TestView(TemplateView):
+    template_name = "product-pages/bonefix/index.html"
+
 class ThankYouView(TemplateView):
     template_name = "thank_you.html"

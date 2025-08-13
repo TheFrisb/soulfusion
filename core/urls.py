@@ -1,6 +1,6 @@
 from django.urls.conf import path
 
-from core.views import ProductPageFormView, ThankYouView
+from core.views import ProductPageFormView, ThankYouView, TestView
 
 app_name = "core"
 urlpatterns = [
@@ -10,4 +10,5 @@ urlpatterns = [
         name="product-page",
     ),
     path("thank-you/", ThankYouView.as_view(), name="thank-you"),
+    path("test/", TestView.as_view(), name="test"),
 ]
