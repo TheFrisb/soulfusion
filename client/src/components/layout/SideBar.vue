@@ -26,34 +26,34 @@ const baseNavigation = [
         name: 'All Orders',
         icon: ShoppingCartIcon,
         path: '/',
-        show: () => authStore.can('view-all-orders'),
+        show: () => authStore.can('view-all-orders')
       },
       {
         name: 'Assigned to me',
         icon: PhoneIcon,
         path: '/my-pendings',
-        show: () => authStore.can('view-assigned-orders'),
-      },
-    ],
+        show: () => authStore.can('view-assigned-orders')
+      }
+    ]
   },
   {
     name: 'Products',
     icon: BoxIcon,
     path: '/products',
-    show: () => authStore.can('manage-products'),
+    show: () => authStore.can('manage-products')
   },
   {
     name: 'Users',
     icon: UserRoundCogIcon,
     path: '/users',
-    show: () => authStore.can('manage-users'),
+    show: () => authStore.can('manage-users')
   },
   {
     name: 'Prediction Lists',
     icon: ClipboardListIcon,
     path: '/prediction-lists',
-    show: () => authStore.can('view-prediction-lists'),
-  },
+    show: () => authStore.can('view-prediction-lists')
+  }
 ]
 
 const navigation = computed(() => {
@@ -70,9 +70,9 @@ const navigation = computed(() => {
       ...item,
       children: item.children?.filter(child => child.show()).map(child => ({
         ...child,
-        isActive: isActive.value(child.path),
+        isActive: isActive.value(child.path)
       })),
-      isActive: item.path ? isActive.value(item.path) : false,
+      isActive: item.path ? isActive.value(item.path) : false
     }))
 })
 
@@ -82,7 +82,7 @@ const openStates = ref<Record<string, boolean>>(
     .reduce((acc: Record<string, boolean>, item) => {
       acc[item.name] = true // Open by default, matching original behavior
       return acc
-    }, {} as Record<string, boolean>),
+    }, {} as Record<string, boolean>)
 )
 
 const toggleOpen = (name: string) => {
@@ -97,7 +97,7 @@ const toggleOpen = (name: string) => {
       <h1
         class="text-3xl font-black tracking-tight bg-gradient-to-r from-brand-soul via-brand-fusion to-brand-soul bg-clip-text text-transparent bg-[length:200%] animate-[gradient_4s_ease-in-out_infinite]"
       >
-        VitaCall
+        SoulFusion
       </h1>
     </div>
 
