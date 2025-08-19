@@ -1,4 +1,5 @@
 {% load static %}
+{% load math_tags %}
 
 <!DOCTYPE html>
 <html lang="mk">
@@ -420,8 +421,8 @@ function getBrowserLanguage() {
             <span class="form-checktext__text">BoneFix Pack</span>
           </div>
           <div class="form-prices">
-            <span class="x_currency_old form-prices__old">{OLD_PRICE}</span>
-            <span class="x_currency form-prices__new">{PRICE}</span>
+            <span class="x_currency_old form-prices__old">{{ product_page.product.sale_price|multiply:2 }}MKD</span>
+            <span class="x_currency form-prices__new">{{ product_page.product.sale_price }}MKD</span>
           </div>
           <form action="{% url 'core:product-page' slug=product_page.slug %}" class="form_order" method="post">
             {% csrf_token %}
