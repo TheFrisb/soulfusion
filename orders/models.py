@@ -59,6 +59,19 @@ class Order(BaseInternalModel):
         related_name="orders",
     )
 
+    @property
+    def customer_first_name(self) -> str:
+        return self.customer.name.split(" ")[0] if self.customer.name else ""
+
+    @property
+    def customer_last_name(self) -> str:
+        parts = self.customer.name.split(" ") if self.customer.name else []
+        return " ".join(parts[1:]) if len(parts) > 1 else ""
+
+    @property
+    def customer_phone(self) -> str:
+        return self.customer.phone
+
     def __str__(self):
         return f"{self.pk} - {self.status} - {self.customer}"
 

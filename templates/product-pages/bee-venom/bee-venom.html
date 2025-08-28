@@ -1,13 +1,8 @@
+{% extends 'base.html' %}
 {% load static %}
 {% load math_tags %}
-<!DOCTYPE html>
-<html>
-<head>
 
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta content="ie=edge" http-equiv="X-UA-Compatible">
-  <title>Bee Venom</title>
+{% block head %}
   <link rel="shortcut icon" href="{% static 'assets/bee-venom/footer-sale-bg1.png' %}" type="image/x-icon">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,800&subset=cyrillic-ext,latin-ext"
         rel="stylesheet">
@@ -284,11 +279,11 @@
           content: "";
           background: url({% static 'assets/bee-venom/nautubone-1.png' %}) no-repeat;
           background-size: contain;
-          width: 256px;
+          width: 420px;
           height: 526px;
           position: absolute;
           bottom: -120px;
-          left: -40px;
+          left: -120px;
       }
 
       .sec2__list {
@@ -417,8 +412,8 @@
           background-size: contain;
           position: absolute;
           bottom: -60px;
-          right: 30px;
-          width: 259px;
+          right: -100px;
+          width: 372px;
           height: 503px;
       }
 
@@ -803,7 +798,7 @@
           position: absolute;
           left: 0;
           bottom: 110px;
-          width: 300px;
+          width: 354px;
           height: 450px;
       }
 
@@ -1110,7 +1105,7 @@
           .sec2__prod::before {
               background: url({% static 'assets/bee-venom/nautubone-1.png' %}) no-repeat;
               background-size: contain;
-              width: 150px;
+              width: 245px;
               height: 308px;
               bottom: 10px;
               left: 0;
@@ -1136,7 +1131,7 @@
               left: 50%;
               -webkit-transform: translateX(-50%);
               transform: translateX(-50%);
-              width: 175px;
+              width: 240px;
               height: 300px;
           }
 
@@ -1675,702 +1670,722 @@
 
   <script src="{% static 'js/libs/jquery-1.12.4.min.js' %}" type="text/javascript"></script>
   <script src="{% static 'js/libs/dr-dtime.min.js' %}" type="text/javascript"></script>
-</head>
-<body>
-<div class="blockRedLine3103"
-     style="color: rgb(255, 255, 255); background: darkmagenta; box-sizing: border-box; font: 400 16px / 1.15 Arial, sans-serif; position: relative; z-index: 1000000; padding: 0px; margin: 0px; direction: ltr; text-transform: none;">
-  <div
-    style="font: inherit; margin: 0px auto; padding: 10px; max-width: 1200px; width: 100%; display: flex; justify-content: center; align-items: center; box-sizing: border-box;">
-    <div class="blockRedLine3103__image mobile-hidden"
-         style="flex-shrink: 0; box-sizing: border-box; padding: 0px; margin: 0px;">
-      <div
-        style="width: 65px; height: 5px; border-radius: 2px; background: rgba(255, 255, 255, 0.3); margin: 0px 0px 10px; box-sizing: border-box;"></div>
-      <div
-        style="width: 65px; height: 5px; border-radius: 2px; background: rgba(255, 255, 255, 0.3); margin: 0px 0px 10px 20px; box-sizing: border-box;"></div>
-      <div
-        style="width: 65px; height: 5px; border-radius: 2px; background: rgba(255, 255, 255, 0.3); margin: 0px 0px 0px 10px; box-sizing: border-box;"></div>
-    </div>
-    <img class="blockRedLine3103__image"
-         src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI0LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCA0NS40IDM3LjgiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDQ1LjQgMzcuODsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPgoJLnN0MHtmaWxsOiNGRkZGRkY7fQoJLnN0MXtmaWxsOiMwMEE2NTE7fQo8L3N0eWxlPgo8Zz4KCTxnPgoJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xNS45LDI5LjNjLTIuNCwwLTQuMywxLjktNC4zLDQuM3MxLjksNC4zLDQuMyw0LjNjMi40LDAsNC4zLTEuOSw0LjMtNC4zUzE4LjMsMjkuMywxNS45LDI5LjN6IE0xNS45LDM1LjIKCQkJYy0wLjksMC0xLjctMC43LTEuNy0xLjdzMC43LTEuNywxLjctMS43YzAuOSwwLDEuNywwLjcsMS43LDEuN1MxNi44LDM1LjIsMTUuOSwzNS4yeiIvPgoJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0zNS40LDI5LjNjLTIuNCwwLTQuMywxLjktNC4zLDQuM3MxLjksNC4zLDQuMyw0LjNjMi40LDAsNC4zLTEuOSw0LjMtNC4zUzM3LjgsMjkuMywzNS40LDI5LjN6IE0zNS40LDM1LjIKCQkJYy0wLjksMC0xLjctMC43LTEuNy0xLjdzMC43LTEuNywxLjctMS43YzAuOSwwLDEuNywwLjcsMS43LDEuN1MzNi40LDM1LjIsMzUuNCwzNS4yeiIvPgoJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0zLjQsMzIuNGg3LjNjMC4yLTEsMC43LTEuOCwxLjMtMi41SDMuNFYzMi40eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik00My44LDI5Ljl2LTguN2wtNi05LjdoLTkuN3YxOC4zaC04LjNjMC43LDAuNywxLjEsMS41LDEuMywyLjVoOS4yYzAuNS0yLjQsMi42LTQuMiw1LjItNC4yczQuNywxLjgsNS4yLDQuMgoJCQloNC44di0yLjVINDMuOHogTTMxLDIwLjF2LTUuN2g0LjVsNCw1LjdIMzF6Ii8+CgkJPHBhdGggY2xhc3M9InN0MCIgZD0iTTE3LjMsOGMwLDEuMSwwLDIuMiwwLDMuNGMwLDcuNC05LjMsMTAuMi05LjMsMTAuMnMtMS41LDAtMywwdjYuNGgyMS40VjhIMTcuM3oiLz4KCTwvZz4KCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xNS43LDMuNEMxMi40LDMuNCw5LjYsMiw4LjYsMEg3LjFDNi4xLDIsMy4zLDMuNCwwLDMuNGMwLDIuMSwwLDUsMCw3LjdjMCw1LjQsOCw4LjUsOCw4LjVzNy43LTIuMyw3LjctOC41CgkJQzE1LjgsOC4xLDE1LjgsNS40LDE1LjcsMy40QzE1LjcsMy40LDE1LjcsMy40LDE1LjcsMy40eiIvPgoJPHBhdGggY2xhc3M9InN0MSIgZD0iTTE0LjUsNC40Yy0yLjgsMC01LjEtMS4yLTYtMi45SDcuM0M2LjQsMy4yLDQsNC40LDEuMyw0LjRjMCwxLjgsMCw0LjIsMCw2LjZjMCw0LjYsNi43LDcuMiw2LjcsNy4yCgkJczYuNS0yLDYuNS03LjJDMTQuNSw4LjQsMTQuNSw2LjEsMTQuNSw0LjRDMTQuNSw0LjQsMTQuNSw0LjQsMTQuNSw0LjR6Ii8+Cgk8Zz4KCQk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNy4zLDEyLjJDNy4zLDEyLjIsNy4yLDEyLjIsNy4zLDEyLjJjLTAuMiwwLTAuNC0wLjEtMC42LTAuMkw0LjgsOS44Yy0wLjMtMC4zLTAuMy0wLjgsMC0xLjEKCQkJYzAuMy0wLjMsMC44LTAuMywxLjEsMGwxLjQsMS41bDIuNi0yLjdjMC4zLTAuMywwLjgtMC4zLDEuMSwwYzAuMywwLjMsMC4zLDAuOCwwLDEuMWwtMy4yLDMuM0M3LjcsMTIuMSw3LjUsMTIuMiw3LjMsMTIuMnoiLz4KCTwvZz4KPC9nPgo8L3N2Zz4K"
-         style="flex-shrink: 0; box-sizing: border-box; width: 60px; height: auto; margin: 0px; padding: 0px;">
-    <div style="font: inherit; text-align: center; box-sizing: border-box; padding: 0px 5px; margin: 0px;">
-      <div
-        style="font-style: inherit; font-variant: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; font-weight: 700; color: inherit; padding: 0px; margin: 0px 0px 5px; box-sizing: border-box;">
-        БЕЗБЕДНА ДОСТАВА! Не грижете се - безбедноста на нашите клиенти е многу важна за нас!
+{% endblock head %}
+
+{% block body %}
+  <div class="blockRedLine3103"
+       style="color: rgb(255, 255, 255); background: darkmagenta; box-sizing: border-box; font: 400 16px / 1.15 Arial, sans-serif; position: relative; z-index: 1000000; padding: 0px; margin: 0px; direction: ltr; text-transform: none;">
+    <div
+      style="font: inherit; margin: 0px auto; padding: 10px; max-width: 1200px; width: 100%; display: flex; justify-content: center; align-items: center; box-sizing: border-box;">
+      <div class="blockRedLine3103__image mobile-hidden"
+           style="flex-shrink: 0; box-sizing: border-box; padding: 0px; margin: 0px;">
+        <div
+          style="width: 65px; height: 5px; border-radius: 2px; background: rgba(255, 255, 255, 0.3); margin: 0px 0px 10px; box-sizing: border-box;"></div>
+        <div
+          style="width: 65px; height: 5px; border-radius: 2px; background: rgba(255, 255, 255, 0.3); margin: 0px 0px 10px 20px; box-sizing: border-box;"></div>
+        <div
+          style="width: 65px; height: 5px; border-radius: 2px; background: rgba(255, 255, 255, 0.3); margin: 0px 0px 0px 10px; box-sizing: border-box;"></div>
       </div>
-      <div
-        style="font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; font-family: inherit; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; font-size: 15px; color: inherit; padding: 0px; margin: 0px; box-sizing: border-box;">
-        Нашите доставувачи ги менуваат маските на секои два часа. Доставата и плаќањето се вршат без директен контакт.
+      <img class="blockRedLine3103__image"
+           src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI0LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCA0NS40IDM3LjgiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDQ1LjQgMzcuODsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPgoJLnN0MHtmaWxsOiNGRkZGRkY7fQoJLnN0MXtmaWxsOiMwMEE2NTE7fQo8L3N0eWxlPgo8Zz4KCTxnPgoJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xNS45LDI5LjNjLTIuNCwwLTQuMywxLjktNC4zLDQuM3MxLjksNC4zLDQuMyw0LjNjMi40LDAsNC4zLTEuOSw0LjMtNC4zUzE4LjMsMjkuMywxNS45LDI5LjN6IE0xNS45LDM1LjIKCQkJYy0wLjksMC0xLjctMC43LTEuNy0xLjdzMC43LTEuNywxLjctMS43YzAuOSwwLDEuNywwLjcsMS43LDEuN1MxNi44LDM1LjIsMTUuOSwzNS4yeiIvPgoJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0zNS40LDI5LjNjLTIuNCwwLTQuMywxLjktNC4zLDQuM3MxLjksNC4zLDQuMyw0LjNjMi40LDAsNC4zLTEuOSw0LjMtNC4zUzM3LjgsMjkuMywzNS40LDI5LjN6IE0zNS40LDM1LjIKCQkJYy0wLjksMC0xLjctMC43LTEuNy0xLjdzMC43LTEuNywxLjctMS43YzAuOSwwLDEuNywwLjcsMS43LDEuN1MzNi40LDM1LjIsMzUuNCwzNS4yeiIvPgoJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0zLjQsMzIuNGg3LjNjMC4yLTEsMC43LTEuOCwxLjMtMi41SDMuNFYzMi40eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik00My44LDI5Ljl2LTguN2wtNi05LjdoLTkuN3YxOC4zaC04LjNjMC43LDAuNywxLjEsMS41LDEuMywyLjVoOS4yYzAuNS0yLjQsMi42LTQuMiw1LjItNC4yczQuNywxLjgsNS4yLDQuMgoJCQloNC44di0yLjVINDMuOHogTTMxLDIwLjF2LTUuN2g0LjVsNCw1LjdIMzF6Ii8+CgkJPHBhdGggY2xhc3M9InN0MCIgZD0iTTE3LjMsOGMwLDEuMSwwLDIuMiwwLDMuNGMwLDcuNC05LjMsMTAuMi05LjMsMTAuMnMtMS41LDAtMywwdjYuNGgyMS40VjhIMTcuM3oiLz4KCTwvZz4KCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xNS43LDMuNEMxMi40LDMuNCw5LjYsMiw4LjYsMEg3LjFDNi4xLDIsMy4zLDMuNCwwLDMuNGMwLDIuMSwwLDUsMCw3LjdjMCw1LjQsOCw4LjUsOCw4LjVzNy43LTIuMyw3LjctOC41CgkJQzE1LjgsOC4xLDE1LjgsNS40LDE1LjcsMy40QzE1LjcsMy40LDE1LjcsMy40LDE1LjcsMy40eiIvPgoJPHBhdGggY2xhc3M9InN0MSIgZD0iTTE0LjUsNC40Yy0yLjgsMC01LjEtMS4yLTYtMi45SDcuM0M2LjQsMy4yLDQsNC40LDEuMyw0LjRjMCwxLjgsMCw0LjIsMCw2LjZjMCw0LjYsNi43LDcuMiw2LjcsNy4yCgkJczYuNS0yLDYuNS03LjJDMTQuNSw4LjQsMTQuNSw2LjEsMTQuNSw0LjRDMTQuNSw0LjQsMTQuNSw0LjQsMTQuNSw0LjR6Ii8+Cgk8Zz4KCQk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNy4zLDEyLjJDNy4zLDEyLjIsNy4yLDEyLjIsNy4zLDEyLjJjLTAuMiwwLTAuNC0wLjEtMC42LTAuMkw0LjgsOS44Yy0wLjMtMC4zLTAuMy0wLjgsMC0xLjEKCQkJYzAuMy0wLjMsMC44LTAuMywxLjEsMGwxLjQsMS41bDIuNi0yLjdjMC4zLTAuMywwLjgtMC4zLDEuMSwwYzAuMywwLjMsMC4zLDAuOCwwLDEuMWwtMy4yLDMuM0M3LjcsMTIuMSw3LjUsMTIuMiw3LjMsMTIuMnoiLz4KCTwvZz4KPC9nPgo8L3N2Zz4K"
+           style="flex-shrink: 0; box-sizing: border-box; width: 60px; height: auto; margin: 0px; padding: 0px;">
+      <div style="font: inherit; text-align: center; box-sizing: border-box; padding: 0px 5px; margin: 0px;">
+        <div
+          style="font-style: inherit; font-variant: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; font-weight: 700; color: inherit; padding: 0px; margin: 0px 0px 5px; box-sizing: border-box;">
+          БЕЗБЕДНА ДОСТАВА! Не грижете се - безбедноста на нашите клиенти е многу важна за нас!
+        </div>
+        <div
+          style="font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; font-family: inherit; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; font-size: 15px; color: inherit; padding: 0px; margin: 0px; box-sizing: border-box;">
+          Нашите доставувачи ги менуваат маските на секои два часа. Доставата и плаќањето се вршат без директен контакт.
+        </div>
       </div>
-    </div>
-    <div class="blockRedLine3103__image mobile-hidden"
-         style="flex-shrink: 0; box-sizing: border-box; padding: 0px; margin: 0px;">
-      <div
-        style="width: 65px; height: 5px; border-radius: 2px; background: rgba(255, 255, 255, 0.3); margin: 0px 0px 10px; box-sizing: border-box;"></div>
-      <div
-        style="width: 65px; height: 5px; border-radius: 2px; background: rgba(255, 255, 255, 0.3); margin: 0px 0px 10px 20px; box-sizing: border-box;"></div>
-      <div
-        style="width: 65px; height: 5px; border-radius: 2px; background: rgba(255, 255, 255, 0.3); margin: 0px 0px 0px 10px; box-sizing: border-box;"></div>
+      <div class="blockRedLine3103__image mobile-hidden"
+           style="flex-shrink: 0; box-sizing: border-box; padding: 0px; margin: 0px;">
+        <div
+          style="width: 65px; height: 5px; border-radius: 2px; background: rgba(255, 255, 255, 0.3); margin: 0px 0px 10px; box-sizing: border-box;"></div>
+        <div
+          style="width: 65px; height: 5px; border-radius: 2px; background: rgba(255, 255, 255, 0.3); margin: 0px 0px 10px 20px; box-sizing: border-box;"></div>
+        <div
+          style="width: 65px; height: 5px; border-radius: 2px; background: rgba(255, 255, 255, 0.3); margin: 0px 0px 0px 10px; box-sizing: border-box;"></div>
+      </div>
     </div>
   </div>
-</div>
-<div class="overflow">
-  <header class="header">
-    <div class="wrapper">
-      <h4 class="header__title title"> Дали чувствувате болка во зглобовите или 'рбетот? </h4>
-      <p> Гелот Bee Venom е ефикасен лек за остеохондроза, остеоартритис и повреди! </p>
-    </div>
-  </header>
-  <section class="sec2">
-    <div class="wrapper">
-      <div class="sec2__prod">
-        <div class="sale">
-          <div> ПОПУСТ <span> 50% </span></div>
-        </div>
+  <div class="overflow">
+    <header class="header">
+      <div class="wrapper">
+        <h4 class="header__title title"> Дали чувствувате болка во зглобовите или 'рбетот? </h4>
+        <p> Гелот BoneFix е ефикасен лек за остеохондроза, остеоартритис и повреди! </p>
       </div>
-      <ul class="sec2__list" style="">
-        <li class="sec2__item"> Ја ублажува болката</li>
-        <li class="sec2__item"> Го стимулира процесот на регенерација на 'рскавицата</li>
-        <li class="sec2__item"> Ја елиминира мускулната хипертензија</li>
-        <li class="sec2__item"> Го спречува отекувањето</li>
-        <li class="sec2__item"> Ги елиминира воспаленијата</li>
-      </ul>
-      <div class="sec2__prices prices">
-        <div class="prices__container">
-          <p> Рекламирање <span> ЦЕНА СО ПОПУСТ </span></p>
-          <div class="prices__new prices__item al-cost">{{ product_page.product.sale_price }}MKD</div>
-          <div class="prices__old prices__item al-cost-promo">{{ product_page.product.sale_price|multiply:2 }}MKD</div>
+    </header>
+    <section class="sec2">
+      <div class="wrapper">
+        <div class="sec2__prod">
+          <div class="sale">
+            <div> ПОПУСТ <span> 50% </span></div>
+          </div>
         </div>
-        <button class="button button--orange toform"> НАРАЧАЈТЕ СЕГА</button>
-      </div>
-    </div>
-  </section>
-  <section class="sec3">
-    <div class="wrapper">
-      <div class="sec3__text">
-        <p><i> Bee Venom </i> е лек што може брзо да ја отстрани болката од остеоартритис и остеохондроза. Исто така,
-          може да го намали грчењето на мускулите и воспалението. Bee Venom е ефикасен во лекувањето на
-          остеохондрозата и остеоартритисот затоа што го забавува процесот на дегенерација на 'рскавичното ткиво и го
-          подобрува неговиот метаболизам, промовирајќи ја регенерацијата на 'рскавицата на зглобот. </p>
-        <p> Позитивниот ефект може да се види по првото нанесување, Ако се користи редовно, заболувањата на зглобовите и
-          'рбетот престануваат да напредуваат. </p>
-        <button class="button button--purple toform"> Bee Venom е направен исклучиво од активни компоненти</button>
-      </div>
-    </div>
-  </section>
-  <section class="sec4">
-    <div class="wrapper">
-      <div class="test">
-        <div class="test__title"> Пополнете го следното истражување за да откриете дали ви е потребен Bee Venom или
-          не:
-        </div>
-        <ul>
-          <li class="question active">
-            <div class="question__title"> 1. После долгиот ден на работа, чувствувате тежина и вкочанетост во
-              екстремитетите:
+        <ul class="sec2__list" style="">
+          <li class="sec2__item"> Ја ублажува болката</li>
+          <li class="sec2__item"> Го стимулира процесот на регенерација на 'рскавицата</li>
+          <li class="sec2__item"> Ја елиминира мускулната хипертензија</li>
+          <li class="sec2__item"> Го спречува отекувањето</li>
+          <li class="sec2__item"> Ги елиминира воспаленијата</li>
+        </ul>
+        <div class="sec2__prices prices">
+          <div class="prices__container">
+            <p> Рекламирање <span> ЦЕНА СО ПОПУСТ </span></p>
+            <div class="prices__new prices__item al-cost">{{ product_page.product.sale_price }}MKD</div>
+            <div class="prices__old prices__item al-cost-promo">{{ product_page.product.sale_price|multiply:2 }}MKD
             </div>
-            <ul class="question__variants">
-              <li> Речиси никогаш</li>
-              <li> Многу често</li>
-              <li> Секогаш</li>
-            </ul>
-            <div class="question__button button button--next"> НАПРЕД >>></div>
+          </div>
+          <button class="button button--orange toform"> НАРАЧАЈТЕ СЕГА</button>
+        </div>
+      </div>
+    </section>
+    <section class="sec3">
+      <div class="wrapper">
+        <div class="sec3__text">
+          <p><i> BoneFix </i> е лек што може брзо да ја отстрани болката од остеоартритис и остеохондроза. Исто така,
+            може да го намали грчењето на мускулите и воспалението. BoneFix е ефикасен во лекувањето на
+            остеохондрозата и остеоартритисот затоа што го забавува процесот на дегенерација на 'рскавичното ткиво и го
+            подобрува неговиот метаболизам, промовирајќи ја регенерацијата на 'рскавицата на зглобот. </p>
+          <p> Позитивниот ефект може да се види по првото нанесување, Ако се користи редовно, заболувањата на зглобовите
+            и
+            'рбетот престануваат да напредуваат. </p>
+          <button class="button button--purple toform"> BoneFix е направен исклучиво од активни компоненти</button>
+        </div>
+      </div>
+    </section>
+    <section class="sec4">
+      <div class="wrapper">
+        <div class="test">
+          <div class="test__title"> Пополнете го следното истражување за да откриете дали ви е потребен BoneFix или
+            не:
+          </div>
+          <ul>
+            <li class="question active">
+              <div class="question__title"> 1. После долгиот ден на работа, чувствувате тежина и вкочанетост во
+                екстремитетите:
+              </div>
+              <ul class="question__variants">
+                <li> Речиси никогаш</li>
+                <li> Многу често</li>
+                <li> Секогаш</li>
+              </ul>
+              <div class="question__button button button--next"> НАПРЕД >>></div>
+            </li>
+            <li class="question">
+              <div class="question__title"> 2. Дали имате повреди, истегнувања, модринки, скршеници?</div>
+              <ul class="question__variants">
+                <li> Да, имам скршеница секоја втора година</li>
+                <li> Ништо сериозно што бара посета на болница</li>
+                <li> Мали повреди што ни се имаат случено на сите</li>
+              </ul>
+              <div class="question__button button button--next"> НАПРЕД >>></div>
+            </li>
+            <li class="question">
+              <div class="question__title"> 3. Колку години имате?</div>
+              <ul class="question__variants">
+                <li> До 30</li>
+                <li> 30 – 45</li>
+                <li> Над 45</li>
+              </ul>
+              <div class="question__button button button--next button--next--last"> НАПРЕД >>></div>
+            </li>
+            <li class="question test__final"> Никогаш однапред не може да знаете дали ќе се повредите и дали ќе ви
+              излезе
+              модринка, но лесно е да ги излечите што е можно побрзо! Пробајте <span> BoneFix </span> – производ што
+              ќе ви помогне во која било ситуација, од исчашување, контузија, дури и остеоартритис. Уникатната
+              способност
+              на <span> BoneFix </span> да ја ублажи болката и воспалението ќе ви ја зголеми самодовербата во секоја
+              ситуација. Долготрајната употреба на овој гел ќе ви помогне да се ослободите од старите заболувања, но и
+              ќе
+              ја поттикне регенерацијата на 'рскавичните ткива.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <section class="sec5">
+      <div class="wrapper"> Предности на гелот за грб и зглобови BoneFix</div>
+    </section>
+    <section class="sec6">
+      <div class="wrapper">
+        <ul class="sec6__list">
+          <li class="sec6__item">
+            <div class="sec6__item-img"></div>
+            <div class="sec6__item-title"> Широка спектар на дејствување</div>
+            <p> Ги лечи болестите на зглобовите и 'рбетот предизвикани од повреди и старост. </p>
           </li>
-          <li class="question">
-            <div class="question__title"> 2. Дали имате повреди, истегнувања, модринки, скршеници?</div>
-            <ul class="question__variants">
-              <li> Да, имам скршеница секоја втора година</li>
-              <li> Ништо сериозно што бара посета на болница</li>
-              <li> Мали повреди што ни се имаат случено на сите</li>
-            </ul>
-            <div class="question__button button button--next"> НАПРЕД >>></div>
+          <li class="sec6__item">
+            <div class="sec6__item-img"></div>
+            <div class="sec6__item-title"> НЕМА НЕСАКАНИ ЕФЕКТИ</div>
+            <p> Сосема безбедна еднократна или редовна употреба </p>
           </li>
-          <li class="question">
-            <div class="question__title"> 3. Колку години имате?</div>
-            <ul class="question__variants">
-              <li> До 30</li>
-              <li> 30 – 45</li>
-              <li> Над 45</li>
-            </ul>
-            <div class="question__button button button--next button--next--last"> НАПРЕД >>></div>
+          <li class="sec6__item">
+            <div class="sec6__item-img"></div>
+            <div class="sec6__item-title"> 100% ПРИРОДЕН СОСТАВ</div>
+            <p> Само билни активни компоненти </p>
           </li>
-          <li class="question test__final"> Никогаш однапред не може да знаете дали ќе се повредите и дали ќе ви излезе
-            модринка, но лесно е да ги излечите што е можно побрзо! Пробајте <span> Bee Venom </span> – производ што
-            ќе ви помогне во која било ситуација, од исчашување, контузија, дури и остеоартритис. Уникатната способност
-            на <span> Bee Venom </span> да ја ублажи болката и воспалението ќе ви ја зголеми самодовербата во секоја
-            ситуација. Долготрајната употреба на овој гел ќе ви помогне да се ослободите од старите заболувања, но и ќе
-            ја поттикне регенерацијата на 'рскавичните ткива.
+          <li class="sec6__item">
+            <div class="sec6__item-img"></div>
+            <div class="sec6__item-title"> ВИСОКА ЕФИКАСНОСТ</div>
+            <p> Ја подобрува општата состојба и ја намалува болката по првото нанесување </p>
+          </li>
+          <li class="sec6__item">
+            <div class="sec6__item-img"></div>
+            <div class="sec6__item-title"> ТЕСТИРАН ОД СТРУЧНИ ЛИЦА</div>
+            <p> Производот е сертифициран и ги исполнува барањата според стандардите* </p>
           </li>
         </ul>
       </div>
-    </div>
-  </section>
-  <section class="sec5">
-    <div class="wrapper"> Предности на гелот за грб и зглобови Bee Venom</div>
-  </section>
-  <section class="sec6">
-    <div class="wrapper">
-      <ul class="sec6__list">
-        <li class="sec6__item">
-          <div class="sec6__item-img"></div>
-          <div class="sec6__item-title"> Широка спектар на дејствување</div>
-          <p> Ги лечи болестите на зглобовите и 'рбетот предизвикани од повреди и старост. </p>
-        </li>
-        <li class="sec6__item">
-          <div class="sec6__item-img"></div>
-          <div class="sec6__item-title"> НЕМА НЕСАКАНИ ЕФЕКТИ</div>
-          <p> Сосема безбедна еднократна или редовна употреба </p>
-        </li>
-        <li class="sec6__item">
-          <div class="sec6__item-img"></div>
-          <div class="sec6__item-title"> 100% ПРИРОДЕН СОСТАВ</div>
-          <p> Само билни активни компоненти </p>
-        </li>
-        <li class="sec6__item">
-          <div class="sec6__item-img"></div>
-          <div class="sec6__item-title"> ВИСОКА ЕФИКАСНОСТ</div>
-          <p> Ја подобрува општата состојба и ја намалува болката по првото нанесување </p>
-        </li>
-        <li class="sec6__item">
-          <div class="sec6__item-img"></div>
-          <div class="sec6__item-title"> ТЕСТИРАН ОД СТРУЧНИ ЛИЦА</div>
-          <p> Производот е сертифициран и ги исполнува барањата според стандардите* </p>
-        </li>
-      </ul>
-    </div>
-  </section>
-  <section class="sec7">
-    <div class="wrapper">
-      <div class="sec7__title"> Како се користи Bee Venom</div>
-      <ul class="sec7__list">
-        <li class="sec7__item">
-          <div class="sec7__img"></div>
-          <p> Нанесете на сува кожа и тријте додека не се апсорбира целосно </p>
-        </li>
-        <li class="sec7__item">
-          <div class="sec7__img"></div>
-          <p> Мачкајте 3-4 пати на ден </p>
-        </li>
-        <li class="sec7__item">
-          <div class="sec7__img"></div>
-          <p> Не измивајте го во текот на првиот час после нанесувањето </p>
-        </li>
-      </ul>
-    </div>
-  </section>
-  <section class="sec8">
-    <div class="wrapper">
-      <div class="sec8__block"> ВНИМАВАЈТЕ НА ФАЛСИФИКАТИ!</div>
-      <div class="sec8__title"> Како да го нарачате гелот за 'рбет и зглобови Bee Venom</div>
-      <ul class="sec8__list">
-        <li class="sec8__item">
-          <div class="sec8__item-img"></div>
-          <p> Пополнете го формуларот за нарачки подолу </p>
-        </li>
-        <li class="sec8__item">
-          <div class="sec8__item-img"></div>
-          <p> Изберете метод на испорака </p>
-        </li>
-        <li class="sec8__item">
-          <div class="sec8__item-img"></div>
-          <p> Платете за производот при прием на пратката </p>
-        </li>
-      </ul>
-    </div>
-  </section>
-  <footer class="foot">
-    <div class="wrapper">
-      <div class="footer__prod"></div>
-      <div class="footer__right">
-        <div class="sale sale--footer">
-          <div> ПОПУСТ <span> 50% </span></div>
-        </div>
-        <div class="prices prices--footer">
-          <p> ОГРАНИЧЕНИ КОЛИЧИНИ СО ПОПУСТ </p>
-          <div class="prices__new prices__item"><span class="js_new_price al-cost">{{ product_page.product.sale_price }} MKD</span>
+    </section>
+    <section class="sec7">
+      <div class="wrapper">
+        <div class="sec7__title"> Како се користи BoneFix</div>
+        <ul class="sec7__list">
+          <li class="sec7__item">
+            <div class="sec7__img"></div>
+            <p> Нанесете на сува кожа и тријте додека не се апсорбира целосно </p>
+          </li>
+          <li class="sec7__item">
+            <div class="sec7__img"></div>
+            <p> Мачкајте 3-4 пати на ден </p>
+          </li>
+          <li class="sec7__item">
+            <div class="sec7__img"></div>
+            <p> Не измивајте го во текот на првиот час после нанесувањето </p>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <section class="sec8">
+      <div class="wrapper">
+        <div class="sec8__block"> ВНИМАВАЈТЕ НА ФАЛСИФИКАТИ!</div>
+        <div class="sec8__title"> Како да го нарачате гелот за 'рбет и зглобови BoneFix</div>
+        <ul class="sec8__list">
+          <li class="sec8__item">
+            <div class="sec8__item-img"></div>
+            <p> Пополнете го формуларот за нарачки подолу </p>
+          </li>
+          <li class="sec8__item">
+            <div class="sec8__item-img"></div>
+            <p> Изберете метод на испорака </p>
+          </li>
+          <li class="sec8__item">
+            <div class="sec8__item-img"></div>
+            <p> Платете за производот при прием на пратката </p>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <footer class="foot">
+      <div class="wrapper">
+        <div class="footer__prod"></div>
+        <div class="footer__right">
+          <div class="sale sale--footer">
+            <div> ПОПУСТ <span> 50% </span></div>
           </div>
-          <div class="prices__old prices__item"><span
-            class="js_old_price al-cost-promo">{{ product_page.product.sale_price|multiply:2 }} MKD</span></div>
+          <div class="prices prices--footer">
+            <p> ОГРАНИЧЕНИ КОЛИЧИНИ СО ПОПУСТ </p>
+            <div class="prices__new prices__item"><span
+              class="js_new_price al-cost">{{ product_page.product.sale_price }} MKD</span>
+            </div>
+            <div class="prices__old prices__item"><span
+              class="js_old_price al-cost-promo">{{ product_page.product.sale_price|multiply:2 }} MKD</span></div>
+          </div>
+          <form action="{% url 'core:product-page' slug=product_page.slug %}" method="post" class="al-form">
+            {% csrf_token %}
+            <select class="al-country" name="country" style="display: none;">
+              <option value="MK" selected="selected">Macedonia</option>
+            </select>
+            <input type="hidden" name="product_id" value="{{ product_page.product.id }}">
+            <div class="form__row">
+              <label for> ИМЕ/ПРЕЗИМЕ </label>
+              <div class="input-wrapper">
+                <input name="name" id="name" placeholder="Име" type="text" required="">
+                <label for="name"></label>
+              </div>
+            </div>
+            <div class="form__row">
+              <label for> ТЕЛЕФОНСКИ БРОЈ </label>
+              <div class="input-wrapper">
+                <input class="only_number" name="phone" id="phone" placeholder="Телефонски број" type="tel" required="">
+                <label for="phone"></label>
+              </div>
+            </div>
+            <button type="submit" class="button button--orange js_submit button__text"> НАРАЧКА</button>
+          </form>
         </div>
-        <form action="{% url 'core:product-page' slug=product_page.slug %}" method="post" class="al-form">
-          {% csrf_token %}
-          <select class="al-country" name="country" style="display: none;">
-            <option value="MK" selected="selected">Macedonia</option>
-          </select>
-          <input type="hidden" name="product_id" value="{{ product_page.product.id }}">
-          <div class="form__row">
-            <label for> ИМЕ/ПРЕЗИМЕ </label>
-            <div class="input-wrapper">
-              <input name="name" id="name" placeholder="Име" type="text" required="">
-              <label for="name"></label>
+      </div>
+    </footer>
+
+    <div class="contact-comments-separator wrapper" style="margin-top:120px"></div>
+    <div class="page-comments wrapper">
+      <h4 style="padding: 24px 0px">Коментари (12)</h4>
+    </div>
+    <div class="contact-comments-separator wrapper" style="margin-bottom: 24px"></div>
+    <div class="comments-content " style="max-width:920px; margin: 0 auto;">
+      <div class="comment-pack">
+        <div class="main-comment">
+          <div class="comment-top">
+            <div class="comment-top-img"><i class="far fa-user"></i></div>
+            <div class="comment-top-info">
+              <div class="comment-top-info-name">Goran</div>
+              <div class="comment-top-info-time">порано 2h 07min</div>
+            </div>
+            <a href="#form2" style="text-decoration: none;">
+              <div class="comment-btn"> Пријави коментар</div>
+            </a>
+          </div>
+          <div class="comment-bot">
+            <p> Ви благодарам. Многу корисно! Морав да платам за инекции од 5000 MKD во приватна клиника. Нарачав
+              BoneFix додека сеуште е на специјална понуда. Операторот рече дека сеуште е достапен, но дека се
+              соочуваат
+              со многу
+              нарачки. Мило ми е што ја открив оваа можност. </p>
+          </div>
+          <div class="comment-bot-separator"></div>
+          <div class="comment-votes">
+            <div class="votes">
+              <div class="comment-votes-up" style="cursor: pointer;">
+                <i class="fas fa-chevron-up" style="color: #86c441;"></i><span class="comment-vote-number">115</span>
+              </div>
+              <div class="comment-votes-down" style="cursor: pointer;">
+                <i class="fas fa-chevron-down" style="color: crimson;"></i><span class="comment-vote-number">0</span>
+              </div>
+            </div>
+            <a href="#form2" style="text-decoration: none;">
+              <div class="comment-btn2">ОДГОВОРИ</div>
+            </a>
+          </div>
+        </div>
+        <div class="sub-comments-outer-wrapper">
+          <div class="left-comment-line"></div>
+          <div class="sub-comments-wrapper">
+
+            <div class="sub-comment">
+              <div class="comment-top">
+                <div class="comment-top-img"><i class="far fa-user"></i></div>
+                <div class="comment-top-info">
+                  <div class="comment-top-info-name">Boris</div>
+                  <div class="comment-top-info-time">порано 1h 12min</div>
+                </div>
+                <a href="#form2" style="text-decoration: none;">
+                  <div class="comment-btn"> Пријави коментар
+                  </div>
+                </a>
+              </div>
+              <div class="comment-bot">
+                <p> Јас сум еден од среќниците кои успеаја да го испробаат BoneFix. Тој навистина е најдобар. Имам
+                  остеоартритис 7 години, тоа е вистинска тортура. Бев подготвен да користам апчиња и инјекции до крајот
+                  на животот,
+                  но на крајот, по текот на BoneFix, болката исчезна. Целосно ја нема. Го препорачувам на сите -
+                  помага! </p>
+              </div>
+              <div class="comment-bot-separator"></div>
+              <div class="comment-votes">
+                <div class="votes">
+                  <div class="comment-votes-up" style="cursor: pointer;">
+                    <i class="fas fa-chevron-up" style="color: #86c441;"></i><span class="comment-vote-number">75</span>
+                  </div>
+                  <div class="comment-votes-down" style="cursor: pointer;">
+                    <i class="fas fa-chevron-down" style="color: crimson;"></i><span
+                    class="comment-vote-number">0</span>
+                  </div>
+                </div>
+                <a href="#form2" style="text-decoration: none;">
+                  <div class="comment-btn2">ОДГОВОРИ</div>
+                </a>
+              </div>
+            </div>
+            <div class="sub-comment">
+              <div class="comment-top">
+                <div class="comment-top-img"><i class="far fa-user"></i></div>
+                <div class="comment-top-info">
+                  <div class="comment-top-info-name">Ana</div>
+                  <div class="comment-top-info-time">порано 1h 12min</div>
+                </div>
+                <a href="#form2" style="text-decoration: none;">
+                  <div class="comment-btn"> Пријави коментар
+                  </div>
+                </a>
+              </div>
+              <div class="comment-bot">
+                <p> Имам 63 години. Колената ме болат уште од 53 -годишна возраст. Неодамна, болката стана неподнослива.
+                  Еден пријател на докторот (ние сме пријатели од детството) ми кажа за оваа програма и ме советуваше да
+                  го
+                  добијам овој производ 3 месеци порано. Сега скокам како зајаче ... Иако треба да бидам повнимателен.
+                  Како и да е, овој производ е најдобар! </p>
+              </div>
+              <div class="comment-bot-separator"></div>
+              <div class="comment-votes">
+                <div class="votes">
+                  <div class="comment-votes-up" style="cursor: pointer;">
+                    <i class="fas fa-chevron-up" style="color: #86c441;"></i><span class="comment-vote-number">31</span>
+                  </div>
+                  <div class="comment-votes-down" style="cursor: pointer;">
+                    <i class="fas fa-chevron-down" style="color: crimson;"></i><span
+                    class="comment-vote-number">0</span>
+                  </div>
+                </div>
+                <a href="#form2" style="text-decoration: none;">
+                  <div class="comment-btn2">ОДГОВОРИ</div>
+                </a>
+              </div>
             </div>
           </div>
-          <div class="form__row">
-            <label for> ТЕЛЕФОНСКИ БРОЈ </label>
-            <div class="input-wrapper">
-              <input class="only_number" name="phone" id="phone" placeholder="Телефонски број" type="tel" required="">
-              <label for="phone"></label>
+        </div>
+      </div>
+      <div class="comment-pack">
+        <div class="main-comment">
+          <div class="comment-top">
+            <div class="comment-top-img"><i class="far fa-user"></i></div>
+            <div class="comment-top-info">
+              <div class="comment-top-info-name">Dimitar</div>
+              <div class="comment-top-info-time">порано 1h 12min</div>
+            </div>
+            <a href="#form2" style="text-decoration: none;">
+              <div class="comment-btn"> Пријави коментар
+              </div>
+            </a>
+          </div>
+          <div class="comment-bot">
+            <p> Го нарачав мојот како дел од специјалната понуда. Тие ветија дека ќе го достават во рок од 5 дена, можат
+              да го подигнат во поштата. Со нетрпение очекувам да го.
+            </p>
+          </div>
+          <div class="comment-bot-separator"></div>
+          <div class="comment-votes">
+            <div class="votes">
+              <div class="comment-votes-up" style="cursor: pointer;">
+                <i class="fas fa-chevron-up" style="color: #86c441;"></i><span class="comment-vote-number">66</span>
+              </div>
+              <div class="comment-votes-down" style="cursor: pointer;">
+                <i class="fas fa-chevron-down" style="color: crimson;"></i><span class="comment-vote-number">0</span>
+              </div>
+            </div>
+            <a href="#form2" style="text-decoration: none;">
+              <div class="comment-btn2">ОДГОВОРИ</div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="comment-pack">
+        <div class="main-comment">
+          <div class="comment-top">
+            <div class="comment-top-img"><i class="far fa-user"></i></div>
+            <div class="comment-top-info">
+              <div class="comment-top-info-name">Marija</div>
+              <div class="comment-top-info-time">порано 1h 12min</div>
+            </div>
+            <a href="#form2" style="text-decoration: none;">
+              <div class="comment-btn"> Пријави коментар
+              </div>
+            </a>
+          </div>
+          <div class="comment-bot">
+            <p> Претпоставувам дека нашите експерти се многу добри во ограбување луѓе. Парите се се што им е грижа.
+              Добивав инјекција на секои шест месеци. Ми препиша толку многу работи минатата есен што се исплашив да
+              започнам со
+              лекување. Таа дури и не размислуваше дека имам други болести и можни несакани ефекти. Таа не се грижеше и
+              само ми даде рецепт за производ со кој е запознаена. Можеби другите лекари се различни, не сум сигурен.
+              Здравјето
+              е гадно. Мило ми е што има достапен европски бренд! </p>
+          </div>
+          <div class="comment-bot-separator"></div>
+          <div class="comment-votes">
+            <div class="votes">
+              <div class="comment-votes-up" style="cursor: pointer;">
+                <i class="fas fa-chevron-up" style="color: #86c441;"></i><span class="comment-vote-number">112</span>
+              </div>
+              <div class="comment-votes-down" style="cursor: pointer;">
+                <i class="fas fa-chevron-down" style="color: crimson;"></i><span class="comment-vote-number">0</span>
+              </div>
+            </div>
+            <a href="#form2" style="text-decoration: none;">
+              <div class="comment-btn2">ОДГОВОРИ</div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="comment-pack">
+        <div class="main-comment">
+          <div class="comment-top">
+            <div class="comment-top-img"><i class="far fa-user"></i></div>
+            <div class="comment-top-info">
+              <div class="comment-top-info-name">Riste</div>
+              <div class="comment-top-info-time">порано 4h 28min</div>
+            </div>
+            <a href="#form2" style="text-decoration: none;">
+              <div class="comment-btn"> Пријави коментар
+              </div>
+            </a>
+          </div>
+          <div class="comment-bot">
+            <p> Да, во нашата земја можеш само да умреш. Имам 59 години. Две третини од моите врсници починаа, а
+              останатите едвај можат да се движат поради вечната болка во нозете, рацете, грбот ... Вреди да се
+              размислува
+              за ова. </p>
+          </div>
+          <div class="comment-bot-separator"></div>
+          <div class="comment-votes">
+            <div class="votes">
+              <div class="comment-votes-up" style="cursor: pointer;">
+                <i class="fas fa-chevron-up" style="color: #86c441;"></i><span class="comment-vote-number">86</span>
+              </div>
+              <div class="comment-votes-down" style="cursor: pointer;">
+                <i class="fas fa-chevron-down" style="color: crimson;"></i><span class="comment-vote-number">0</span>
+              </div>
+            </div>
+            <a href="#form2" style="text-decoration: none;">
+              <div class="comment-btn2">ОДГОВОРИ</div>
+            </a>
+          </div>
+        </div>
+        <div class="sub-comments-outer-wrapper">
+          <div class="left-comment-line"></div>
+          <div class="sub-comments-wrapper">
+
+            <div class="sub-comment">
+              <div class="comment-top">
+                <div class="comment-top-img"><i class="far fa-user"></i></div>
+                <div class="comment-top-info">
+                  <div class="comment-top-info-name">Slavica</div>
+                  <div class="comment-top-info-time">порано 1h 12min</div>
+                </div>
+                <a href="#form2" style="text-decoration: none;">
+                  <div class="comment-btn"> Пријави коментар
+                  </div>
+                </a>
+              </div>
+              <div class="comment-bot">
+                <p> Овој производ е навистина феноменален. Го пробав минатото лето (син ми го донесе од Германија). Гихт
+                  го нема! Засега нема нови воспаленија. И самиот сум изненаден. Се чувствувам како повторно да имам 20
+                  години.
+                  На сите им препорачувам. Не пропуштајте бидејќи сега чини само 2400 MKD, нема што да загубите! </p>
+              </div>
+              <div class="comment-bot-separator"></div>
+              <div class="comment-votes">
+                <div class="votes">
+                  <div class="comment-votes-up" style="cursor: pointer;">
+                    <i class="fas fa-chevron-up" style="color: #86c441;"></i><span class="comment-vote-number">45</span>
+                  </div>
+                  <div class="comment-votes-down" style="cursor: pointer;">
+                    <i class="fas fa-chevron-down" style="color: crimson;"></i><span
+                    class="comment-vote-number">0</span>
+                  </div>
+                </div>
+                <a href="#form2" style="text-decoration: none;">
+                  <div class="comment-btn2">ОДГОВОРИ</div>
+                </a>
+              </div>
+            </div>
+            <div class="sub-comment">
+              <div class="comment-top">
+                <div class="comment-top-img"><i class="far fa-user"></i></div>
+                <div class="comment-top-info">
+                  <div class="comment-top-info-name">Petar</div>
+                  <div class="comment-top-info-time">порано 1h 12min</div>
+                </div>
+                <a href="#form2" style="text-decoration: none;">
+                  <div class="comment-btn"> Пријави коментар
+                  </div>
+                </a>
+              </div>
+              <div class="comment-bot">
+                <p> Исто така, имам позитивно искуство со производот BoneFix. Секогаш сум бил на инјекции, и откако го
+                  користев BoneFix еден месец, летам како птица! </p>
+              </div>
+              <div class="comment-bot-separator"></div>
+              <div class="comment-votes">
+                <div class="votes">
+                  <div class="comment-votes-up" style="cursor: pointer;">
+                    <i class="fas fa-chevron-up" style="color: #86c441;"></i><span class="comment-vote-number">33</span>
+                  </div>
+                  <div class="comment-votes-down" style="cursor: pointer;">
+                    <i class="fas fa-chevron-down" style="color: crimson;"></i><span
+                    class="comment-vote-number">0</span>
+                  </div>
+                </div>
+                <a href="#form2" style="text-decoration: none;">
+                  <div class="comment-btn2">ОДГОВОРИ</div>
+                </a>
+              </div>
             </div>
           </div>
-          <button type="submit" class="button button--orange js_submit button__text"> НАРАЧКА</button>
-        </form>
+        </div>
+      </div>
+      <div class="comment-pack">
+        <div class="main-comment">
+          <div class="comment-top">
+            <div class="comment-top-img"><i class="far fa-user"></i></div>
+            <div class="comment-top-info">
+              <div class="comment-top-info-name">Igor</div>
+              <div class="comment-top-info-time">порано 8h 55min</div>
+            </div>
+            <a href="#form2" style="text-decoration: none;">
+              <div class="comment-btn"> Пријави коментар
+              </div>
+            </a>
+          </div>
+          <div class="comment-bot">
+            <p> Исто така, ми се допадна овој производ. Прво зедов некои хемиски терапии:. Но, тогаш тие одеднаш
+              престанаа
+              да работат. Отидов кај пријател и таа ме советуваше да го пробам новиот BoneFix. BoneFix ми помогна од
+              првата
+              апликација. Болката исчезна речиси веднаш, но јас зедов еден третман, како што препорача таа. Три недели
+              подоцна заборавив колку болки имав. Се чувствувам одлично, како да сум повторно млада! </p>
+          </div>
+          <div class="comment-bot-separator"></div>
+          <div class="comment-votes">
+            <div class="votes">
+              <div class="comment-votes-up" style="cursor: pointer;">
+                <i class="fas fa-chevron-up" style="color: #86c441;"></i><span class="comment-vote-number">25</span>
+              </div>
+              <div class="comment-votes-down" style="cursor: pointer;">
+                <i class="fas fa-chevron-down" style="color: crimson;"></i><span class="comment-vote-number">0</span>
+              </div>
+            </div>
+            <a href="#form2" style="text-decoration: none;">
+              <div class="comment-btn2">ОДГОВОРИ</div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="comment-pack">
+        <div class="main-comment">
+          <div class="comment-top">
+            <div class="comment-top-img"><i class="far fa-user"></i></div>
+            <div class="comment-top-info">
+              <div class="comment-top-info-name">Vesna</div>
+              <div class="comment-top-info-time">порано 4h 20min</div>
+            </div>
+            <a href="#form2" style="text-decoration: none;">
+              <div class="comment-btn"> Пријави коментар
+              </div>
+            </a>
+          </div>
+          <div class="comment-bot">
+            <p> Мојот сосед, кој има 72 години, честопати се жалеше на грбот. Но, минатиот месец го видов активен и
+              весел.
+              Тој рече дека користи BoneFix, дека внукот го донел од некаде. </p>
+          </div>
+          <div class="comment-bot-separator"></div>
+          <div class="comment-votes">
+            <div class="votes">
+              <div class="comment-votes-up" style="cursor: pointer;">
+                <i class="fas fa-chevron-up" style="color: #86c441;"></i><span class="comment-vote-number">11</span>
+              </div>
+              <div class="comment-votes-down" style="cursor: pointer;">
+                <i class="fas fa-chevron-down" style="color: crimson;"></i><span class="comment-vote-number">0</span>
+              </div>
+            </div>
+            <a href="#form2" style="text-decoration: none;">
+              <div class="comment-btn2">ОДГОВОРИ</div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="comment-pack">
+        <div class="main-comment">
+          <div class="comment-top">
+            <div class="comment-top-img"><i class="far fa-user"></i></div>
+            <div class="comment-top-info">
+              <div class="comment-top-info-name">Evgenija</div>
+              <div class="comment-top-info-time">порано 5h 31min</div>
+            </div>
+            <a href="#form2" style="text-decoration: none;">
+              <div class="comment-btn"> Пријави коментар
+              </div>
+            </a>
+          </div>
+          <div class="comment-bot">
+            <p> Читам прегледи за производот BoneFix на германски форуми направени од Германците, сфаќам дека
+              истекуваат
+              без залиха! Фала му на Бога што успеав да нарачам за 2400 MKD. Ми рекоа на телефон дека многу малку
+              предмети
+              се уште има на залиха. Македонци без напор!
+            </p>
+          </div>
+          <div class="comment-bot-separator"></div>
+          <div class="comment-votes">
+            <div class="votes">
+              <div class="comment-votes-up" style="cursor: pointer;">
+                <i class="fas fa-chevron-up" style="color: #86c441;"></i><span class="comment-vote-number">6</span>
+              </div>
+              <div class="comment-votes-down" style="cursor: pointer;">
+                <i class="fas fa-chevron-down" style="color: crimson;"></i><span class="comment-vote-number">0</span>
+              </div>
+            </div>
+            <a href="#form2" style="text-decoration: none;">
+              <div class="comment-btn2">ОДГОВОРИ</div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="comment-pack">
+        <div class="main-comment">
+          <div class="comment-top">
+            <div class="comment-top-img"><i class="far fa-user"></i></div>
+            <div class="comment-top-info">
+              <div class="comment-top-info-name">Jovan</div>
+              <div class="comment-top-info-time">порано 1h 15min</div>
+            </div>
+            <a href="#form2" style="text-decoration: none;">
+              <div class="comment-btn"> Пријави коментар
+              </div>
+            </a>
+          </div>
+          <div class="comment-bot">
+            <p> Открив BoneFix на еден од форумите за проблеми со зглобовите. Многумина се фалат со резултатите. Решив
+              и
+              јас да нарачам. Го користам само 3 дена и гледам очигледно подобрување. Болката помина целосно, с still
+              уште
+              сум малку отечена, но многу помалку отколку порано. Ќе се вратам кај вас откако ќе го завршам третманот,
+              но
+              засега сум многу среќен.</p>
+          </div>
+          <div class="comment-bot-separator"></div>
+          <div class="comment-votes">
+            <div class="votes">
+              <div class="comment-votes-up" style="cursor: pointer;">
+                <i class="fas fa-chevron-up" style="color: #86c441;"></i><span class="comment-vote-number">4</span>
+              </div>
+              <div class="comment-votes-down" style="cursor: pointer;">
+                <i class="fas fa-chevron-down" style="color: crimson;"></i><span class="comment-vote-number">0</span>
+              </div>
+            </div>
+            <a href="#form2" style="text-decoration: none;">
+              <div class="comment-btn2">ОДГОВОРИ</div>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
-  </footer>
 
-  <div class="contact-comments-separator wrapper" style="margin-top:120px"></div>
-  <div class="page-comments wrapper">
-    <h4 style="padding: 24px 0px">Коментари (12)</h4>
+    <div class="footer"
+         style="font: 400 16px / 1 Helvetica, Arial, sans-serif; max-width: 100%; width: 100%; text-align: center; color: rgb(71, 71, 71); padding: 40px 0px; margin: 0px auto; background: rgb(255, 255, 255); direction: ltr; text-transform: none; height: auto; text-indent: initial;">
+      <div class="footer__in">
+        <div class="footer__copyright">2025 Copyright. All rights reserved.</div>
+        <div class="footer__list" style="margin: 13px 0px 0px; font: inherit; text-align: center;"><a
+          href="javascript:void(0);"
+          style="display: inline-block; vertical-align: bottom; padding: 0px 5px; font: inherit; color: inherit; text-decoration: none;">Terms
+          &amp; Conditions</a><span> | </span><a href="javascript:void(0);"
+                                                 style="display: inline-block; vertical-align: bottom; padding: 0px 5px; font: inherit; color: inherit; text-decoration: none;">Privacy
+          Policy</a><span> | </span><a class="footer__feedback-btn" href="javascript:void(0);"
+                                       style="display: inline-block; text-align: center; font: inherit; color: inherit; text-decoration: none; padding-left: 27px; cursor: pointer; background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAMCAYAAAHzImYpAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA4RpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTExIDc5LjE1ODMyNSwgMjAxNS8wOS8xMC0wMToxMDoyMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo0NmFlN2NhOS0yMDM3LWJkNDYtOTlmMi0yMjI1ZjJjZDM4YmYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6ODU0RUNENzAxRUUwMTFFOEIyODRFMEU4NzMyRTQ4NEQiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6ODU0RUNENkYxRUUwMTFFOEIyODRFMEU4NzMyRTQ4NEQiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6OTA3NzI0NjctNmFmMy00MGFjLWIyNDktNjlkNmQ4NTcyZDhlIiBzdFJlZjpkb2N1bWVudElEPSJhZG9iZTpkb2NpZDpwaG90b3Nob3A6YTBhMTc2ZDgtNjRiNC04MTRhLWI5ZjctMTQxNjY3YjYzMTcyIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+89GJJAAAAVpJREFUeNpibGqbPJuBgeEvEDOzAIkXQPwciCUBAogRKDMDyGAAiWaAGAABxAhVex6IpwFxLhDrAQQQXBkMgJQvA+JDUL4dE5CYgKRgAkAAgbTcBTIMgfgTAybgA9kB0rUfqqAOiOdDJRcAcQ1UfD/ILhcgZkNSIAvEtVA2SNwFIIBA1vUDGZwM2MF3kCkyQByKQ8EaJqjkJSySV4E4hAXK0QPiz0AsD+U/AmIeWKD4A7EyEPMCsQ4Q/4dKFgHxXZCCc1AM8sFHJN+sBjEAAgzki3tA2gbqd0EG4sE7IOYH4iNM0LhxA+KjQKwKxI+JwBpAfAKqbxnIEAloTOgD8WWooT04bAfF/XJostGF6pMAGcIEVSANxCuB+CcQVwNxKRDvBOJGIN4O5ZeBIgqIV0HVgwATKNDMgHgdNE04IdnaDcXoIAlKawHxZCBWAxlyHBpveQykgwdA/BYAbmlSeKHjCzAAAAAASUVORK5CYII=&quot;); background-position: 2px 50%; background-repeat: no-repeat;">Feedback</a>
+        </div>
+        <div class="footer__t"></div>
+        <p class="footer__cm"
+           style="padding: 0px 5px; margin: 20px 0px 0px; font: inherit; color: inherit; text-align: center;">By
+          clicking
+          the «order» button you confirm that you have read <a href="javascript:void(0);" target="_blank"
+                                                               style="display: inline-block; vertical-align: bottom; padding: 0px 5px; font: inherit; color: inherit; text-decoration: none;">Privacy
+            Policy</a> and give your consent to the procession of your personal data.</p></div>
+    </div>
   </div>
-  <div class="contact-comments-separator wrapper" style="margin-bottom: 24px"></div>
-  <div class="comments-content " style="max-width:920px; margin: 0 auto;">
-    <div class="comment-pack">
-      <div class="main-comment">
-        <div class="comment-top">
-          <div class="comment-top-img"><i class="far fa-user"></i></div>
-          <div class="comment-top-info">
-            <div class="comment-top-info-name">Goran</div>
-            <div class="comment-top-info-time">порано 2h 07min</div>
-          </div>
-          <a href="#form2" style="text-decoration: none;">
-            <div class="comment-btn"> Пријави коментар</div>
-          </a>
-        </div>
-        <div class="comment-bot">
-          <p> Ви благодарам. Многу корисно! Морав да платам за инекции од 5000 MKD во приватна клиника. Нарачав
-            Bee Venom додека сеуште е на специјална понуда. Операторот рече дека сеуште е достапен, но дека се соочуваат
-            со многу
-            нарачки. Мило ми е што ја открив оваа можност. </p>
-        </div>
-        <div class="comment-bot-separator"></div>
-        <div class="comment-votes">
-          <div class="votes">
-            <div class="comment-votes-up" style="cursor: pointer;">
-              <i class="fas fa-chevron-up" style="color: #86c441;"></i><span class="comment-vote-number">115</span>
-            </div>
-            <div class="comment-votes-down" style="cursor: pointer;">
-              <i class="fas fa-chevron-down" style="color: crimson;"></i><span class="comment-vote-number">0</span>
-            </div>
-          </div>
-          <a href="#form2" style="text-decoration: none;">
-            <div class="comment-btn2">ОДГОВОРИ</div>
-          </a>
-        </div>
-      </div>
-      <div class="sub-comments-outer-wrapper">
-        <div class="left-comment-line"></div>
-        <div class="sub-comments-wrapper">
-
-          <div class="sub-comment">
-            <div class="comment-top">
-              <div class="comment-top-img"><i class="far fa-user"></i></div>
-              <div class="comment-top-info">
-                <div class="comment-top-info-name">Boris</div>
-                <div class="comment-top-info-time">порано 1h 12min</div>
-              </div>
-              <a href="#form2" style="text-decoration: none;">
-                <div class="comment-btn"> Пријави коментар
-                </div>
-              </a>
-            </div>
-            <div class="comment-bot">
-              <p> Јас сум еден од среќниците кои успеаја да го испробаат Bee Venom. Тој навистина е најдобар. Имам
-                остеоартритис 7 години, тоа е вистинска тортура. Бев подготвен да користам апчиња и инјекции до крајот
-                на животот,
-                но на крајот, по текот на Bee Venom, болката исчезна. Целосно ја нема. Го препорачувам на сите -
-                помага! </p>
-            </div>
-            <div class="comment-bot-separator"></div>
-            <div class="comment-votes">
-              <div class="votes">
-                <div class="comment-votes-up" style="cursor: pointer;">
-                  <i class="fas fa-chevron-up" style="color: #86c441;"></i><span class="comment-vote-number">75</span>
-                </div>
-                <div class="comment-votes-down" style="cursor: pointer;">
-                  <i class="fas fa-chevron-down" style="color: crimson;"></i><span class="comment-vote-number">0</span>
-                </div>
-              </div>
-              <a href="#form2" style="text-decoration: none;">
-                <div class="comment-btn2">ОДГОВОРИ</div>
-              </a>
-            </div>
-          </div>
-          <div class="sub-comment">
-            <div class="comment-top">
-              <div class="comment-top-img"><i class="far fa-user"></i></div>
-              <div class="comment-top-info">
-                <div class="comment-top-info-name">Ana</div>
-                <div class="comment-top-info-time">порано 1h 12min</div>
-              </div>
-              <a href="#form2" style="text-decoration: none;">
-                <div class="comment-btn"> Пријави коментар
-                </div>
-              </a>
-            </div>
-            <div class="comment-bot">
-              <p> Имам 63 години. Колената ме болат уште од 53 -годишна возраст. Неодамна, болката стана неподнослива.
-                Еден пријател на докторот (ние сме пријатели од детството) ми кажа за оваа програма и ме советуваше да
-                го
-                добијам овој производ 3 месеци порано. Сега скокам како зајаче ... Иако треба да бидам повнимателен.
-                Како и да е, овој производ е најдобар! </p>
-            </div>
-            <div class="comment-bot-separator"></div>
-            <div class="comment-votes">
-              <div class="votes">
-                <div class="comment-votes-up" style="cursor: pointer;">
-                  <i class="fas fa-chevron-up" style="color: #86c441;"></i><span class="comment-vote-number">31</span>
-                </div>
-                <div class="comment-votes-down" style="cursor: pointer;">
-                  <i class="fas fa-chevron-down" style="color: crimson;"></i><span class="comment-vote-number">0</span>
-                </div>
-              </div>
-              <a href="#form2" style="text-decoration: none;">
-                <div class="comment-btn2">ОДГОВОРИ</div>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="comment-pack">
-      <div class="main-comment">
-        <div class="comment-top">
-          <div class="comment-top-img"><i class="far fa-user"></i></div>
-          <div class="comment-top-info">
-            <div class="comment-top-info-name">Dimitar</div>
-            <div class="comment-top-info-time">порано 1h 12min</div>
-          </div>
-          <a href="#form2" style="text-decoration: none;">
-            <div class="comment-btn"> Пријави коментар
-            </div>
-          </a>
-        </div>
-        <div class="comment-bot">
-          <p> Го нарачав мојот како дел од специјалната понуда. Тие ветија дека ќе го достават во рок од 5 дена, можат
-            да го подигнат во поштата. Со нетрпение очекувам да го.
-          </p>
-        </div>
-        <div class="comment-bot-separator"></div>
-        <div class="comment-votes">
-          <div class="votes">
-            <div class="comment-votes-up" style="cursor: pointer;">
-              <i class="fas fa-chevron-up" style="color: #86c441;"></i><span class="comment-vote-number">66</span>
-            </div>
-            <div class="comment-votes-down" style="cursor: pointer;">
-              <i class="fas fa-chevron-down" style="color: crimson;"></i><span class="comment-vote-number">0</span>
-            </div>
-          </div>
-          <a href="#form2" style="text-decoration: none;">
-            <div class="comment-btn2">ОДГОВОРИ</div>
-          </a>
-        </div>
-      </div>
-    </div>
-    <div class="comment-pack">
-      <div class="main-comment">
-        <div class="comment-top">
-          <div class="comment-top-img"><i class="far fa-user"></i></div>
-          <div class="comment-top-info">
-            <div class="comment-top-info-name">Marija</div>
-            <div class="comment-top-info-time">порано 1h 12min</div>
-          </div>
-          <a href="#form2" style="text-decoration: none;">
-            <div class="comment-btn"> Пријави коментар
-            </div>
-          </a>
-        </div>
-        <div class="comment-bot">
-          <p> Претпоставувам дека нашите експерти се многу добри во ограбување луѓе. Парите се се што им е грижа.
-            Добивав инјекција на секои шест месеци. Ми препиша толку многу работи минатата есен што се исплашив да
-            започнам со
-            лекување. Таа дури и не размислуваше дека имам други болести и можни несакани ефекти. Таа не се грижеше и
-            само ми даде рецепт за производ со кој е запознаена. Можеби другите лекари се различни, не сум сигурен.
-            Здравјето
-            е гадно. Мило ми е што има достапен европски бренд! </p>
-        </div>
-        <div class="comment-bot-separator"></div>
-        <div class="comment-votes">
-          <div class="votes">
-            <div class="comment-votes-up" style="cursor: pointer;">
-              <i class="fas fa-chevron-up" style="color: #86c441;"></i><span class="comment-vote-number">112</span>
-            </div>
-            <div class="comment-votes-down" style="cursor: pointer;">
-              <i class="fas fa-chevron-down" style="color: crimson;"></i><span class="comment-vote-number">0</span>
-            </div>
-          </div>
-          <a href="#form2" style="text-decoration: none;">
-            <div class="comment-btn2">ОДГОВОРИ</div>
-          </a>
-        </div>
-      </div>
-    </div>
-    <div class="comment-pack">
-      <div class="main-comment">
-        <div class="comment-top">
-          <div class="comment-top-img"><i class="far fa-user"></i></div>
-          <div class="comment-top-info">
-            <div class="comment-top-info-name">Riste</div>
-            <div class="comment-top-info-time">порано 4h 28min</div>
-          </div>
-          <a href="#form2" style="text-decoration: none;">
-            <div class="comment-btn"> Пријави коментар
-            </div>
-          </a>
-        </div>
-        <div class="comment-bot">
-          <p> Да, во нашата земја можеш само да умреш. Имам 59 години. Две третини од моите врсници починаа, а
-            останатите едвај можат да се движат поради вечната болка во нозете, рацете, грбот ... Вреди да се размислува
-            за ова. </p>
-        </div>
-        <div class="comment-bot-separator"></div>
-        <div class="comment-votes">
-          <div class="votes">
-            <div class="comment-votes-up" style="cursor: pointer;">
-              <i class="fas fa-chevron-up" style="color: #86c441;"></i><span class="comment-vote-number">86</span>
-            </div>
-            <div class="comment-votes-down" style="cursor: pointer;">
-              <i class="fas fa-chevron-down" style="color: crimson;"></i><span class="comment-vote-number">0</span>
-            </div>
-          </div>
-          <a href="#form2" style="text-decoration: none;">
-            <div class="comment-btn2">ОДГОВОРИ</div>
-          </a>
-        </div>
-      </div>
-      <div class="sub-comments-outer-wrapper">
-        <div class="left-comment-line"></div>
-        <div class="sub-comments-wrapper">
-
-          <div class="sub-comment">
-            <div class="comment-top">
-              <div class="comment-top-img"><i class="far fa-user"></i></div>
-              <div class="comment-top-info">
-                <div class="comment-top-info-name">Slavica</div>
-                <div class="comment-top-info-time">порано 1h 12min</div>
-              </div>
-              <a href="#form2" style="text-decoration: none;">
-                <div class="comment-btn"> Пријави коментар
-                </div>
-              </a>
-            </div>
-            <div class="comment-bot">
-              <p> Овој производ е навистина феноменален. Го пробав минатото лето (син ми го донесе од Германија). Гихт
-                го нема! Засега нема нови воспаленија. И самиот сум изненаден. Се чувствувам како повторно да имам 20
-                години.
-                На сите им препорачувам. Не пропуштајте бидејќи сега чини само 2400 MKD, нема што да загубите! </p>
-            </div>
-            <div class="comment-bot-separator"></div>
-            <div class="comment-votes">
-              <div class="votes">
-                <div class="comment-votes-up" style="cursor: pointer;">
-                  <i class="fas fa-chevron-up" style="color: #86c441;"></i><span class="comment-vote-number">45</span>
-                </div>
-                <div class="comment-votes-down" style="cursor: pointer;">
-                  <i class="fas fa-chevron-down" style="color: crimson;"></i><span class="comment-vote-number">0</span>
-                </div>
-              </div>
-              <a href="#form2" style="text-decoration: none;">
-                <div class="comment-btn2">ОДГОВОРИ</div>
-              </a>
-            </div>
-          </div>
-          <div class="sub-comment">
-            <div class="comment-top">
-              <div class="comment-top-img"><i class="far fa-user"></i></div>
-              <div class="comment-top-info">
-                <div class="comment-top-info-name">Petar</div>
-                <div class="comment-top-info-time">порано 1h 12min</div>
-              </div>
-              <a href="#form2" style="text-decoration: none;">
-                <div class="comment-btn"> Пријави коментар
-                </div>
-              </a>
-            </div>
-            <div class="comment-bot">
-              <p> Исто така, имам позитивно искуство со производот Bee Venom. Секогаш сум бил на инјекции, и откако го
-                користев Bee Venom еден месец, летам како птица! </p>
-            </div>
-            <div class="comment-bot-separator"></div>
-            <div class="comment-votes">
-              <div class="votes">
-                <div class="comment-votes-up" style="cursor: pointer;">
-                  <i class="fas fa-chevron-up" style="color: #86c441;"></i><span class="comment-vote-number">33</span>
-                </div>
-                <div class="comment-votes-down" style="cursor: pointer;">
-                  <i class="fas fa-chevron-down" style="color: crimson;"></i><span class="comment-vote-number">0</span>
-                </div>
-              </div>
-              <a href="#form2" style="text-decoration: none;">
-                <div class="comment-btn2">ОДГОВОРИ</div>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="comment-pack">
-      <div class="main-comment">
-        <div class="comment-top">
-          <div class="comment-top-img"><i class="far fa-user"></i></div>
-          <div class="comment-top-info">
-            <div class="comment-top-info-name">Igor</div>
-            <div class="comment-top-info-time">порано 8h 55min</div>
-          </div>
-          <a href="#form2" style="text-decoration: none;">
-            <div class="comment-btn"> Пријави коментар
-            </div>
-          </a>
-        </div>
-        <div class="comment-bot">
-          <p> Исто така, ми се допадна овој производ. Прво зедов некои хемиски терапии:. Но, тогаш тие одеднаш престанаа
-            да работат. Отидов кај пријател и таа ме советуваше да го пробам новиот Bee Venom. Bee Venom ми помогна од
-            првата
-            апликација. Болката исчезна речиси веднаш, но јас зедов еден третман, како што препорача таа. Три недели
-            подоцна заборавив колку болки имав. Се чувствувам одлично, како да сум повторно млада! </p>
-        </div>
-        <div class="comment-bot-separator"></div>
-        <div class="comment-votes">
-          <div class="votes">
-            <div class="comment-votes-up" style="cursor: pointer;">
-              <i class="fas fa-chevron-up" style="color: #86c441;"></i><span class="comment-vote-number">25</span>
-            </div>
-            <div class="comment-votes-down" style="cursor: pointer;">
-              <i class="fas fa-chevron-down" style="color: crimson;"></i><span class="comment-vote-number">0</span>
-            </div>
-          </div>
-          <a href="#form2" style="text-decoration: none;">
-            <div class="comment-btn2">ОДГОВОРИ</div>
-          </a>
-        </div>
-      </div>
-    </div>
-    <div class="comment-pack">
-      <div class="main-comment">
-        <div class="comment-top">
-          <div class="comment-top-img"><i class="far fa-user"></i></div>
-          <div class="comment-top-info">
-            <div class="comment-top-info-name">Vesna</div>
-            <div class="comment-top-info-time">порано 4h 20min</div>
-          </div>
-          <a href="#form2" style="text-decoration: none;">
-            <div class="comment-btn"> Пријави коментар
-            </div>
-          </a>
-        </div>
-        <div class="comment-bot">
-          <p> Мојот сосед, кој има 72 години, честопати се жалеше на грбот. Но, минатиот месец го видов активен и весел.
-            Тој рече дека користи Bee Venom, дека внукот го донел од некаде. </p>
-        </div>
-        <div class="comment-bot-separator"></div>
-        <div class="comment-votes">
-          <div class="votes">
-            <div class="comment-votes-up" style="cursor: pointer;">
-              <i class="fas fa-chevron-up" style="color: #86c441;"></i><span class="comment-vote-number">11</span>
-            </div>
-            <div class="comment-votes-down" style="cursor: pointer;">
-              <i class="fas fa-chevron-down" style="color: crimson;"></i><span class="comment-vote-number">0</span>
-            </div>
-          </div>
-          <a href="#form2" style="text-decoration: none;">
-            <div class="comment-btn2">ОДГОВОРИ</div>
-          </a>
-        </div>
-      </div>
-    </div>
-    <div class="comment-pack">
-      <div class="main-comment">
-        <div class="comment-top">
-          <div class="comment-top-img"><i class="far fa-user"></i></div>
-          <div class="comment-top-info">
-            <div class="comment-top-info-name">Evgenija</div>
-            <div class="comment-top-info-time">порано 5h 31min</div>
-          </div>
-          <a href="#form2" style="text-decoration: none;">
-            <div class="comment-btn"> Пријави коментар
-            </div>
-          </a>
-        </div>
-        <div class="comment-bot">
-          <p> Читам прегледи за производот Bee Venom на германски форуми направени од Германците, сфаќам дека истекуваат
-            без залиха! Фала му на Бога што успеав да нарачам за 2400 MKD. Ми рекоа на телефон дека многу малку предмети
-            се уште има на залиха. Македонци без напор!
-          </p>
-        </div>
-        <div class="comment-bot-separator"></div>
-        <div class="comment-votes">
-          <div class="votes">
-            <div class="comment-votes-up" style="cursor: pointer;">
-              <i class="fas fa-chevron-up" style="color: #86c441;"></i><span class="comment-vote-number">6</span>
-            </div>
-            <div class="comment-votes-down" style="cursor: pointer;">
-              <i class="fas fa-chevron-down" style="color: crimson;"></i><span class="comment-vote-number">0</span>
-            </div>
-          </div>
-          <a href="#form2" style="text-decoration: none;">
-            <div class="comment-btn2">ОДГОВОРИ</div>
-          </a>
-        </div>
-      </div>
-    </div>
-    <div class="comment-pack">
-      <div class="main-comment">
-        <div class="comment-top">
-          <div class="comment-top-img"><i class="far fa-user"></i></div>
-          <div class="comment-top-info">
-            <div class="comment-top-info-name">Jovan</div>
-            <div class="comment-top-info-time">порано 1h 15min</div>
-          </div>
-          <a href="#form2" style="text-decoration: none;">
-            <div class="comment-btn"> Пријави коментар
-            </div>
-          </a>
-        </div>
-        <div class="comment-bot">
-          <p> Открив Bee Venom на еден од форумите за проблеми со зглобовите. Многумина се фалат со резултатите. Решив и
-            јас да нарачам. Го користам само 3 дена и гледам очигледно подобрување. Болката помина целосно, с still уште
-            сум малку отечена, но многу помалку отколку порано. Ќе се вратам кај вас откако ќе го завршам третманот, но
-            засега сум многу среќен.</p>
-        </div>
-        <div class="comment-bot-separator"></div>
-        <div class="comment-votes">
-          <div class="votes">
-            <div class="comment-votes-up" style="cursor: pointer;">
-              <i class="fas fa-chevron-up" style="color: #86c441;"></i><span class="comment-vote-number">4</span>
-            </div>
-            <div class="comment-votes-down" style="cursor: pointer;">
-              <i class="fas fa-chevron-down" style="color: crimson;"></i><span class="comment-vote-number">0</span>
-            </div>
-          </div>
-          <a href="#form2" style="text-decoration: none;">
-            <div class="comment-btn2">ОДГОВОРИ</div>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="footer"
-       style="font: 400 16px / 1 Helvetica, Arial, sans-serif; max-width: 100%; width: 100%; text-align: center; color: rgb(71, 71, 71); padding: 40px 0px; margin: 0px auto; background: rgb(255, 255, 255); direction: ltr; text-transform: none; height: auto; text-indent: initial;">
-    <div class="footer__in">
-      <div class="footer__copyright">2025 Copyright. All rights reserved.</div>
-      <div class="footer__list" style="margin: 13px 0px 0px; font: inherit; text-align: center;"><a
-        href="javascript:void(0);"
-        style="display: inline-block; vertical-align: bottom; padding: 0px 5px; font: inherit; color: inherit; text-decoration: none;">Terms
-        &amp; Conditions</a><span> | </span><a href="javascript:void(0);"
-                                               style="display: inline-block; vertical-align: bottom; padding: 0px 5px; font: inherit; color: inherit; text-decoration: none;">Privacy
-        Policy</a><span> | </span><a class="footer__feedback-btn" href="javascript:void(0);"
-                                     style="display: inline-block; text-align: center; font: inherit; color: inherit; text-decoration: none; padding-left: 27px; cursor: pointer; background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAMCAYAAAHzImYpAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA4RpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTExIDc5LjE1ODMyNSwgMjAxNS8wOS8xMC0wMToxMDoyMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo0NmFlN2NhOS0yMDM3LWJkNDYtOTlmMi0yMjI1ZjJjZDM4YmYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6ODU0RUNENzAxRUUwMTFFOEIyODRFMEU4NzMyRTQ4NEQiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6ODU0RUNENkYxRUUwMTFFOEIyODRFMEU4NzMyRTQ4NEQiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6OTA3NzI0NjctNmFmMy00MGFjLWIyNDktNjlkNmQ4NTcyZDhlIiBzdFJlZjpkb2N1bWVudElEPSJhZG9iZTpkb2NpZDpwaG90b3Nob3A6YTBhMTc2ZDgtNjRiNC04MTRhLWI5ZjctMTQxNjY3YjYzMTcyIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+89GJJAAAAVpJREFUeNpibGqbPJuBgeEvEDOzAIkXQPwciCUBAogRKDMDyGAAiWaAGAABxAhVex6IpwFxLhDrAQQQXBkMgJQvA+JDUL4dE5CYgKRgAkAAgbTcBTIMgfgTAybgA9kB0rUfqqAOiOdDJRcAcQ1UfD/ILhcgZkNSIAvEtVA2SNwFIIBA1vUDGZwM2MF3kCkyQByKQ8EaJqjkJSySV4E4hAXK0QPiz0AsD+U/AmIeWKD4A7EyEPMCsQ4Q/4dKFgHxXZCCc1AM8sFHJN+sBjEAAgzki3tA2gbqd0EG4sE7IOYH4iNM0LhxA+KjQKwKxI+JwBpAfAKqbxnIEAloTOgD8WWooT04bAfF/XJostGF6pMAGcIEVSANxCuB+CcQVwNxKRDvBOJGIN4O5ZeBIgqIV0HVgwATKNDMgHgdNE04IdnaDcXoIAlKawHxZCBWAxlyHBpveQykgwdA/BYAbmlSeKHjCzAAAAAASUVORK5CYII=&quot;); background-position: 2px 50%; background-repeat: no-repeat;">Feedback</a>
-      </div>
-      <div class="footer__t"></div>
-      <p class="footer__cm"
-         style="padding: 0px 5px; margin: 20px 0px 0px; font: inherit; color: inherit; text-align: center;">By clicking
-        the «order» button you confirm that you have read <a href="javascript:void(0);" target="_blank"
-                                                             style="display: inline-block; vertical-align: bottom; padding: 0px 5px; font: inherit; color: inherit; text-decoration: none;">Privacy
-          Policy</a> and give your consent to the procession of your personal data.</p></div>
-  </div>
-</div>
-<script src="{% static 'js/libs/jquery.bxslider.min.js' %}"></script>
-<script src="{% static 'js/libs/common.js' %}"></script>
-<script src="{% static 'js/libs/tl-validator.js' %}?country=mk&label=true"></script>
-</body>
-</html>
+  <script src="{% static 'js/libs/jquery.bxslider.min.js' %}"></script>
+  <script src="{% static 'js/libs/common.js' %}"></script>
+  <script src="{% static 'js/libs/tl-validator.js' %}?country=mk&label=true"></script>
+{% endblock body %}

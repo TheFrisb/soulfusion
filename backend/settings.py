@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "products",
     "orders",
     "scripts",
+    "facebook_pixel",
 ]
 
 MIDDLEWARE = [
@@ -70,7 +71,7 @@ if DEBUG:
 
 # Cors Configuration allow all origins
 CORS_ALLOWED_ORIGINS = config("DJANGO_CORS_ALLOWED_ORIGINS", cast=Csv())
-CSRF_TRUSTED_ORIGINS = ['http://localhost:5173', 'http://localhost:8000']
+CSRF_TRUSTED_ORIGINS = ["http://localhost:5173", "http://localhost:8000"]
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
@@ -211,3 +212,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Custom User Model
 AUTH_USER_MODEL = "accounts.User"
+
+# Facebook Pixel Settings
+FACEBOOK_ACCESS_TOKEN = config("FACEBOOK_ACCESS_TOKEN")
+FACEBOOK_PIXEL_ID = config("FACEBOOK_PIXEL_ID")
+FACEBOOK_CATALOGUE_ID = config("FACEBOOK_CATALOGUE_ID")

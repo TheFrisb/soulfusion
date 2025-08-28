@@ -1,11 +1,8 @@
+{% extends 'base.html' %}
 {% load static %}
-<html lang="en">
-<head>
 
-  <meta charset="UTF-8">
+{% block head %}
   <link rel="icon" type="image/svg+xml" href="{% static 'assets/bee-venom/footer-sale-bg1.png' %}">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ви Благодариме!</title>
   <style>
       *, ::before, ::after {
           --tw-border-spacing-x: 0;
@@ -632,81 +629,60 @@
           backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
       }
   </style>
+{% endblock head %}
 
-  <script type="text/javascript">
-    (function() {
-      var d = document, w = window
-      w.MgSensorData = w.MgSensorData || []
-      w.MgSensorData.push({
-        cid: 934162,
-        project: 'a.mgid.com'
-      })
-      var l = 'a.mgid.com'
-      var n = d.getElementsByTagName('script')[0]
-      var s = d.createElement('script')
-      s.type = 'text/javascript'
-      s.async = true
-      var dt = !Date.now ? new Date().valueOf() : Date.now()
-      s.src = 'https://' + l + '/mgsensor.js?d=' + dt
-      n.parentNode.insertBefore(s, n)
-    })()
-  </script>
-  
-</head>
-<body>
-<style>
-    .container {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: linear-gradient(to bottom, #f0f9ff, #e0f2fe);
-    }
+{% block body %}
+  <style>
+      .container {
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: linear-gradient(to bottom, #f0f9ff, #e0f2fe);
+      }
 
-    .card {
-        text-align: center;
-        padding: 2rem;
-        border-radius: 1rem;
-        background-color: rgba(255, 255, 255, 0.8);
-        backdrop-filter: blur(8px);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        margin: 1rem;
-    }
+      .card {
+          text-align: center;
+          padding: 2rem;
+          border-radius: 1rem;
+          background-color: rgba(255, 255, 255, 0.8);
+          backdrop-filter: blur(8px);
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+          margin: 1rem;
+      }
 
-    .icon {
-        width: 4rem;
-        height: 4rem;
-        color: #2563eb;
-        margin: 0 auto 1.5rem;
-    }
+      .icon {
+          width: 4rem;
+          height: 4rem;
+          color: #2563eb;
+          margin: 0 auto 1.5rem;
+      }
 
-    .title {
-        font-size: 1.875rem;
-        font-weight: bold;
-        color: #1f2937;
-        margin-bottom: 1.5rem;
-    }
+      .title {
+          font-size: 1.875rem;
+          font-weight: bold;
+          color: #1f2937;
+          margin-bottom: 1.5rem;
+      }
 
-    .message {
-        font-size: 1.125rem;
-        color: #4b5563;
-    }
-</style>
-<div class="container">
-  <div class="card">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-         class="lucide lucide-heart-handshake icon">
-      <path
-        d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
-      <path
-        d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08v0c.82.82 2.13.85 3 .07l2.07-1.9a2.82 2.82 0 0 1 3.79 0l2.96 2.66"></path>
-      <path d="m18 15-2-2"></path>
-      <path d="m15 18-2-2"></path>
-    </svg>
-    <h1 class="title">Ви благодариме!</h1>
-    <p class="message">Ќе бидете контактирани од агент наскоро</p></div>
-</div>
-
-</body>
-</html>
+      .message {
+          font-size: 1.125rem;
+          color: #4b5563;
+      }
+  </style>
+  <div class="container">
+    <div class="card">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+           class="lucide lucide-heart-handshake icon">
+        <path
+          d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+        <path
+          d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08v0c.82.82 2.13.85 3 .07l2.07-1.9a2.82 2.82 0 0 1 3.79 0l2.96 2.66"></path>
+        <path d="m18 15-2-2"></path>
+        <path d="m15 18-2-2"></path>
+      </svg>
+      <h1 class="title">Ви благодариме!</h1>
+      <p class="message">Ќе бидете контактирани од агент наскоро</p></div>
+  </div>
+{% endblock body %}
