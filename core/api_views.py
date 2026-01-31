@@ -30,6 +30,8 @@ class IncomingOrderSerializer(serializers.Serializer):
     last_name = serializers.CharField(required=False)
 
 class CheckoutView(APIView):
+    authentication_classes = ()
+    permission_classes = ()
     serializer_class = IncomingOrderSerializer
 
     def post(self, request, product_id):
