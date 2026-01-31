@@ -25,7 +25,7 @@ class PhoneNumberField(serializers.CharField):
         return normalized
 
 class IncomingOrderSerializer(serializers.Serializer):
-    phone_number = PhoneNumberField()
+    phone = PhoneNumberField()
     first_name = serializers.CharField(required=True)
     last_name = serializers.CharField(required=False)
 
