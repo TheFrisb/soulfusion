@@ -41,7 +41,7 @@ class CheckoutView(APIView):
             return Response(serialized_data.errors, status=status.HTTP_400_BAD_REQUEST)
 
         customer, created = Customer.objects.get_or_create(
-            phone=serialized_data.validated_data["phone_number"],
+            phone=serialized_data.validated_data["phone"],
             defaults={"name": serialized_data.validated_data["first_name"]}
         )
 
